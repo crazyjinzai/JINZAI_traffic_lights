@@ -1,0 +1,58 @@
+// 本模组由"Crzay津仔"提供美术与资金支持，"QiZhang"提供技术实现与制作。发布署名仅为"Crzay津仔"，美术素材版权归 "Crzay津仔"所有，模组代码/配置版权归"QiZhang"所有。
+plugins {
+    id "fabric-loom" version "1.13.6"
+    id "maven-publish"
+}
+
+version = project.mod_version
+group = project.maven_group
+def expandedVersion = version.toString()
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+processResources {
+    inputs.property "version", expandedVersion
+    filteringCharset = "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand(["version": expandedVersion]) {
+            escapeBackslash = true
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 17
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+}
+
+jar {
+    from("COPYRIGHT.txt")
+    from("README.md")
+    manifest {
+        attributes(
+            "Implementation-Title": "津仔的交通灯",
+            "Implementation-Version": project.version,
+            "Implementation-Vendor": "Crzay津仔"
+        )
+    }
+}
