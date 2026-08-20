@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "jinzai_traffic_lights",
+  "version": "${version}",
+  "name": "津仔的交通灯",
+  "description": "JINZAI Traffic Lights is a Fabric 1.20.1 decorative expansion mod for city building. Version 1.0.32 retains all 103 phase-one blocks and all 58 phase-two models, for 161 freely combinable blocks in total: 48 traffic-light frame and frame-component blocks, 55 static indicator and decorative lighting blocks, 48 pole and pole-component blocks, and 10 illuminated, pass-through traffic-light accessory decorations. Ten complex traffic-light models now use one enclosing box matching each complete placed model volume for their selection and physical collision. This update retains the four optimized models from version 1.0.31 and adds the same optimization to six four-lens and solar-warning models, reducing the outline workload when aiming at them; the other 151 blocks retain their previous collision behavior. The 10 accessory blocks appear in their own creative-mode tab named Traffic Light Accessories; all other additions remain in the existing category tabs. The mod can be used alongside other city traffic decoration mods. Dynamic traffic lights, countdowns, automatic cycling and customizable signal control are not included. Art and funding by Crzay津仔; technical implementation and production by QiZhang. Copyright in the art assets belongs to \"Crzay津仔\"; copyright in the mod code and configuration belongs to \"QiZhang\".\n\n津仔的交通灯是一个适用于 Fabric 1.20.1 的城建装饰扩展模组。1.0.32 版本完整保留一期 103 个方块和二期新增的 58 个模型，共有 161 个可自由搭配的方块：48 个红绿灯框架与框架部件、55 个静态指示灯与照明装饰、48 个杆子与杆件部件，以及 10 个发光且可穿透的交通灯附属装饰。现在共有 10 个复杂红绿灯模型分别使用 1 个贴合完整放置模型体积的选择与物理碰撞外包箱。本次更新保留 1.0.31 已优化的 4 个模型，并为另外 6 个四孔型与太阳能警示灯模型加入相同优化，以降低准星对准时的轮廓计算负担；其余 151 个方块保持原有碰撞行为。10 个附属方块单独收录在名为“交通灯附属”的创造模式标签页中，其余新增方块继续归入原有分类标签页。模组可与其他城市交通装饰模组搭配使用，当前不包含动态红绿灯、倒计时、自动切灯或自定义交通信号控制。Crzay津仔提供美术与资金支持，QiZhang提供技术实现与制作。美术素材版权归 \"Crzay津仔\"所有，模组代码/配置版权归\"QiZhang\"所有。",
+  "icon": "icon.png",
+  "authors": [
+    "Crzay津仔"
+  ],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "cn.crazyjinzai.trafficlights.JinzaiTrafficLights"
+    ],
+    "client": [
+      "cn.crazyjinzai.trafficlights.client.JinzaiTrafficLightsClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "minecraft": "1.20.1",
+    "java": ">=17",
+    "fabric-api": ">=0.92.6+1.20.1"
+  }
+}
