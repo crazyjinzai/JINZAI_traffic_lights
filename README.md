@@ -7,7 +7,7 @@
 Platform: Fabric  
 Minecraft: 1.20.1
 
-This mod received art assets and funding support from "Crzay津仔", with technical implementation and production by "QiZhang". Copyright in the art assets belongs to "Crzay津仔"; copyright in the mod code and configuration belongs to "QiZhang".
+This mod received art assets and funding support from "Crzayjinzai", with technical implementation and production by "QiZhang". Copyright in the art assets belongs to "Crzayjinzai"; copyright in the mod code and configuration belongs to "QiZhang".
 
 ### Mod Introduction
 
