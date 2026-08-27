@@ -19,10 +19,13 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 MOD_ID = "jinzai_traffic_lights"
-RESOURCE_ROOT = ROOT / "src" / "main" / "resources"
+MOD_VERSION = "2.0.33"
+RESOURCE_ROOT = ROOT / "common" / "src" / "main" / "resources"
 ASSET_ROOT = RESOURCE_ROOT / "assets" / MOD_ID
 DATA_ROOT = RESOURCE_ROOT / "data" / MOD_ID
 ICON_PATH = RESOURCE_ROOT / "icon.png"
+FABRIC_METADATA_PATH = ROOT / "fabric" / "src" / "main" / "resources" / "fabric.mod.json"
+FORGE_METADATA_PATH = ROOT / "forge" / "src" / "main" / "resources" / "META-INF" / "mods.toml"
 TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
 PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
 EXTRA_LOCALES = (
@@ -58,7 +61,7 @@ EXPECTED_CATEGORY_COUNTS = {
     "annex": 10,
 }
 EXPECTED_ASSET_COUNT = 161
-EXPECTED_LANGUAGE_KEY_COUNT = 331
+EXPECTED_LANGUAGE_KEY_COUNT = 165
 EXPECTED_SOURCE_ELEMENT_COUNT = 2555
 EXPECTED_VISIBLE_ELEMENT_COUNT = 2553
 EXPECTED_COLLISION_BOX_COUNT = 3206
@@ -370,8 +373,6 @@ def expected_phase2_locale_values(
     expected_fields = {
         "names",
         "item_group_annex",
-        "category_tooltip_annex",
-        "description_templates",
     }
     assert isinstance(locale_source, dict) and set(locale_source) == expected_fields, (
         f"Unexpected phase-two locale fields for {locale}"
@@ -381,34 +382,17 @@ def expected_phase2_locale_values(
     assert isinstance(names, dict) and set(names) == expected_ids, (
         f"Phase-two name identifier mismatch for {locale}"
     )
-    templates = locale_source["description_templates"]
-    assert isinstance(templates, dict) and set(templates) == set(CATEGORIES), (
-        f"Phase-two description template mismatch for {locale}"
-    )
-
     values: dict[str, str] = {
         f"itemGroup.{MOD_ID}.annex": locale_source["item_group_annex"],
-        f"tooltip.{MOD_ID}.category.annex": locale_source["category_tooltip_annex"],
     }
     for item in phase2_items:
         name = names[item.identifier]
-        template = templates[item.category]
         assert isinstance(name, str) and name.strip(), (
             f"Blank phase-two name for {locale}: {item.identifier}"
         )
-        assert isinstance(template, str) and template.strip() and "{name}" in template, (
-            f"Invalid {item.category} description template for {locale}: {template!r}"
-        )
-        try:
-            description = template.format(name=name)
-        except (KeyError, ValueError) as exc:
-            raise AssertionError(
-                f"Cannot format {item.category} description template for {locale}: {exc}"
-            ) from exc
         values[f"block.{MOD_ID}.{item.identifier}"] = name
-        values[f"tooltip.{MOD_ID}.{item.identifier}.description"] = description
 
-    assert len(values) == len(phase2_items) * 2 + 2 == 118
+    assert len(values) == len(phase2_items) + 1 == 59
     assert all(isinstance(value, str) and value.strip() for value in values.values()), (
         f"Blank phase-two translation value for {locale}"
     )
@@ -676,12 +660,21 @@ def verify_icon_and_metadata() -> None:
     width, height = struct.unpack(">II", icon[16:24])
     assert (width, height) == (512, 512), f"Unexpected mod icon size: {width}x{height}"
 
-    metadata = load_json(RESOURCE_ROOT / "fabric.mod.json")
+    metadata = load_json(FABRIC_METADATA_PATH)
     assert metadata.get("icon") == "icon.png", "fabric.mod.json does not reference the packaged icon"
     assert metadata.get("authors") == ["Crzay津仔"], "Unexpected release author metadata"
+    assert metadata.get("depends", {}).get("architectury") == ">=9.0.6 <10.0.0"
     description = metadata.get("description", "")
     assert "Release credit" not in description
     assert "发布署名" not in description
+    forge_metadata = FORGE_METADATA_PATH.read_text(encoding="utf-8")
+    assert 'modId="jinzai_traffic_lights"' in forge_metadata
+    assert 'authors="Crzay津仔"' in forge_metadata
+    assert 'logoFile="icon.png"' in forge_metadata
+    assert 'modId="architectury"' in forge_metadata
+    assert 'versionRange="[9.0.6,10.0.0)"' in forge_metadata
+    assert "Release credit" not in forge_metadata
+    assert "发布署名" not in forge_metadata
 
 
 def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, int]:
@@ -727,21 +720,13 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     en_block_keys = {key for key in en_us if key.startswith(f"block.{MOD_ID}.")}
     expected_block_keys = {f"block.{MOD_ID}.{identifier}" for identifier in identifiers}
     assert zh_block_keys == en_block_keys == expected_block_keys
-    expected_description_keys = {
-        f"tooltip.{MOD_ID}.{identifier}.description" for identifier in identifiers
-    }
     expected_shared_keys = {
         f"itemGroup.{MOD_ID}.frame",
         f"itemGroup.{MOD_ID}.indicator",
         f"itemGroup.{MOD_ID}.pole",
         f"itemGroup.{MOD_ID}.annex",
-        f"tooltip.{MOD_ID}.category.frame",
-        f"tooltip.{MOD_ID}.category.indicator",
-        f"tooltip.{MOD_ID}.category.pole",
-        f"tooltip.{MOD_ID}.category.annex",
-        f"tooltip.{MOD_ID}.indicator.automation_limit",
     }
-    expected_language_keys = expected_block_keys | expected_description_keys | expected_shared_keys
+    expected_language_keys = expected_block_keys | expected_shared_keys
     assert len(expected_language_keys) == EXPECTED_LANGUAGE_KEY_COUNT, (
         f"Unexpected language key count: {len(expected_language_keys)}"
     )
@@ -756,20 +741,22 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     phase1_items = [item for item in items if item.folder in PHASE1_SOURCE_FOLDERS]
     phase2_items = [item for item in items if item.folder not in PHASE1_SOURCE_FOLDERS]
     assert len(phase1_items) == 103 and len(phase2_items) == 58
-    phase1_shared_keys = expected_shared_keys - {
-        f"itemGroup.{MOD_ID}.annex",
-        f"tooltip.{MOD_ID}.category.annex",
-    }
+    phase1_shared_keys = expected_shared_keys - {f"itemGroup.{MOD_ID}.annex"}
     expected_phase1_language_keys = (
         {f"block.{MOD_ID}.{item.identifier}" for item in phase1_items}
-        | {f"tooltip.{MOD_ID}.{item.identifier}.description" for item in phase1_items}
         | phase1_shared_keys
     )
-    assert len(expected_phase1_language_keys) == 213
+    assert len(expected_phase1_language_keys) == 106
     phase2_locale_sources = phase2_translation_locales(phase2_items)
     for locale in EXTRA_LOCALES:
-        phase1_source = load_json(TRANSLATION_SOURCE_ROOT / f"{locale}.json")
-        assert isinstance(phase1_source, dict) and set(phase1_source) == expected_phase1_language_keys, (
+        raw_phase1_source = load_json(TRANSLATION_SOURCE_ROOT / f"{locale}.json")
+        assert isinstance(raw_phase1_source, dict)
+        phase1_source = {
+            key: value
+            for key, value in raw_phase1_source.items()
+            if not key.startswith(f"tooltip.{MOD_ID}.")
+        }
+        assert set(phase1_source) == expected_phase1_language_keys, (
             f"Phase-one translation source key mismatch for {locale}"
         )
         phase2_source = expected_phase2_locale_values(
@@ -788,7 +775,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         changed_from_english = sum(
             source[key] != en_us[key] for key in expected_language_keys
         )
-        assert changed_from_english >= 200, (
+        assert changed_from_english >= 90, (
             f"{locale} appears insufficiently translated: only "
             f"{changed_from_english}/{len(expected_language_keys)} values differ from English"
         )
@@ -801,26 +788,6 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         f"itemGroup.{MOD_ID}.indicator": ("指示灯", "Traffic Light Indicators"),
         f"itemGroup.{MOD_ID}.pole": ("杆子", "Traffic Light Poles"),
         f"itemGroup.{MOD_ID}.annex": ("交通灯附属", "Traffic Light Accessories"),
-        f"tooltip.{MOD_ID}.category.frame": (
-            "支持四向放置，碰撞箱与模型对齐。",
-            "Supports four horizontal orientations with model-aligned collision.",
-        ),
-        f"tooltip.{MOD_ID}.category.indicator": (
-            "静态发光，无实体碰撞，可被玩家和实体穿过。",
-            "Always lit with no physical collision; players and entities can pass through.",
-        ),
-        f"tooltip.{MOD_ID}.category.pole": (
-            "支持四向放置，精细碰撞箱与模型对齐。",
-            "Supports four horizontal orientations with precise model-aligned collision.",
-        ),
-        f"tooltip.{MOD_ID}.category.annex": (
-            "静态发光，无实体碰撞，可被玩家和实体穿过。",
-            "Always lit with no physical collision; players and entities can pass through.",
-        ),
-        f"tooltip.{MOD_ID}.indicator.automation_limit": (
-            "不含倒计时、自动切灯或红石控制。",
-            "No countdown, automatic cycling, or redstone control.",
-        ),
     }
     for key, (expected_zh, expected_en) in expected_shared_values.items():
         assert zh_cn[key] == expected_zh and en_us[key] == expected_en, f"Shared translation mismatch: {key}"
@@ -882,16 +849,6 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         key = f"block.{MOD_ID}.{item.identifier}"
         assert zh_cn[key] == item.zh_cn, f"Chinese name does not match XLSX: {item.identifier}"
         assert isinstance(en_us[key], str) and en_us[key].strip(), f"Missing English name: {item.identifier}"
-        description_key = f"tooltip.{MOD_ID}.{item.identifier}.description"
-        zh_prefix, en_prefix = {
-            "frame": ("红绿灯框架装饰部件：", "Decorative traffic-light frame component: "),
-            "indicator": ("静态发光指示灯：", "Static illuminated traffic signal: "),
-            "pole": ("交通灯杆件装饰部件：", "Decorative traffic-light pole component: "),
-            "annex": ("交通灯附属装饰部件：", "Decorative traffic-light accessory: "),
-        }[item.category]
-        assert zh_cn[description_key] == f"{zh_prefix}{zh_cn[key]}。", f"Chinese tooltip mismatch: {item.identifier}"
-        assert en_us[description_key] == f"{en_prefix}{en_us[key]}.", f"English tooltip mismatch: {item.identifier}"
-
         entry = catalog_by_source[(item.folder, item.source_stem)]
         assert entry["id"] == item.identifier and entry["category"] == item.category
         precise_boxes = [
@@ -984,16 +941,52 @@ def verify_jar(jar_path: Path) -> None:
         archive_files = {name for name in archive.namelist() if not name.endswith("/")}
         assert "icon.png" in archive_files, "JAR does not contain icon.png"
         assert archive.read("icon.png") == ICON_PATH.read_bytes(), "JAR icon differs from verified source icon"
-        packed_metadata = json.loads(archive.read("fabric.mod.json").decode("utf-8"))
-        assert packed_metadata.get("id") == MOD_ID, "Packaged mod ID is incorrect"
-        assert packed_metadata.get("version") == "1.0.32", "Packaged mod version is not 1.0.32"
-        assert packed_metadata.get("icon") == "icon.png", "Packaged metadata does not reference icon.png"
-        assert "Release credit" not in packed_metadata.get("description", "")
-        assert "发布署名" not in packed_metadata.get("description", "")
-        manifest = archive.read("META-INF/MANIFEST.MF").decode("utf-8")
-        assert "Implementation-Version: 1.0.32" in manifest, (
-            "Packaged manifest Implementation-Version is not 1.0.32"
+        has_fabric_metadata = "fabric.mod.json" in archive_files
+        has_forge_metadata = "META-INF/mods.toml" in archive_files
+        assert has_fabric_metadata != has_forge_metadata, (
+            "JAR must contain exactly one loader metadata file (fabric.mod.json or META-INF/mods.toml)"
         )
+        if has_fabric_metadata:
+            packed_metadata = json.loads(archive.read("fabric.mod.json").decode("utf-8"))
+            assert packed_metadata.get("id") == MOD_ID, "Packaged Fabric mod ID is incorrect"
+            assert packed_metadata.get("version") == MOD_VERSION, (
+                f"Packaged Fabric mod version is not {MOD_VERSION}"
+            )
+            assert packed_metadata.get("icon") == "icon.png", "Packaged Fabric metadata does not reference icon.png"
+            assert packed_metadata.get("authors") == ["Crzay津仔"], "Unexpected packaged Fabric author metadata"
+            assert packed_metadata.get("depends", {}).get("minecraft") == "1.20.1"
+            assert packed_metadata.get("depends", {}).get("java") == ">=17"
+            assert packed_metadata.get("depends", {}).get("architectury") == ">=9.0.6 <10.0.0"
+            description = packed_metadata.get("description", "")
+            assert "Release credit" not in description
+            assert "发布署名" not in description
+        else:
+            packed_metadata = archive.read("META-INF/mods.toml").decode("utf-8")
+            assert f'modId="{MOD_ID}"' in packed_metadata, "Packaged Forge mod ID is incorrect"
+            assert f'version="{MOD_VERSION}"' in packed_metadata, (
+                f"Packaged Forge mod version is not {MOD_VERSION}"
+            )
+            assert 'authors="Crzay津仔"' in packed_metadata, "Unexpected packaged Forge author metadata"
+            assert 'logoFile="icon.png"' in packed_metadata, "Packaged Forge metadata does not reference icon.png"
+            assert 'modId="minecraft"' in packed_metadata and 'versionRange="[1.20.1,1.20.2)"' in packed_metadata
+            assert 'modId="architectury"' in packed_metadata and 'versionRange="[9.0.6,10.0.0)"' in packed_metadata
+            assert "Release credit" not in packed_metadata
+            assert "发布署名" not in packed_metadata
+        manifest = archive.read("META-INF/MANIFEST.MF").decode("utf-8")
+        assert f"Implementation-Version: {MOD_VERSION}" in manifest, (
+            f"Packaged manifest Implementation-Version is not {MOD_VERSION}"
+        )
+        own_classes = {
+            name: archive.read(name)
+            for name in archive_files
+            if name.startswith("cn/crazyjinzai/trafficlights/") and name.endswith(".class")
+        }
+        assert own_classes, "JAR does not contain any traffic-light implementation classes"
+        for name, class_bytes in own_classes.items():
+            assert class_bytes[:4] == b"\xca\xfe\xba\xbe", f"Invalid class header: {name}"
+            major = struct.unpack(">H", class_bytes[6:8])[0]
+            assert major == 61, f"Class is not Java 17 bytecode (major 61): {name} -> {major}"
+            assert b"tooltip." not in class_bytes, f"Tooltip constant remains in class: {name}"
         namespace_entries = {
             name
             for name in archive_files

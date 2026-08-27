@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "jinzai_traffic_lights:block/frame_rod_1e"
+    },
+    "facing=east": {
+      "model": "jinzai_traffic_lights:block/frame_rod_1e",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "jinzai_traffic_lights:block/frame_rod_1e",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "jinzai_traffic_lights:block/frame_rod_1e",
+      "y": 270
+    }
+  }
+}

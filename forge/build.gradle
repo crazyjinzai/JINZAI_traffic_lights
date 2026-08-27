@@ -1,0 +1,82 @@
+plugins {
+    id "com.github.johnrengelman.shadow"
+}
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+// Architectury Loom's legacy 1.20.1 Forge toolchain is activated by this
+// block; without it Gradle does not create the `forge` dependency bucket.
+loom {
+    forge {
+    }
+}
+
+base {
+    archivesName = rootProject.forge_archives_base_name
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
+}
+
+processResources {
+    inputs.property "version", project.version
+    filteringCharset = "UTF-8"
+
+    filesMatching("META-INF/mods.toml") {
+        expand(["version": project.version]) {
+            escapeBackslash = true
+        }
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+jar {
+    from(rootProject.file("COPYRIGHT.txt"))
+    from(rootProject.file("README.md"))
+    manifest {
+        attributes(
+            "Implementation-Title": "津仔的交通灯",
+            "Implementation-Version": project.version,
+            "Implementation-Vendor": "Crzay津仔"
+        )
+    }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}

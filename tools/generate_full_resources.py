@@ -18,7 +18,7 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 MOD_ID = "jinzai_traffic_lights"
-RESOURCE_ROOT = ROOT / "src" / "main" / "resources"
+RESOURCE_ROOT = ROOT / "common" / "src" / "main" / "resources"
 ASSET_ROOT = RESOURCE_ROOT / "assets" / MOD_ID
 DATA_ROOT = RESOURCE_ROOT / "data" / MOD_ID
 TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
@@ -1027,8 +1027,6 @@ def phase2_locale_values(
     expected_fields = {
         "names",
         "item_group_annex",
-        "category_tooltip_annex",
-        "description_templates",
     }
     if set(locale_source) != expected_fields:
         raise ValueError(
@@ -1046,19 +1044,8 @@ def phase2_locale_values(
             f"missing={sorted(expected_ids - supplied_name_ids)}, "
             f"extra={sorted(supplied_name_ids - expected_ids)}"
         )
-    templates = locale_source.get("description_templates")
-    expected_template_categories = set(CATEGORY_ORDER)
-    if not isinstance(templates, dict) or set(templates) != expected_template_categories:
-        supplied_template_categories = set(templates) if isinstance(templates, dict) else set()
-        raise ValueError(
-            f"Phase-two description template mismatch for {locale}: "
-            f"missing={sorted(expected_template_categories - supplied_template_categories)}, "
-            f"extra={sorted(supplied_template_categories - expected_template_categories)}"
-        )
-
     values: dict[str, str] = {
         f"itemGroup.{MOD_ID}.annex": locale_source.get("item_group_annex"),
-        f"tooltip.{MOD_ID}.category.annex": locale_source.get("category_tooltip_annex"),
     }
     for spec in phase2_specs:
         translated_name = names[spec.identifier]
@@ -1066,19 +1053,7 @@ def phase2_locale_values(
             raise ValueError(
                 f"Blank or non-string phase-two name for {locale}: {spec.identifier}"
             )
-        template = templates[spec.category]
-        if not isinstance(template, str) or not template.strip() or "{name}" not in template:
-            raise ValueError(
-                f"Invalid {spec.category} description template for {locale}: {template!r}"
-            )
-        try:
-            translated_description = template.format(name=translated_name)
-        except (KeyError, ValueError) as exception:
-            raise ValueError(
-                f"Cannot format {spec.category} description template for {locale}: {exception}"
-            ) from exception
         values[f"block.{MOD_ID}.{spec.identifier}"] = translated_name
-        values[f"tooltip.{MOD_ID}.{spec.identifier}.description"] = translated_description
 
     invalid_values = [
         key for key, value in values.items()
@@ -1086,7 +1061,7 @@ def phase2_locale_values(
     ]
     if invalid_values:
         raise ValueError(f"Blank or non-string phase-two translations for {locale}: {invalid_values}")
-    expected_value_count = len(phase2_specs) * 2 + 2
+    expected_value_count = len(phase2_specs) + 1
     if len(values) != expected_value_count:
         raise ValueError(
             f"Expected {expected_value_count} phase-two translations for {locale}, "
@@ -1146,22 +1121,12 @@ def main() -> None:
         f"itemGroup.{MOD_ID}.indicator": "指示灯",
         f"itemGroup.{MOD_ID}.pole": "杆子",
         f"itemGroup.{MOD_ID}.annex": "交通灯附属",
-        f"tooltip.{MOD_ID}.category.frame": "支持四向放置，碰撞箱与模型对齐。",
-        f"tooltip.{MOD_ID}.category.indicator": "静态发光，无实体碰撞，可被玩家和实体穿过。",
-        f"tooltip.{MOD_ID}.category.pole": "支持四向放置，精细碰撞箱与模型对齐。",
-        f"tooltip.{MOD_ID}.category.annex": "静态发光，无实体碰撞，可被玩家和实体穿过。",
-        f"tooltip.{MOD_ID}.indicator.automation_limit": "不含倒计时、自动切灯或红石控制。",
     }
     en_us: dict[str, str] = {
         f"itemGroup.{MOD_ID}.frame": "Traffic Light Frames",
         f"itemGroup.{MOD_ID}.indicator": "Traffic Light Indicators",
         f"itemGroup.{MOD_ID}.pole": "Traffic Light Poles",
         f"itemGroup.{MOD_ID}.annex": "Traffic Light Accessories",
-        f"tooltip.{MOD_ID}.category.frame": "Supports four horizontal orientations with model-aligned collision.",
-        f"tooltip.{MOD_ID}.category.indicator": "Always lit with no physical collision; players and entities can pass through.",
-        f"tooltip.{MOD_ID}.category.pole": "Supports four horizontal orientations with precise model-aligned collision.",
-        f"tooltip.{MOD_ID}.category.annex": "Always lit with no physical collision; players and entities can pass through.",
-        f"tooltip.{MOD_ID}.indicator.automation_limit": "No countdown, automatic cycling, or redstone control.",
     }
     catalog_entries: list[dict[str, Any]] = []
     category_values: dict[str, list[str]] = {
@@ -1191,10 +1156,6 @@ def main() -> None:
         translation_key = f"block.{MOD_ID}.{spec.identifier}"
         zh_cn[translation_key] = spec.zh_cn
         en_us[translation_key] = spec.en_us
-        description_key = f"tooltip.{MOD_ID}.{spec.identifier}.description"
-        zh_description, en_description = localized_description(spec)
-        zh_cn[description_key] = zh_description
-        en_us[description_key] = en_description
         category_values[spec.category].append(f"{MOD_ID}:{spec.identifier}")
         catalog_entries.append(
             {
@@ -1218,23 +1179,21 @@ def main() -> None:
         raise ValueError(f"Expected 58 phase-two assets, found {len(phase2_specs)}")
     phase2_translation_keys = {
         f"itemGroup.{MOD_ID}.annex",
-        f"tooltip.{MOD_ID}.category.annex",
     }
     for spec in phase2_specs:
         phase2_translation_keys.add(f"block.{MOD_ID}.{spec.identifier}")
-        phase2_translation_keys.add(f"tooltip.{MOD_ID}.{spec.identifier}.description")
     phase1_translation_keys = expected_translation_keys - phase2_translation_keys
-    if len(phase1_translation_keys) != 213:
+    if len(phase1_translation_keys) != 106:
         raise ValueError(
-            f"Expected 213 phase-one translation keys, found {len(phase1_translation_keys)}"
+            f"Expected 106 phase-one translation keys, found {len(phase1_translation_keys)}"
         )
-    if len(phase2_translation_keys) != 118:
+    if len(phase2_translation_keys) != 59:
         raise ValueError(
-            f"Expected 118 phase-two translation keys, found {len(phase2_translation_keys)}"
+            f"Expected 59 phase-two translation keys, found {len(phase2_translation_keys)}"
         )
-    if len(expected_translation_keys) != 331:
+    if len(expected_translation_keys) != 165:
         raise ValueError(
-            f"Expected 331 complete translation keys, found {len(expected_translation_keys)}"
+            f"Expected 165 complete translation keys, found {len(expected_translation_keys)}"
         )
     phase2_translation_locales = load_phase2_translation_source(phase2_specs)
     for locale in EXTRA_LOCALES:
@@ -1242,11 +1201,16 @@ def main() -> None:
         if not source_path.is_file():
             raise ValueError(f"Missing translation source: {source_path}")
         try:
-            translated = json.loads(source_path.read_text(encoding="utf-8"))
+            translated_source = json.loads(source_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exception:
             raise ValueError(f"Invalid translation source {source_path}: {exception}") from exception
-        if not isinstance(translated, dict):
+        if not isinstance(translated_source, dict):
             raise ValueError(f"Translation source must be an object: {source_path}")
+        translated = {
+            key: value
+            for key, value in translated_source.items()
+            if not key.startswith(f"tooltip.{MOD_ID}.")
+        }
         if set(translated) != phase1_translation_keys:
             raise ValueError(
                 f"Phase-one translation key mismatch for {locale}: "

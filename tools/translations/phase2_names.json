@@ -122,14 +122,7 @@
         "jinzai_traffic_annex_4b": "شريط إشارة مرور LED أفقي - أحمر (عمود سميك)",
         "jinzai_traffic_annex_4c": "شريط إشارة مرور LED أفقي - أخضر (عمود سميك)"
       },
-      "item_group_annex": "ملحقات إشارات المرور",
-      "category_tooltip_annex": "ملحق مضاء بلا تصادم مادي؛ يمكن للاعبين والكيانات المرور من خلاله.",
-      "description_templates": {
-        "frame": "مكوّن زخرفي لإطار إشارة المرور: {name}.",
-        "indicator": "إشارة مرور مضاءة ثابتة: {name}.",
-        "pole": "مكوّن زخرفي لعمود إشارة المرور: {name}.",
-        "annex": "ملحق مضاء لإشارة المرور: {name}."
-      }
+      "item_group_annex": "ملحقات إشارات المرور"
     },
     "de_de": {
       "names": {
@@ -192,14 +185,7 @@
         "jinzai_traffic_annex_4b": "Horizontaler LED-Ampelstreifen - Rot (dicker Mast)",
         "jinzai_traffic_annex_4c": "Horizontaler LED-Ampelstreifen - Grün (dicker Mast)"
       },
-      "item_group_annex": "Ampelzubehör",
-      "category_tooltip_annex": "Beleuchtetes Zubehör ohne physische Kollision; Spieler und Entitäten können hindurchgehen.",
-      "description_templates": {
-        "frame": "Dekoratives Ampelrahmen-Bauteil: {name}.",
-        "indicator": "Statisch leuchtendes Ampelsignal: {name}.",
-        "pole": "Dekoratives Ampelmast-Bauteil: {name}.",
-        "annex": "Beleuchtetes Ampelzubehör: {name}."
-      }
+      "item_group_annex": "Ampelzubehör"
     },
     "es_es": {
       "names": {
@@ -262,14 +248,7 @@
         "jinzai_traffic_annex_4b": "Tira LED horizontal de semáforo - roja (poste grueso)",
         "jinzai_traffic_annex_4c": "Tira LED horizontal de semáforo - verde (poste grueso)"
       },
-      "item_group_annex": "Accesorios de semáforo",
-      "category_tooltip_annex": "Accesorio iluminado sin colisión física; los jugadores y las entidades pueden atravesarlo.",
-      "description_templates": {
-        "frame": "Componente decorativo de marco de semáforo: {name}.",
-        "indicator": "Señal de semáforo iluminada y estática: {name}.",
-        "pole": "Componente decorativo de poste de semáforo: {name}.",
-        "annex": "Accesorio iluminado de semáforo: {name}."
-      }
+      "item_group_annex": "Accesorios de semáforo"
     },
     "fr_fr": {
       "names": {
@@ -332,14 +311,7 @@
         "jinzai_traffic_annex_4b": "Bande LED horizontale de feu de circulation - rouge (poteau épais)",
         "jinzai_traffic_annex_4c": "Bande LED horizontale de feu de circulation - verte (poteau épais)"
       },
-      "item_group_annex": "Accessoires de feux de circulation",
-      "category_tooltip_annex": "Accessoire éclairé sans collision physique ; les joueurs et les entités peuvent le traverser.",
-      "description_templates": {
-        "frame": "Composant décoratif de cadre de feu de circulation : {name}.",
-        "indicator": "Signal de feu de circulation allumé et statique : {name}.",
-        "pole": "Composant décoratif de poteau de feu de circulation : {name}.",
-        "annex": "Accessoire éclairé de feu de circulation : {name}."
-      }
+      "item_group_annex": "Accessoires de feux de circulation"
     },
     "hi_in": {
       "names": {
@@ -402,14 +374,7 @@
         "jinzai_traffic_annex_4b": "क्षैतिज LED ट्रैफिक लाइट पट्टी - लाल (मोटा खंभा)",
         "jinzai_traffic_annex_4c": "क्षैतिज LED ट्रैफिक लाइट पट्टी - हरी (मोटा खंभा)"
       },
-      "item_group_annex": "ट्रैफिक लाइट सहायक सामग्री",
-      "category_tooltip_annex": "रोशनी वाला सहायक भाग, जिसका कोई भौतिक टक्कर क्षेत्र नहीं है; खिलाड़ी और अन्य इकाइयाँ इसके आर-पार जा सकती हैं।",
-      "description_templates": {
-        "frame": "ट्रैफिक लाइट फ्रेम का सजावटी भाग: {name}।",
-        "indicator": "स्थिर रूप से जलने वाला ट्रैफिक संकेत: {name}।",
-        "pole": "ट्रैफिक लाइट के खंभे का सजावटी भाग: {name}।",
-        "annex": "रोशनी वाला ट्रैफिक लाइट सहायक भाग: {name}।"
-      }
+      "item_group_annex": "ट्रैफिक लाइट सहायक सामग्री"
     },
     "id_id": {
       "names": {
@@ -472,14 +437,7 @@
         "jinzai_traffic_annex_4b": "Strip LED Lampu Lalu Lintas Horizontal - merah (tiang tebal)",
         "jinzai_traffic_annex_4c": "Strip LED Lampu Lalu Lintas Horizontal - hijau (tiang tebal)"
       },
-      "item_group_annex": "Aksesori Lampu Lalu Lintas",
-      "category_tooltip_annex": "Aksesori bercahaya tanpa benturan fisik; pemain dan entitas dapat melewatinya.",
-      "description_templates": {
-        "frame": "Komponen dekoratif rangka lampu lalu lintas: {name}.",
-        "indicator": "Sinyal lampu lalu lintas statis yang menyala: {name}.",
-        "pole": "Komponen dekoratif tiang lampu lalu lintas: {name}.",
-        "annex": "Aksesori lampu lalu lintas bercahaya: {name}."
-      }
+      "item_group_annex": "Aksesori Lampu Lalu Lintas"
     },
     "ja_jp": {
       "names": {
@@ -542,14 +500,7 @@
         "jinzai_traffic_annex_4b": "LED横型信号灯バー - 赤（太型ポール）",
         "jinzai_traffic_annex_4c": "LED横型信号灯バー - 青（太型ポール）"
       },
-      "item_group_annex": "信号機付属品",
-      "category_tooltip_annex": "点灯する付属品で、物理的な当たり判定はありません。プレイヤーやエンティティは通り抜けられます。",
-      "description_templates": {
-        "frame": "信号機フレームの装飾部品：{name}。",
-        "indicator": "常時点灯する信号灯：{name}。",
-        "pole": "信号機ポールの装飾部品：{name}。",
-        "annex": "点灯する信号機付属品：{name}。"
-      }
+      "item_group_annex": "信号機付属品"
     },
     "ko_kr": {
       "names": {
@@ -612,14 +563,7 @@
         "jinzai_traffic_annex_4b": "LED 가로형 신호등 바 - 적색(굵은 기둥)",
         "jinzai_traffic_annex_4c": "LED 가로형 신호등 바 - 녹색(굵은 기둥)"
       },
-      "item_group_annex": "신호등 부속품",
-      "category_tooltip_annex": "빛나는 부속품이며 물리적 충돌 판정이 없습니다. 플레이어와 엔티티가 통과할 수 있습니다.",
-      "description_templates": {
-        "frame": "신호등 프레임 장식 부품: {name}.",
-        "indicator": "항상 켜진 신호등 표시등: {name}.",
-        "pole": "신호등 기둥 장식 부품: {name}.",
-        "annex": "빛나는 신호등 부속품: {name}."
-      }
+      "item_group_annex": "신호등 부속품"
     },
     "pt_br": {
       "names": {
@@ -682,14 +626,7 @@
         "jinzai_traffic_annex_4b": "Faixa LED horizontal de semáforo - vermelha (poste grosso)",
         "jinzai_traffic_annex_4c": "Faixa LED horizontal de semáforo - verde (poste grosso)"
       },
-      "item_group_annex": "Acessórios de semáforo",
-      "category_tooltip_annex": "Acessório iluminado sem colisão física; jogadores e entidades podem atravessá-lo.",
-      "description_templates": {
-        "frame": "Componente decorativo da armação de semáforo: {name}.",
-        "indicator": "Sinal de semáforo estático e aceso: {name}.",
-        "pole": "Componente decorativo de poste de semáforo: {name}.",
-        "annex": "Acessório iluminado de semáforo: {name}."
-      }
+      "item_group_annex": "Acessórios de semáforo"
     },
     "ru_ru": {
       "names": {
@@ -752,14 +689,7 @@
         "jinzai_traffic_annex_4b": "Горизонтальная светодиодная полоса светофора - красная (толстая стойка)",
         "jinzai_traffic_annex_4c": "Горизонтальная светодиодная полоса светофора - зелёная (толстая стойка)"
       },
-      "item_group_annex": "Аксессуары светофоров",
-      "category_tooltip_annex": "Светящийся аксессуар без физической коллизии; игроки и сущности могут проходить сквозь него.",
-      "description_templates": {
-        "frame": "Декоративный элемент рамы светофора: {name}.",
-        "indicator": "Статичный светящийся сигнал светофора: {name}.",
-        "pole": "Декоративный элемент стойки светофора: {name}.",
-        "annex": "Светящийся аксессуар светофора: {name}."
-      }
+      "item_group_annex": "Аксессуары светофоров"
     },
     "tr_tr": {
       "names": {
@@ -822,14 +752,7 @@
         "jinzai_traffic_annex_4b": "Yatay LED trafik lambası şeridi - kırmızı (kalın direk)",
         "jinzai_traffic_annex_4c": "Yatay LED trafik lambası şeridi - yeşil (kalın direk)"
       },
-      "item_group_annex": "Trafik Lambası Aksesuarları",
-      "category_tooltip_annex": "Fiziksel çarpışması olmayan aydınlatmalı bir aksesuardır; oyuncular ve varlıklar içinden geçebilir.",
-      "description_templates": {
-        "frame": "Dekoratif trafik lambası çerçevesi parçası: {name}.",
-        "indicator": "Sabit yanan trafik lambası sinyali: {name}.",
-        "pole": "Dekoratif trafik lambası direği parçası: {name}.",
-        "annex": "Aydınlatmalı trafik lambası aksesuarı: {name}."
-      }
+      "item_group_annex": "Trafik Lambası Aksesuarları"
     }
   }
 }
