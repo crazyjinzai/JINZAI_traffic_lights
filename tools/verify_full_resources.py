@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 import hashlib
 import itertools
 import json
@@ -19,15 +21,28 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 MOD_ID = "jinzai_traffic_lights"
-MOD_VERSION = "2.0.33"
+MOD_VERSION = "2.0.41"
 RESOURCE_ROOT = ROOT / "common" / "src" / "main" / "resources"
 ASSET_ROOT = RESOURCE_ROOT / "assets" / MOD_ID
 DATA_ROOT = RESOURCE_ROOT / "data" / MOD_ID
 ICON_PATH = RESOURCE_ROOT / "icon.png"
+GRADLE_PROPERTIES_PATH = ROOT / "gradle.properties"
+COMMON_MAIN_PATH = (
+    ROOT
+    / "common"
+    / "src"
+    / "main"
+    / "java"
+    / "cn"
+    / "crazyjinzai"
+    / "trafficlights"
+    / "JinzaiTrafficLights.java"
+)
 FABRIC_METADATA_PATH = ROOT / "fabric" / "src" / "main" / "resources" / "fabric.mod.json"
 FORGE_METADATA_PATH = ROOT / "forge" / "src" / "main" / "resources" / "META-INF" / "mods.toml"
 TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
 PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
+PHASE3_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase3_names.json"
 EXTRA_LOCALES = (
     "ar_sa",
     "de_de",
@@ -53,18 +68,49 @@ SOURCE_FOLDERS = {
     "交通灯附属": ("annex", "交通灯附属新增方块名称.xlsx", 10),
 }
 
+PHASE2_SOURCE_FOLDERS = {
+    "杆子（新增）",
+    "红绿灯框架（新增）",
+    "指示灯（新增）",
+    "交通灯附属",
+}
+PHASE3_SOURCE_FOLDERS = {
+    "动态指示灯（三期）": ("indicator", 15),
+    "杆子（三期新增）": ("pole", 24),
+    "红绿灯框架（三期新增）": ("frame", 11),
+    "指示灯（三期新增）": ("indicator", 2),
+}
+PHASE3_EXPECTED_CATEGORY_COUNTS = {
+    "frame": 11,
+    "indicator": 17,
+    "pole": 24,
+}
+PHASE3_DYNAMIC_FOLDER = "动态指示灯（三期）"
+PHASE3_DYNAMIC_IDS = frozenset(
+    f"jinzai_dynamic_light_{index}" for index in range(1, 16)
+)
+EXPECTED_ANIMATION_FRAME_COUNTS = {
+    **{f"jinzai_dynamic_light_{index}": 65 for index in (*range(1, 7), 14, 15)},
+    **{f"jinzai_dynamic_light_{index}": 8 for index in (*range(7, 12), 13)},
+    "jinzai_dynamic_light_12": 11,
+}
+PHASE3_LONG_DIAGONAL_POLE_IDS = frozenset({"bd_pole_8", "bd_pole_10"})
+
 CATEGORIES = ("frame", "indicator", "pole", "annex")
 EXPECTED_CATEGORY_COUNTS = {
-    "frame": 48,
-    "indicator": 55,
-    "pole": 48,
+    "frame": 59,
+    "indicator": 72,
+    "pole": 72,
     "annex": 10,
 }
-EXPECTED_ASSET_COUNT = 161
-EXPECTED_LANGUAGE_KEY_COUNT = 165
-EXPECTED_SOURCE_ELEMENT_COUNT = 2555
-EXPECTED_VISIBLE_ELEMENT_COUNT = 2553
-EXPECTED_COLLISION_BOX_COUNT = 3206
+EXPECTED_ASSET_COUNT = 213
+EXPECTED_LANGUAGE_KEY_COUNT = 217
+EXPECTED_SOURCE_ELEMENT_COUNT = 3380
+EXPECTED_VISIBLE_ELEMENT_COUNT = 3377
+EXPECTED_COLLISION_BOX_COUNT = 3443
+EXPECTED_PHASE3_COLLISION_BOX_COUNT = 237
+EXPECTED_PHASE3_POLE_COLLISION_BOX_COUNT = 209
+EXPECTED_ANIMATION_METADATA_COUNT = 15
 
 # The phase-two workbooks contain a handful of filename typos.  Keep their
 # requested IDs stable while resolving them to the actual supplied source
@@ -122,6 +168,7 @@ class ExpectedAsset:
     identifier: str
     category: str
     zh_cn: str
+    en_us: str | None = None
 
     @property
     def source_model(self) -> Path:
@@ -130,6 +177,10 @@ class ExpectedAsset:
     @property
     def source_texture(self) -> Path:
         return ROOT / self.folder / f"{self.source_stem}.png"
+
+    @property
+    def source_animation_metadata(self) -> Path:
+        return Path(f"{self.source_texture}.mcmeta")
 
 
 def load_json(path: Path) -> Any:
@@ -298,6 +349,92 @@ def discover_expected_assets() -> list[ExpectedAsset]:
         expected_deprecated=ANNEX_DEPRECATED_STEMS,
     )
 
+    phase3_payload = load_json(PHASE3_TRANSLATION_SOURCE)
+    assert isinstance(phase3_payload, dict), "Phase-three translation source must be an object"
+    assert set(phase3_payload) == {"schema", "assets", "locales"}, (
+        "Unexpected phase-three translation root fields"
+    )
+    assert phase3_payload["schema"] == 1, "Unsupported phase-three translation schema"
+    phase3_assets = phase3_payload["assets"]
+    assert isinstance(phase3_assets, list) and len(phase3_assets) == 52, (
+        "Phase-three translation source must contain exactly 52 assets"
+    )
+    expected_phase3_asset_fields = {
+        "source_folder",
+        "source_stem",
+        "id",
+        "category",
+        "zh_cn",
+        "en_us",
+    }
+    phase3_items: list[ExpectedAsset] = []
+    for index, asset in enumerate(phase3_assets):
+        assert isinstance(asset, dict) and set(asset) == expected_phase3_asset_fields, (
+            f"Unexpected phase-three asset fields at index {index}"
+        )
+        assert all(
+            isinstance(asset[field], str) and asset[field].strip()
+            for field in expected_phase3_asset_fields
+        ), f"Blank or non-string phase-three asset field at index {index}"
+        folder = asset["source_folder"]
+        source_stem = asset["source_stem"]
+        identifier = asset["id"]
+        category = asset["category"]
+        assert folder in PHASE3_SOURCE_FOLDERS, (
+            f"Unknown phase-three source folder at index {index}: {folder}"
+        )
+        assert category == PHASE3_SOURCE_FOLDERS[folder][0], (
+            f"Wrong phase-three category for {identifier}: {category}"
+        )
+        assert source_stem == identifier == identifier.lower(), (
+            f"Phase-three source/id is not normalized: {source_stem!r} -> {identifier!r}"
+        )
+        assert _RESOURCE_ID_RE.fullmatch(identifier), (
+            f"Invalid phase-three resource ID: {identifier}"
+        )
+        assert "daynamic" not in source_stem and "daynamic" not in identifier, (
+            f"Misspelled phase-three dynamic name remains: {identifier}"
+        )
+        phase3_items.append(
+            ExpectedAsset(
+                folder,
+                source_stem,
+                identifier,
+                category,
+                asset["zh_cn"],
+                asset["en_us"],
+            )
+        )
+
+    phase3_ids = [item.identifier for item in phase3_items]
+    assert len(phase3_ids) == len(set(phase3_ids)), "Duplicate phase-three resource ID"
+    for folder, (_, expected_count) in PHASE3_SOURCE_FOLDERS.items():
+        mapped_stems = {
+            item.source_stem for item in phase3_items if item.folder == folder
+        }
+        actual_stems = paired_source_stems(folder)
+        assert len(mapped_stems) == expected_count, (
+            f"Unexpected phase-three mapped count in {folder}: {len(mapped_stems)}"
+        )
+        assert mapped_stems == actual_stems, (
+            f"{folder} JSON does not exactly cover paired sources: "
+            f"mapping-only={sorted(mapped_stems - actual_stems)}, "
+            f"source-only={sorted(actual_stems - mapped_stems)}"
+        )
+    phase3_category_counts = {
+        category: sum(item.category == category for item in phase3_items)
+        for category in PHASE3_EXPECTED_CATEGORY_COUNTS
+    }
+    assert phase3_category_counts == PHASE3_EXPECTED_CATEGORY_COUNTS, (
+        f"Unexpected phase-three category counts: {phase3_category_counts}"
+    )
+    assert {
+        item.identifier for item in phase3_items if item.folder == PHASE3_DYNAMIC_FOLDER
+    } == PHASE3_DYNAMIC_IDS, "The 15 normalized animated-light IDs changed"
+    assert "jinzai_traffic_light_h34" in phase3_ids, "Corrected h34 frame is missing"
+    assert "jinzai_traffic_light_c34" not in phase3_ids, "Obsolete c34 frame ID remains"
+    expected.extend(phase3_items)
+
     category_counts = {
         category: sum(item.category == category for item in expected)
         for category in CATEGORIES
@@ -321,6 +458,12 @@ def discover_expected_assets() -> list[ExpectedAsset]:
     )
     assert by_source[("指示灯（新增）", "jinzai_traffic_light_7d")].identifier == (
         "jinzai_traffic_light_7d"
+    )
+    assert by_source[(PHASE3_DYNAMIC_FOLDER, "jinzai_dynamic_light_9")].identifier == (
+        "jinzai_dynamic_light_9"
+    )
+    assert by_source[("红绿灯框架（三期新增）", "jinzai_traffic_light_h34")].identifier == (
+        "jinzai_traffic_light_h34"
     )
     return sorted(
         expected,
@@ -399,6 +542,51 @@ def expected_phase2_locale_values(
     return values
 
 
+def phase3_translation_locales(
+    phase3_items: list[ExpectedAsset],
+) -> dict[str, dict[str, Any]]:
+    payload = load_json(PHASE3_TRANSLATION_SOURCE)
+    assert isinstance(payload, dict) and set(payload) == {"schema", "assets", "locales"}, (
+        "Unexpected phase-three translation root fields"
+    )
+    assert payload["schema"] == 1, "Unsupported phase-three translation schema"
+    supplied_ids = [asset.get("id") for asset in payload["assets"]]
+    expected_ids = {item.identifier for item in phase3_items}
+    assert len(supplied_ids) == len(set(supplied_ids)) == 52, (
+        "Phase-three translated identifiers are missing or duplicated"
+    )
+    assert set(supplied_ids) == expected_ids, "Phase-three translated identifier mismatch"
+    locales = payload["locales"]
+    assert isinstance(locales, dict) and set(locales) == set(EXTRA_LOCALES), (
+        "Phase-three translation locale inventory mismatch"
+    )
+    return locales
+
+
+def expected_phase3_locale_values(
+    locale: str,
+    locale_source: dict[str, Any],
+    phase3_items: list[ExpectedAsset],
+) -> dict[str, str]:
+    assert isinstance(locale_source, dict) and set(locale_source) == {"names"}, (
+        f"Unexpected phase-three locale fields for {locale}; no extra creative tab is allowed"
+    )
+    expected_ids = {item.identifier for item in phase3_items}
+    names = locale_source["names"]
+    assert isinstance(names, dict) and set(names) == expected_ids, (
+        f"Phase-three name identifier mismatch for {locale}"
+    )
+    values: dict[str, str] = {}
+    for item in phase3_items:
+        name = names[item.identifier]
+        assert isinstance(name, str) and name.strip(), (
+            f"Blank phase-three name for {locale}: {item.identifier}"
+        )
+        values[f"block.{MOD_ID}.{item.identifier}"] = name
+    assert len(values) == len(phase3_items) == 52
+    return values
+
+
 def rounded(value: float, digits: int = 6) -> float | int:
     result = round(float(value), digits)
     if math.isclose(result, round(result), abs_tol=10 ** (-digits)):
@@ -456,20 +644,28 @@ def rotated_bounds_aabb(
     return [rounded(value) for value in minimum + maximum]
 
 
-def unit_intervals(start: float, end: float) -> list[tuple[float, float]]:
+def split_intervals(
+    start: float,
+    end: float,
+    maximum_size: float = 1.0,
+) -> list[tuple[float, float]]:
     length = end - start
     assert length > 0, f"Non-positive source interval: {start}..{end}"
-    count = max(1, math.ceil(length - 1e-9))
+    assert maximum_size > 0, f"Non-positive maximum interval size: {maximum_size}"
+    count = max(1, math.ceil(length / maximum_size - 1e-9))
     step = length / count
     intervals = [
         (start + step * index, end if index + 1 == count else start + step * (index + 1))
         for index in range(count)
     ]
-    assert all(0 < high - low <= 1.000000001 for low, high in intervals)
+    assert all(0 < high - low <= maximum_size + 1e-9 for low, high in intervals)
     return intervals
 
 
-def expected_collision_boxes(element: dict[str, Any]) -> list[list[float | int]]:
+def expected_collision_boxes(
+    element: dict[str, Any],
+    maximum_rotated_cell_size: float = 1.0,
+) -> list[list[float | int]]:
     from_pos, to_pos = inflated_bounds(element)
     rotation = rotation_parts(element)
     if rotation is None:
@@ -483,8 +679,16 @@ def expected_collision_boxes(element: dict[str, Any]) -> list[list[float | int]]
     }[axis]
     boxes: list[list[float | int]] = []
     for first, second in itertools.product(
-        unit_intervals(from_pos[first_axis], to_pos[first_axis]),
-        unit_intervals(from_pos[second_axis], to_pos[second_axis]),
+        split_intervals(
+            from_pos[first_axis],
+            to_pos[first_axis],
+            maximum_rotated_cell_size,
+        ),
+        split_intervals(
+            from_pos[second_axis],
+            to_pos[second_axis],
+            maximum_rotated_cell_size,
+        ),
     ):
         low = list(from_pos)
         high = list(to_pos)
@@ -527,6 +731,138 @@ def referenced_texture_index(source: dict[str, Any], stem: str) -> int:
     texture = source["textures"][index]
     assert texture["name"] == texture["relative_path"] == f"{stem}.png", f"Texture mismatch in {stem}"
     return index
+
+
+def phase_of(item: ExpectedAsset) -> int:
+    if item.folder in PHASE1_SOURCE_FOLDERS:
+        return 1
+    if item.folder in PHASE2_SOURCE_FOLDERS:
+        return 2
+    assert item.folder in PHASE3_SOURCE_FOLDERS, f"Unknown source phase: {item.folder}"
+    return 3
+
+
+def verify_phase3_embedded_texture(
+    source: dict[str, Any],
+    texture_index: int,
+    item: ExpectedAsset,
+) -> None:
+    if phase_of(item) != 3:
+        return
+    texture_source = source["textures"][texture_index].get("source")
+    prefix = "data:image/png;base64,"
+    assert isinstance(texture_source, str) and texture_source.startswith(prefix), (
+        f"Phase-three model has no embedded PNG: {item.source_model}"
+    )
+    try:
+        embedded = base64.b64decode(texture_source[len(prefix):], validate=True)
+    except (ValueError, binascii.Error) as exception:
+        raise AssertionError(
+            f"Invalid embedded PNG in {item.source_model}: {exception}"
+        ) from exception
+    assert embedded == item.source_texture.read_bytes(), (
+        f"Embedded/external texture mismatch for phase-three model {item.source_stem}"
+    )
+
+
+def png_dimensions(path: Path) -> tuple[int, int]:
+    header = path.read_bytes()[:24]
+    assert (
+        len(header) == 24
+        and header[:8] == b"\x89PNG\r\n\x1a\n"
+        and header[12:16] == b"IHDR"
+    ), f"Invalid PNG header: {path}"
+    return struct.unpack(">II", header[16:24])
+
+
+def verify_animation_metadata(
+    item: ExpectedAsset,
+    source: dict[str, Any],
+) -> int | None:
+    generated_metadata = (
+        ASSET_ROOT / "textures" / "block" / f"{item.identifier}.png.mcmeta"
+    )
+    is_animated = item.folder == PHASE3_DYNAMIC_FOLDER
+    if not is_animated:
+        if phase_of(item) == 3:
+            assert not item.source_animation_metadata.exists(), (
+                f"Unexpected animation metadata on static phase-three asset: {item.identifier}"
+            )
+        assert not generated_metadata.exists(), (
+            f"Unexpected generated animation metadata: {item.identifier}"
+        )
+        return None
+
+    assert item.identifier in PHASE3_DYNAMIC_IDS
+    assert item.source_animation_metadata.is_file(), (
+        f"Missing source animation metadata: {item.identifier}"
+    )
+    assert generated_metadata.is_file(), (
+        f"Missing generated animation metadata: {item.identifier}"
+    )
+    assert generated_metadata.read_bytes() == item.source_animation_metadata.read_bytes(), (
+        f"Generated animation metadata is not byte-identical to its source: {item.identifier}"
+    )
+    payload = load_json(item.source_animation_metadata)
+    assert isinstance(payload, dict) and set(payload) == {"animation"}, (
+        f"Animation metadata must contain only 'animation': {item.identifier}"
+    )
+    animation = payload["animation"]
+    assert isinstance(animation, dict), f"Animation entry is not an object: {item.identifier}"
+    assert set(animation) <= {"frametime", "interpolate", "frames"}, (
+        f"Unexpected animation fields in {item.identifier}: {sorted(animation)}"
+    )
+    assert isinstance(animation.get("frametime"), int) and not isinstance(
+        animation["frametime"], bool
+    ), f"Animation frametime is not an integer: {item.identifier}"
+    assert animation["frametime"] == 10, (
+        f"{item.identifier} must run at 2 FPS (20 ticks / frametime 10)"
+    )
+    assert math.isclose(20.0 / animation["frametime"], 2.0), (
+        f"Unexpected effective animation rate: {item.identifier}"
+    )
+    if "interpolate" in animation:
+        assert isinstance(animation["interpolate"], bool), (
+            f"Animation interpolate must be boolean: {item.identifier}"
+        )
+
+    frame_width = int(source["resolution"]["width"])
+    frame_height = int(source["resolution"]["height"])
+    png_width, png_height = png_dimensions(item.source_texture)
+    assert png_width == frame_width and png_height % frame_height == 0, (
+        f"Animation strip dimensions do not match model frame size for {item.identifier}: "
+        f"png={png_width}x{png_height}, frame={frame_width}x{frame_height}"
+    )
+    frame_count = png_height // frame_height
+    assert frame_count == EXPECTED_ANIMATION_FRAME_COUNTS[item.identifier], (
+        f"Unexpected animation frame count for {item.identifier}: {frame_count}"
+    )
+    frames = animation.get("frames")
+    if frames is not None:
+        assert isinstance(frames, list) and frames, (
+            f"Animation frames must be a non-empty list: {item.identifier}"
+        )
+        for frame in frames:
+            if isinstance(frame, dict):
+                assert set(frame) in ({"index"}, {"index", "time"}), (
+                    f"Unexpected animation frame fields in {item.identifier}: {frame}"
+                )
+                frame_index = frame["index"]
+                if "time" in frame:
+                    assert isinstance(frame["time"], int) and not isinstance(
+                        frame["time"], bool
+                    ) and frame["time"] > 0, (
+                        f"Invalid animation frame time in {item.identifier}: {frame}"
+                    )
+            else:
+                frame_index = frame
+            assert isinstance(frame_index, int) and not isinstance(frame_index, bool), (
+                f"Invalid animation frame entry in {item.identifier}: {frame!r}"
+            )
+            assert 0 <= frame_index < frame_count, (
+                f"Animation frame index out of range in {item.identifier}: {frame_index}"
+            )
+    return frame_count
 
 
 def normalized_uv(uv: list[float], width: int, height: int) -> list[float | int]:
@@ -592,6 +928,7 @@ def expected_model(source: dict[str, Any], item: ExpectedAsset) -> dict[str, Any
     assert source.get("name") == item.source_stem
     width, height = int(source["resolution"]["width"]), int(source["resolution"]["height"])
     texture_index = referenced_texture_index(source, item.source_stem)
+    verify_phase3_embedded_texture(source, texture_index, item)
     exported_elements = [
         element
         for element in source["elements"]
@@ -660,6 +997,35 @@ def verify_icon_and_metadata() -> None:
     width, height = struct.unpack(">II", icon[16:24])
     assert (width, height) == (512, 512), f"Unexpected mod icon size: {width}x{height}"
 
+    gradle_properties = GRADLE_PROPERTIES_PATH.read_text(encoding="utf-8")
+    version_match = re.search(r"(?m)^mod_version\s*=\s*(\S+)\s*$", gradle_properties)
+    assert version_match is not None and version_match.group(1) == MOD_VERSION, (
+        f"gradle.properties mod_version is not {MOD_VERSION}"
+    )
+
+    common_main = COMMON_MAIN_PATH.read_text(encoding="utf-8")
+    category_body_match = re.search(
+        r"public\s+enum\s+Category\s*\{(?P<body>.*?)\;",
+        common_main,
+        flags=re.DOTALL,
+    )
+    assert category_body_match is not None, "Could not find the Category enum"
+    category_pairs = re.findall(
+        r"\b([A-Z][A-Z_]*)\(\"([a-z_]+)\"\)",
+        category_body_match.group("body"),
+    )
+    assert category_pairs == [
+        ("FRAME", "frame"),
+        ("INDICATOR", "indicator"),
+        ("POLE", "pole"),
+        ("ANNEX", "annex"),
+    ], f"Expected exactly four creative categories, found {category_pairs}"
+    assert "for (Category category : Category.values())" in common_main
+    assert "ITEM_GROUPS.register(" in common_main
+    assert "DYNAMIC_INDICATOR" not in common_main, (
+        "Animated indicators must remain in the existing indicator creative tab"
+    )
+
     metadata = load_json(FABRIC_METADATA_PATH)
     assert metadata.get("icon") == "icon.png", "fabric.mod.json does not reference the packaged icon"
     assert metadata.get("authors") == ["Crzay津仔"], "Unexpected release author metadata"
@@ -693,7 +1059,8 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         "tags/blocks/annexes.json",
         "tags/blocks/all_blocks.json",
     }
-    for identifier in identifiers:
+    for item in items:
+        identifier = item.identifier
         expected_asset_files.update(
             {
                 f"models/block/{identifier}.json",
@@ -702,7 +1069,15 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
                 f"textures/block/{identifier}.png",
             }
         )
+        if item.folder == PHASE3_DYNAMIC_FOLDER:
+            expected_asset_files.add(f"textures/block/{identifier}.png.mcmeta")
         expected_data_files.add(f"loot_tables/blocks/{identifier}.json")
+    assert len(expected_asset_files) == 881, (
+        f"Unexpected generated asset-file expectation count: {len(expected_asset_files)}"
+    )
+    assert len(expected_data_files) == 218, (
+        f"Unexpected generated data-file expectation count: {len(expected_data_files)}"
+    )
     assert relative_file_set(ASSET_ROOT) == expected_asset_files, (
         f"Generated asset file set is not exactly {EXPECTED_ASSET_COUNT} chains"
     )
@@ -734,20 +1109,37 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         set(values) == expected_language_keys for values in translations.values()
     ), "At least one language key set is incomplete"
     for locale, values in translations.items():
+        item_group_keys = {
+            key for key in values if key.startswith(f"itemGroup.{MOD_ID}.")
+        }
+        assert item_group_keys == expected_shared_keys, (
+            f"{locale} must expose exactly the four established creative tabs"
+        )
         assert all(
             isinstance(value, str) and value.strip() for value in values.values()
         ), f"Blank or non-string translation in {locale}"
 
     phase1_items = [item for item in items if item.folder in PHASE1_SOURCE_FOLDERS]
-    phase2_items = [item for item in items if item.folder not in PHASE1_SOURCE_FOLDERS]
-    assert len(phase1_items) == 103 and len(phase2_items) == 58
+    phase2_items = [item for item in items if item.folder in PHASE2_SOURCE_FOLDERS]
+    phase3_items = [item for item in items if item.folder in PHASE3_SOURCE_FOLDERS]
+    assert len(phase1_items) == 103 and len(phase2_items) == 58 and len(phase3_items) == 52
+    assert len(phase1_items) + len(phase2_items) + len(phase3_items) == len(items)
     phase1_shared_keys = expected_shared_keys - {f"itemGroup.{MOD_ID}.annex"}
     expected_phase1_language_keys = (
         {f"block.{MOD_ID}.{item.identifier}" for item in phase1_items}
         | phase1_shared_keys
     )
     assert len(expected_phase1_language_keys) == 106
+    expected_phase2_language_keys = {
+        f"block.{MOD_ID}.{item.identifier}" for item in phase2_items
+    } | {f"itemGroup.{MOD_ID}.annex"}
+    assert len(expected_phase2_language_keys) == 59
+    expected_phase3_language_keys = {
+        f"block.{MOD_ID}.{item.identifier}" for item in phase3_items
+    }
+    assert len(expected_phase3_language_keys) == 52
     phase2_locale_sources = phase2_translation_locales(phase2_items)
+    phase3_locale_sources = phase3_translation_locales(phase3_items)
     for locale in EXTRA_LOCALES:
         raw_phase1_source = load_json(TRANSLATION_SOURCE_ROOT / f"{locale}.json")
         assert isinstance(raw_phase1_source, dict)
@@ -767,10 +1159,19 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         assert not (set(phase1_source) & set(phase2_source)), (
             f"Phase-one and phase-two translation sources overlap for {locale}"
         )
-        source = {**phase1_source, **phase2_source}
+        assert set(phase2_source) == expected_phase2_language_keys
+        phase3_source = expected_phase3_locale_values(
+            locale,
+            phase3_locale_sources[locale],
+            phase3_items,
+        )
+        assert set(phase3_source) == expected_phase3_language_keys
+        assert not (set(phase1_source) & set(phase3_source))
+        assert not (set(phase2_source) & set(phase3_source))
+        source = {**phase1_source, **phase2_source, **phase3_source}
         assert set(source) == expected_language_keys
         assert translations[locale] == source, (
-            f"Generated {locale} differs from its merged phase-one/phase-two translation sources"
+            f"Generated {locale} differs from its merged phase-one/phase-two/phase-three sources"
         )
         changed_from_english = sum(
             source[key] != en_us[key] for key in expected_language_keys
@@ -807,9 +1208,15 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     total_source_elements = 0
     total_exported_elements = 0
     total_collision_boxes = 0
+    phase3_collision_boxes = 0
+    phase3_pole_collision_boxes = 0
     excluded_hidden_elements: list[tuple[str, int]] = []
     simplified_collision_ids: set[str] = set()
+    phase3_enclosing_ids: set[str] = set()
+    phase3_pole_ids: set[str] = set()
+    animation_frame_counts: dict[str, int] = {}
     for item in items:
+        item_phase = phase_of(item)
         source = load_json(item.source_model)
         source_elements = source.get("elements", [])
         exported_source_elements = [
@@ -837,6 +1244,9 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
 
         texture = ASSET_ROOT / "textures" / "block" / f"{item.identifier}.png"
         assert sha256(texture) == sha256(item.source_texture), f"Texture hash mismatch: {item.identifier}"
+        frame_count = verify_animation_metadata(item, source)
+        if frame_count is not None:
+            animation_frame_counts[item.identifier] = frame_count
         assert load_json(ASSET_ROOT / "models" / "item" / f"{item.identifier}.json") == {
             "parent": f"{MOD_ID}:block/{item.identifier}"
         }
@@ -847,19 +1257,33 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
             item.identifier
         )
         key = f"block.{MOD_ID}.{item.identifier}"
-        assert zh_cn[key] == item.zh_cn, f"Chinese name does not match XLSX: {item.identifier}"
+        assert zh_cn[key] == item.zh_cn, f"Chinese name does not match source: {item.identifier}"
         assert isinstance(en_us[key], str) and en_us[key].strip(), f"Missing English name: {item.identifier}"
+        if item.en_us is not None:
+            assert en_us[key] == item.en_us, (
+                f"English name does not match phase-three source: {item.identifier}"
+            )
         entry = catalog_by_source[(item.folder, item.source_stem)]
         assert entry["id"] == item.identifier and entry["category"] == item.category
+        maximum_rotated_cell_size = 1.0
+        if item_phase == 3 and item.category == "pole":
+            maximum_rotated_cell_size = (
+                3.0 if item.identifier in PHASE3_LONG_DIAGONAL_POLE_IDS else 2.0
+            )
         precise_boxes = [
             box
             for element in exported_source_elements
-            for box in expected_collision_boxes(element)
+            for box in expected_collision_boxes(element, maximum_rotated_cell_size)
         ]
-        if item.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS:
-            assert len(precise_boxes) == EXPECTED_PRECISE_COLLISION_COUNTS[item.identifier], (
-                f"Unexpected precise collision complexity for {item.identifier}"
-            )
+        use_enclosing_box = (
+            item.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS
+            or (item_phase == 3 and item.category != "pole")
+        )
+        if use_enclosing_box:
+            if item.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS:
+                assert len(precise_boxes) == EXPECTED_PRECISE_COLLISION_COUNTS[item.identifier], (
+                    f"Unexpected precise collision complexity for {item.identifier}"
+                )
             expected_boxes = expected_enclosing_collision_box(precise_boxes)
             rotated_box = expected_boxes[0]
             for _ in range(4):
@@ -871,11 +1295,20 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
             assert rotated_box == expected_boxes[0], (
                 f"Four rotations did not restore the enclosing box: {item.identifier}"
             )
-            simplified_collision_ids.add(item.identifier)
+            if item.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS:
+                simplified_collision_ids.add(item.identifier)
+            if item_phase == 3:
+                assert len(expected_boxes) == 1
+                phase3_enclosing_ids.add(item.identifier)
         else:
             expected_boxes = precise_boxes
         assert entry["collision_boxes"] == expected_boxes, f"Collision AABB mismatch: {item.identifier}"
         total_collision_boxes += len(entry["collision_boxes"])
+        if item_phase == 3:
+            phase3_collision_boxes += len(entry["collision_boxes"])
+            if item.category == "pole":
+                phase3_pole_ids.add(item.identifier)
+                phase3_pole_collision_boxes += len(entry["collision_boxes"])
         for box in entry["collision_boxes"]:
             assert isinstance(box, list) and len(box) == 6
             assert all(isinstance(value, (int, float)) for value in box)
@@ -890,6 +1323,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     assert set(excluded_hidden_elements) == {
         ("jinzai_traffic_indicator_3a", 0),
         ("jinzai_traffic_indicator_4", 0),
+        ("jinzai_dynamic_light_11", 0),
     }, f"Unexpected hidden placeholders: {excluded_hidden_elements}"
     assert total_exported_elements == EXPECTED_VISIBLE_ELEMENT_COUNT, (
         f"Unexpected visible source element count: {total_exported_elements}"
@@ -899,6 +1333,22 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     )
     assert simplified_collision_ids == set(SIMPLIFIED_BOUNDING_COLLISION_IDS), (
         f"Unexpected simplified-collision IDs: {sorted(simplified_collision_ids)}"
+    )
+    assert animation_frame_counts == EXPECTED_ANIMATION_FRAME_COUNTS, (
+        f"Unexpected animated texture inventory/frame counts: {animation_frame_counts}"
+    )
+    assert len(animation_frame_counts) == EXPECTED_ANIMATION_METADATA_COUNT
+    assert len(phase3_enclosing_ids) == 28, (
+        f"Expected all 28 non-pole phase-three models to use one enclosing box: "
+        f"{sorted(phase3_enclosing_ids)}"
+    )
+    assert len(phase3_pole_ids) == 24
+    assert PHASE3_LONG_DIAGONAL_POLE_IDS <= phase3_pole_ids
+    assert phase3_pole_collision_boxes == EXPECTED_PHASE3_POLE_COLLISION_BOX_COUNT, (
+        f"Unexpected phase-three pole collision count: {phase3_pole_collision_boxes}"
+    )
+    assert phase3_collision_boxes == EXPECTED_PHASE3_COLLISION_BOX_COUNT, (
+        f"Unexpected phase-three collision count: {phase3_collision_boxes}"
     )
     assert total_collision_boxes == sum(
         len(entry["collision_boxes"]) for entry in catalog["blocks"]
@@ -938,7 +1388,29 @@ def verify_jar(jar_path: Path) -> None:
         for path in local_files
     }
     with zipfile.ZipFile(jar_path) as archive:
-        archive_files = {name for name in archive.namelist() if not name.endswith("/")}
+        archive_file_list = [name for name in archive.namelist() if not name.endswith("/")]
+        assert len(archive_file_list) == len(set(archive_file_list)), (
+            "JAR contains duplicate file entries"
+        )
+        archive_files = set(archive_file_list)
+        expected_animation_entries = {
+            f"assets/{MOD_ID}/textures/block/{identifier}.png.mcmeta"
+            for identifier in PHASE3_DYNAMIC_IDS
+        }
+        packed_animation_entries = {
+            name
+            for name in archive_files
+            if name.startswith(f"assets/{MOD_ID}/textures/block/")
+            and name.endswith(".png.mcmeta")
+        }
+        assert packed_animation_entries == expected_animation_entries, (
+            "JAR must contain exactly the 15 phase-three animation metadata files: "
+            f"missing={sorted(expected_animation_entries - packed_animation_entries)}, "
+            f"extra={sorted(packed_animation_entries - expected_animation_entries)}"
+        )
+        assert not any("daynamic" in name for name in archive_files), (
+            "JAR contains the obsolete 'daynamic' spelling"
+        )
         assert "icon.png" in archive_files, "JAR does not contain icon.png"
         assert archive.read("icon.png") == ICON_PATH.read_bytes(), "JAR icon differs from verified source icon"
         has_fabric_metadata = "fabric.mod.json" in archive_files
@@ -1022,7 +1494,9 @@ def main() -> None:
         f"Verified {len(items)} source/catalog/resource chains, "
         f"{total_exported_elements} visible source/model elements and {total_collision_boxes} collision boxes "
         f"({excluded_count} hidden placeholders excluded from {total_source_elements} raw cubes), "
-        f"{len(ALL_LOCALES)} complete languages, a verified 512x512 mod icon, "
+        f"{EXPECTED_ANIMATION_METADATA_COUNT} synchronized 2 FPS animated textures, "
+        f"{len(ALL_LOCALES)} complete languages with exactly four creative tabs, "
+        f"a verified 512x512 mod icon, "
         f"texture SHA-256 equality{suffix}."
     )
 

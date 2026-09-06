@@ -6,3 +6,8 @@ run/
 .codex-doc-review/
 .codex-xlsx-read/
 __pycache__/
+*.docx
+*.xlsx
+*.xls
+*.xlsm
+~$*

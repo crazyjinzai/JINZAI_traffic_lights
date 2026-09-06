@@ -1,8 +1,8 @@
 # Source Package / 源代码包
 
-This is the curated, rebuildable Architectury source package for JINZAI Traffic Lights 2.0.33 on Minecraft 1.20.1, targeting Fabric and Forge.
+This is the curated, rebuildable Architectury source package for JINZAI Traffic Lights 2.0.41 on Minecraft 1.20.1, targeting Fabric and Forge.
 
-本目录是“津仔的交通灯”2.0.33在Minecraft 1.20.1上的Architectury整理版可构建源代码，同时输出Fabric与Forge版本。
+本目录是“津仔的交通灯”2.0.41在Minecraft 1.20.1上的Architectury整理版可构建源代码，同时输出Fabric与Forge版本。
 
 ## Modules / 模块
 
@@ -31,8 +31,8 @@ Use JDK 17 to run Gradle; compiled mod classes are fixed to Java 17 bytecode.
 Outputs / 输出：
 
 ```text
-fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.0.33.jar
-forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.33.jar
+fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.0.41.jar
+forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.41.jar
 ```
 
 ## Regenerate and verify / 重新生成与校验
@@ -44,17 +44,17 @@ The commands below require separately maintained private naming workbooks and ar
 ```powershell
 python tools/generate_full_resources.py
 python tools/verify_full_resources.py
-python tools/verify_full_resources.py fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.0.33.jar
-python tools/verify_full_resources.py forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.33.jar
+python tools/verify_full_resources.py fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.0.41.jar
+python tools/verify_full_resources.py forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.41.jar
 ```
 
-Each of the 13 generated language files must contain exactly 161 block names plus 4 creative-tab names (165 keys) and no `tooltip.jinzai_traffic_lights.*` keys.
+Each of the 13 generated language files must contain exactly 213 block names plus 4 creative-tab names (217 keys) and no `tooltip.jinzai_traffic_lights.*` keys. The 15 animated textures must each retain a `frametime` of 10 ticks (2 FPS).
 
-13个生成语言文件均必须恰好包含161个方块名称和4个创造标签页名称（共165键），且不得包含`tooltip.jinzai_traffic_lights.*`键。
+13个生成语言文件均必须恰好包含213个方块名称和4个创造标签页名称（共217键），且不得包含`tooltip.jinzai_traffic_lights.*`键。15个动态贴图必须各自保持`frametime`为10 tick（2 FPS）。
 
-`verify_collision_hotfix_delta.py` remains a historical 1.0.31-to-1.0.32 collision audit. It is not the acceptance verifier for the Architectury 2.0.33 release.
+`verify_collision_hotfix_delta.py` remains a historical 1.0.31-to-1.0.32 collision audit. It is not the acceptance verifier for the Architectury 2.0.41 release.
 
-`verify_collision_hotfix_delta.py`仅保留为1.0.31到1.0.32的历史碰撞修改审计工具，不作为Architectury 2.0.33的验收工具。
+`verify_collision_hotfix_delta.py`仅保留为1.0.31到1.0.32的历史碰撞修改审计工具，不作为Architectury 2.0.41的验收工具。
 
 ## Excluded from delivery / 交付时排除
 

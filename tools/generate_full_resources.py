@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import copy
+import base64
+import binascii
 import itertools
 import json
 import math
 import posixpath
 import re
 import shutil
+import struct
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -23,6 +26,7 @@ ASSET_ROOT = RESOURCE_ROOT / "assets" / MOD_ID
 DATA_ROOT = RESOURCE_ROOT / "data" / MOD_ID
 TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
 PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
+PHASE3_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase3_names.json"
 EXTRA_LOCALES = (
     "ar_sa",
     "de_de",
@@ -78,11 +82,23 @@ PHASE2_SOURCE_CONFIG = {
     },
 }
 
+PHASE3_SOURCE_FOLDERS = {
+    "动态指示灯（三期）": "indicator",
+    "杆子（三期新增）": "pole",
+    "红绿灯框架（三期新增）": "frame",
+    "指示灯（三期新增）": "indicator",
+}
+PHASE3_EXPECTED_CATEGORY_COUNTS = {
+    "frame": 11,
+    "indicator": 17,
+    "pole": 24,
+}
+
 CATEGORY_ORDER = ("frame", "indicator", "pole", "annex")
 EXPECTED_CATEGORY_COUNTS = {
-    "frame": 48,
-    "indicator": 55,
-    "pole": 48,
+    "frame": 59,
+    "indicator": 72,
+    "pole": 72,
     "annex": 10,
 }
 
@@ -118,6 +134,16 @@ SIMPLIFIED_BOUNDING_COLLISION_IDS = frozenset({
     "jinzai_traffic_light_s25",
 })
 
+# Phase-three poles keep a visibly segmented outline, but their rotated braces
+# use larger cells than the historical one-model-unit approximation.  The two
+# longest diagonal assemblies need a slightly coarser three-unit interval to
+# avoid returning to the high outline-box counts that previously caused frame
+# drops while aiming at a block.
+PHASE3_LONG_DIAGONAL_POLE_IDS = frozenset({
+    "bd_pole_8",
+    "bd_pole_10",
+})
+
 _SHEET_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 _DOC_REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 _PKG_REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
@@ -132,6 +158,7 @@ class AssetSpec:
     category: str
     zh_cn: str
     en_us: str
+    phase: int = 1
 
     @property
     def source_model(self) -> Path:
@@ -140,6 +167,10 @@ class AssetSpec:
     @property
     def source_texture(self) -> Path:
         return ROOT / self.source_folder / f"{self.source_stem}.png"
+
+    @property
+    def source_animation_metadata(self) -> Path:
+        return Path(f"{self.source_texture}.mcmeta")
 
 
 def rounded(value: float, digits: int = 6) -> float | int:
@@ -436,6 +467,39 @@ def localized_description(spec: AssetSpec) -> tuple[str, str]:
     raise ValueError(spec.category)
 
 
+def load_phase3_source() -> dict[str, Any]:
+    if not PHASE3_TRANSLATION_SOURCE.is_file():
+        raise ValueError(f"Missing phase-three source: {PHASE3_TRANSLATION_SOURCE}")
+    try:
+        payload = json.loads(PHASE3_TRANSLATION_SOURCE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exception:
+        raise ValueError(
+            f"Invalid phase-three source {PHASE3_TRANSLATION_SOURCE}: {exception}"
+        ) from exception
+    if not isinstance(payload, dict):
+        raise ValueError("Phase-three source must be a JSON object")
+    expected_root_fields = {"schema", "assets", "locales"}
+    if set(payload) != expected_root_fields:
+        raise ValueError(
+            "Phase-three source root fields differ: "
+            f"missing={sorted(expected_root_fields - set(payload))}, "
+            f"extra={sorted(set(payload) - expected_root_fields)}"
+        )
+    if payload.get("schema") != 1:
+        raise ValueError(f"Unsupported phase-three source schema: {payload.get('schema')!r}")
+    if not isinstance(payload.get("assets"), list):
+        raise ValueError("Phase-three assets must be a list")
+    locales = payload.get("locales")
+    if not isinstance(locales, dict) or set(locales) != set(EXTRA_LOCALES):
+        supplied = set(locales) if isinstance(locales, dict) else set()
+        raise ValueError(
+            "Phase-three locale mismatch: "
+            f"missing={sorted(set(EXTRA_LOCALES) - supplied)}, "
+            f"extra={sorted(supplied - set(EXTRA_LOCALES))}"
+        )
+    return payload
+
+
 def discover_asset_specs() -> list[AssetSpec]:
     specs: list[AssetSpec] = []
 
@@ -553,6 +617,7 @@ def discover_asset_specs() -> list[AssetSpec]:
                 "pole",
                 zh_cn,
                 english_name("pole", zh_cn, stem),
+                phase=2,
             )
         )
 
@@ -595,6 +660,7 @@ def discover_asset_specs() -> list[AssetSpec]:
                 "frame",
                 zh_cn,
                 english_name("frame", zh_cn, source_stem),
+                phase=2,
             )
         )
 
@@ -633,6 +699,7 @@ def discover_asset_specs() -> list[AssetSpec]:
                 "indicator",
                 zh_cn,
                 english_name("indicator", zh_cn, stem),
+                phase=2,
             )
         )
 
@@ -677,8 +744,101 @@ def discover_asset_specs() -> list[AssetSpec]:
                 "annex",
                 zh_cn,
                 english_name("annex", zh_cn, stem),
+                phase=2,
             )
         )
+
+    phase3_payload = load_phase3_source()
+    phase3_specs: list[AssetSpec] = []
+    expected_phase3_asset_fields = {
+        "source_folder",
+        "source_stem",
+        "id",
+        "category",
+        "zh_cn",
+        "en_us",
+    }
+    for asset_index, asset in enumerate(phase3_payload["assets"]):
+        if not isinstance(asset, dict):
+            raise ValueError(f"Phase-three asset {asset_index} must be an object")
+        if set(asset) != expected_phase3_asset_fields:
+            raise ValueError(
+                f"Phase-three asset {asset_index} fields differ: "
+                f"missing={sorted(expected_phase3_asset_fields - set(asset))}, "
+                f"extra={sorted(set(asset) - expected_phase3_asset_fields)}"
+            )
+        source_folder = asset["source_folder"]
+        source_stem = asset["source_stem"]
+        identifier = asset["id"]
+        category = asset["category"]
+        zh_cn = asset["zh_cn"]
+        en_us = asset["en_us"]
+        string_values = {
+            "source_folder": source_folder,
+            "source_stem": source_stem,
+            "id": identifier,
+            "category": category,
+            "zh_cn": zh_cn,
+            "en_us": en_us,
+        }
+        invalid_fields = [
+            field for field, value in string_values.items()
+            if not isinstance(value, str) or not value.strip()
+        ]
+        if invalid_fields:
+            raise ValueError(
+                f"Phase-three asset {asset_index} has blank or non-string fields: {invalid_fields}"
+            )
+        expected_category = PHASE3_SOURCE_FOLDERS.get(source_folder)
+        if expected_category is None:
+            raise ValueError(
+                f"Phase-three asset {asset_index} has unknown source folder: {source_folder}"
+            )
+        if category != expected_category:
+            raise ValueError(
+                f"Phase-three asset {asset_index} category mismatch for {source_folder}: "
+                f"{category!r} != {expected_category!r}"
+            )
+        if source_stem != identifier:
+            raise ValueError(
+                f"Phase-three asset {asset_index} must use one normalized model/texture/id stem: "
+                f"source={source_stem!r}, id={identifier!r}"
+            )
+        phase3_specs.append(
+            AssetSpec(
+                source_folder,
+                source_stem,
+                identifier,
+                category,
+                zh_cn,
+                en_us,
+                phase=3,
+            )
+        )
+
+    if len(phase3_specs) != 52:
+        raise ValueError(f"Expected 52 phase-three assets, found {len(phase3_specs)}")
+    phase3_counts = {
+        category: sum(spec.category == category for spec in phase3_specs)
+        for category in PHASE3_EXPECTED_CATEGORY_COUNTS
+    }
+    if phase3_counts != PHASE3_EXPECTED_CATEGORY_COUNTS:
+        raise ValueError(
+            f"Unexpected phase-three mapped counts: {phase3_counts}; "
+            f"expected {PHASE3_EXPECTED_CATEGORY_COUNTS}"
+        )
+    for source_folder in PHASE3_SOURCE_FOLDERS:
+        mapped_stems = {
+            spec.source_stem for spec in phase3_specs if spec.source_folder == source_folder
+        }
+        actual_stems = source_pair_stems(source_folder)
+        if mapped_stems != actual_stems:
+            raise ValueError(
+                f"Phase-three source mismatch in {source_folder}: "
+                f"mapping-only={sorted(mapped_stems - actual_stems)}, "
+                f"source-only={sorted(actual_stems - mapped_stems)}"
+            )
+    specs.extend(phase3_specs)
 
     counts = {
         category: sum(spec.category == category for spec in specs)
@@ -688,8 +848,8 @@ def discover_asset_specs() -> list[AssetSpec]:
         raise ValueError(
             f"Unexpected mapped counts: {counts}; expected {EXPECTED_CATEGORY_COUNTS}"
         )
-    if len(specs) != 161:
-        raise ValueError(f"Expected 161 assets, found {len(specs)}")
+    if len(specs) != 213:
+        raise ValueError(f"Expected 213 assets, found {len(specs)}")
     identifiers = [spec.identifier for spec in specs]
     if len(set(identifiers)) != len(identifiers):
         duplicates = sorted({identifier for identifier in identifiers if identifiers.count(identifier) > 1})
@@ -703,7 +863,7 @@ def discover_asset_specs() -> list[AssetSpec]:
         specs,
         key=lambda spec: (
             CATEGORY_ORDER.index(spec.category),
-            1 if spec.source_folder in PHASE2_SOURCE_CONFIG else 0,
+            spec.phase,
             spec.source_stem.lower(),
             spec.source_stem,
         ),
@@ -778,8 +938,11 @@ def _split_interval(start: float, end: float, maximum_size: float = 1.0) -> list
     ]
 
 
-def collision_boxes(element: dict[str, Any]) -> list[list[float | int]]:
-    """Approximate a rotated cuboid with <=1-model-unit cells in its rotation plane."""
+def collision_boxes(
+    element: dict[str, Any],
+    maximum_rotated_cell_size: float = 1.0,
+) -> list[list[float | int]]:
+    """Approximate a rotated cuboid with bounded cells in its rotation plane."""
     from_pos, to_pos = _inflated_bounds(element)
     rotation = _rotation_parts(element)
     if rotation is None:
@@ -792,7 +955,7 @@ def collision_boxes(element: dict[str, Any]) -> list[list[float | int]]:
         "z": (0, 1),
     }[axis]
     intervals = [
-        _split_interval(from_pos[index], to_pos[index])
+        _split_interval(from_pos[index], to_pos[index], maximum_rotated_cell_size)
         for index in plane_axes
     ]
 
@@ -814,6 +977,82 @@ def enclosing_collision_box(
     minimum = [min(float(box[index]) for box in boxes) for index in range(3)]
     maximum = [max(float(box[index + 3]) for box in boxes) for index in range(3)]
     return [[rounded(value) for value in minimum + maximum]]
+
+
+def _png_dimensions(path: Path) -> tuple[int, int]:
+    header = path.read_bytes()[:24]
+    if len(header) != 24 or header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
+        raise ValueError(f"Invalid PNG header: {path}")
+    return struct.unpack(">II", header[16:24])
+
+
+def _validate_phase3_embedded_texture(
+    source: dict[str, Any],
+    texture_index: int,
+    spec: AssetSpec,
+) -> None:
+    if spec.phase != 3:
+        return
+    texture_source = source.get("textures", [])[texture_index].get("source")
+    prefix = "data:image/png;base64,"
+    if not isinstance(texture_source, str) or not texture_source.startswith(prefix):
+        raise ValueError(f"Phase-three model has no embedded PNG: {spec.source_model}")
+    try:
+        embedded = base64.b64decode(texture_source[len(prefix):], validate=True)
+    except (ValueError, binascii.Error) as exception:
+        raise ValueError(f"Invalid embedded PNG in {spec.source_model}: {exception}") from exception
+    external = spec.source_texture.read_bytes()
+    if embedded != external:
+        raise ValueError(
+            f"Embedded/external texture mismatch for phase-three model {spec.source_stem}"
+        )
+
+
+def validate_animation_metadata(
+    spec: AssetSpec,
+    texture_size: list[int],
+) -> Path | None:
+    metadata_path = spec.source_animation_metadata
+    expects_animation = spec.phase == 3 and spec.source_folder == "动态指示灯（三期）"
+    if metadata_path.is_file() != expects_animation:
+        expectation = "required" if expects_animation else "unexpected"
+        raise ValueError(f"Animation metadata is {expectation}: {metadata_path}")
+    if not expects_animation:
+        return None
+
+    try:
+        payload = json.loads(metadata_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exception:
+        raise ValueError(f"Invalid animation metadata {metadata_path}: {exception}") from exception
+    if not isinstance(payload, dict) or set(payload) != {"animation"}:
+        raise ValueError(f"Animation metadata must contain only 'animation': {metadata_path}")
+    animation = payload["animation"]
+    if not isinstance(animation, dict):
+        raise ValueError(f"Animation entry must be an object: {metadata_path}")
+    if animation.get("frametime") != 10:
+        raise ValueError(f"Phase-three animation must use 2 FPS (frametime=10): {metadata_path}")
+    if "interpolate" in animation and not isinstance(animation["interpolate"], bool):
+        raise ValueError(f"Animation interpolate must be boolean: {metadata_path}")
+
+    png_width, png_height = _png_dimensions(spec.source_texture)
+    frame_width, frame_height = (int(value) for value in texture_size)
+    if png_width != frame_width or png_height % frame_height != 0:
+        raise ValueError(
+            f"Animation strip dimensions do not match the model frame size for {spec.identifier}: "
+            f"png={png_width}x{png_height}, frame={frame_width}x{frame_height}"
+        )
+    frame_count = png_height // frame_height
+    frames = animation.get("frames")
+    if frames is not None:
+        if not isinstance(frames, list) or not frames:
+            raise ValueError(f"Animation frames must be a non-empty list: {metadata_path}")
+        for frame in frames:
+            frame_index = frame.get("index") if isinstance(frame, dict) else frame
+            if not isinstance(frame_index, int) or isinstance(frame_index, bool):
+                raise ValueError(f"Invalid animation frame entry {frame!r}: {metadata_path}")
+            if frame_index < 0 or frame_index >= frame_count:
+                raise ValueError(f"Animation frame index out of range: {metadata_path}")
+    return metadata_path
 
 
 def scaled_uv(uv: list[float], width: int, height: int) -> list[float | int]:
@@ -919,6 +1158,7 @@ def export_model(
     width = int(source["resolution"]["width"])
     height = int(source["resolution"]["height"])
     texture_index = _referenced_texture_index(source, spec.source_stem)
+    _validate_phase3_embedded_texture(source, texture_index, spec)
     source_elements = source.get("elements", [])
     exported_source_elements = [
         element
@@ -931,12 +1171,20 @@ def export_model(
         export_element(element, width, height, texture_index)
         for element in exported_source_elements
     ]
+    maximum_rotated_cell_size = 1.0
+    if spec.phase == 3 and spec.category == "pole":
+        maximum_rotated_cell_size = (
+            3.0 if spec.identifier in PHASE3_LONG_DIAGONAL_POLE_IDS else 2.0
+        )
     boxes = [
         box
         for element in exported_source_elements
-        for box in collision_boxes(element)
+        for box in collision_boxes(element, maximum_rotated_cell_size)
     ]
-    if spec.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS:
+    if (
+        spec.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS
+        or (spec.phase == 3 and spec.category != "pole")
+    ):
         boxes = enclosing_collision_box(boxes)
     if len(elements) != len(exported_source_elements):
         raise AssertionError(f"Element export count mismatch for {spec.source_stem}")
@@ -963,7 +1211,11 @@ def write_json(path: Path, payload: Any) -> None:
 
 
 def is_phase2_spec(spec: AssetSpec) -> bool:
-    return spec.source_folder in PHASE2_SOURCE_CONFIG
+    return spec.phase == 2
+
+
+def is_phase3_spec(spec: AssetSpec) -> bool:
+    return spec.phase == 3
 
 
 def load_phase2_translation_source(phase2_specs: list[AssetSpec]) -> dict[str, Any]:
@@ -1070,6 +1322,64 @@ def phase2_locale_values(
     return values
 
 
+def load_phase3_translation_locales(
+    phase3_specs: list[AssetSpec],
+) -> dict[str, Any]:
+    payload = load_phase3_source()
+    expected_ids = {spec.identifier for spec in phase3_specs}
+    supplied_ids = {
+        asset.get("id")
+        for asset in payload["assets"]
+        if isinstance(asset, dict)
+    }
+    if supplied_ids != expected_ids:
+        raise ValueError(
+            "Phase-three translated identifier mismatch: "
+            f"missing={sorted(expected_ids - supplied_ids)}, "
+            f"extra={sorted(supplied_ids - expected_ids)}"
+        )
+    return payload["locales"]
+
+
+def phase3_locale_values(
+    locale: str,
+    locale_source: Any,
+    phase3_specs: list[AssetSpec],
+) -> dict[str, str]:
+    if not isinstance(locale_source, dict):
+        raise ValueError(f"Phase-three locale {locale} must be an object")
+    if set(locale_source) != {"names"}:
+        raise ValueError(
+            f"Phase-three locale fields differ for {locale}: "
+            f"missing={sorted({'names'} - set(locale_source))}, "
+            f"extra={sorted(set(locale_source) - {'names'})}"
+        )
+
+    expected_ids = {spec.identifier for spec in phase3_specs}
+    names = locale_source.get("names")
+    if not isinstance(names, dict) or set(names) != expected_ids:
+        supplied_name_ids = set(names) if isinstance(names, dict) else set()
+        raise ValueError(
+            f"Phase-three name identifier mismatch for {locale}: "
+            f"missing={sorted(expected_ids - supplied_name_ids)}, "
+            f"extra={sorted(supplied_name_ids - expected_ids)}"
+        )
+    values: dict[str, str] = {}
+    for spec in phase3_specs:
+        translated_name = names[spec.identifier]
+        if not isinstance(translated_name, str) or not translated_name.strip():
+            raise ValueError(
+                f"Blank or non-string phase-three name for {locale}: {spec.identifier}"
+            )
+        values[f"block.{MOD_ID}.{spec.identifier}"] = translated_name
+    if len(values) != len(phase3_specs):
+        raise ValueError(
+            f"Expected {len(phase3_specs)} phase-three translations for {locale}, "
+            f"found {len(values)}"
+        )
+    return values
+
+
 def _blockstate(identifier: str) -> dict[str, Any]:
     model = f"{MOD_ID}:block/{identifier}"
     return {
@@ -1103,6 +1413,16 @@ def main() -> None:
         raise ValueError(
             "Unknown simplified-collision IDs: "
             f"{sorted(SIMPLIFIED_BOUNDING_COLLISION_IDS - identifiers)}"
+        )
+    phase3_pole_ids = {
+        spec.identifier
+        for spec in specs
+        if is_phase3_spec(spec) and spec.category == "pole"
+    }
+    if not PHASE3_LONG_DIAGONAL_POLE_IDS <= phase3_pole_ids:
+        raise ValueError(
+            "Unknown phase-three long diagonal pole IDs: "
+            f"{sorted(PHASE3_LONG_DIAGONAL_POLE_IDS - phase3_pole_ids)}"
         )
 
     # These namespace roots are entirely generated by this script.
@@ -1139,6 +1459,7 @@ def main() -> None:
     total_collision_boxes = 0
     total_source_elements = 0
     total_excluded_elements = 0
+    total_animated_textures = 0
 
     for spec in specs:
         model, boxes, source_count, excluded_count = export_model(spec)
@@ -1151,7 +1472,12 @@ def main() -> None:
         write_json(blockstates / f"{spec.identifier}.json", _blockstate(spec.identifier))
         write_json(loot_tables / f"{spec.identifier}.json", _loot_table(spec.identifier))
         textures.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(spec.source_texture, textures / f"{spec.identifier}.png")
+        destination_texture = textures / f"{spec.identifier}.png"
+        shutil.copy2(spec.source_texture, destination_texture)
+        animation_metadata = validate_animation_metadata(spec, model["texture_size"])
+        if animation_metadata is not None:
+            shutil.copy2(animation_metadata, Path(f"{destination_texture}.mcmeta"))
+            total_animated_textures += 1
 
         translation_key = f"block.{MOD_ID}.{spec.identifier}"
         zh_cn[translation_key] = spec.zh_cn
@@ -1182,7 +1508,18 @@ def main() -> None:
     }
     for spec in phase2_specs:
         phase2_translation_keys.add(f"block.{MOD_ID}.{spec.identifier}")
-    phase1_translation_keys = expected_translation_keys - phase2_translation_keys
+    phase3_specs = [spec for spec in specs if is_phase3_spec(spec)]
+    if len(phase3_specs) != 52:
+        raise ValueError(f"Expected 52 phase-three assets, found {len(phase3_specs)}")
+    phase3_translation_keys = {
+        f"block.{MOD_ID}.{spec.identifier}"
+        for spec in phase3_specs
+    }
+    if phase2_translation_keys & phase3_translation_keys:
+        raise ValueError("Phase-two and phase-three translation keys overlap")
+    phase1_translation_keys = (
+        expected_translation_keys - phase2_translation_keys - phase3_translation_keys
+    )
     if len(phase1_translation_keys) != 106:
         raise ValueError(
             f"Expected 106 phase-one translation keys, found {len(phase1_translation_keys)}"
@@ -1191,11 +1528,16 @@ def main() -> None:
         raise ValueError(
             f"Expected 59 phase-two translation keys, found {len(phase2_translation_keys)}"
         )
-    if len(expected_translation_keys) != 165:
+    if len(phase3_translation_keys) != 52:
         raise ValueError(
-            f"Expected 165 complete translation keys, found {len(expected_translation_keys)}"
+            f"Expected 52 phase-three translation keys, found {len(phase3_translation_keys)}"
+        )
+    if len(expected_translation_keys) != 217:
+        raise ValueError(
+            f"Expected 217 complete translation keys, found {len(expected_translation_keys)}"
         )
     phase2_translation_locales = load_phase2_translation_source(phase2_specs)
+    phase3_translation_locales = load_phase3_translation_locales(phase3_specs)
     for locale in EXTRA_LOCALES:
         source_path = TRANSLATION_SOURCE_ROOT / f"{locale}.json"
         if not source_path.is_file():
@@ -1235,6 +1577,18 @@ def main() -> None:
                 f"{sorted(overlapping_keys)}"
             )
         translated.update(phase2_translated)
+        phase3_translated = phase3_locale_values(
+            locale,
+            phase3_translation_locales[locale],
+            phase3_specs,
+        )
+        overlapping_keys = set(translated) & set(phase3_translated)
+        if overlapping_keys:
+            raise ValueError(
+                f"Earlier/phase-three translation overlap for {locale}: "
+                f"{sorted(overlapping_keys)}"
+            )
+        translated.update(phase3_translated)
         if set(translated) != expected_translation_keys:
             raise ValueError(
                 f"Complete translation key mismatch for {locale}: "
@@ -1273,7 +1627,8 @@ def main() -> None:
         f"{counts['annex']} annex), "
         f"{total_elements} visible source/model elements and {total_collision_boxes} collision boxes "
         f"({total_excluded_elements} hidden placeholders excluded from "
-        f"{total_source_elements} raw cubes), {len(translations)} complete languages."
+        f"{total_source_elements} raw cubes), {total_animated_textures} animated textures at 2 FPS, "
+        f"{len(translations)} complete languages."
     )
 
 
