@@ -11,3 +11,13 @@ __pycache__/
 *.xls
 *.xlsm
 ~$*
+
+# Local build, runtime and review output are not public source.
+.architectury-transformer/
+crash-reports/
+logs/
+*.log
+*.py[cod]
+*.class
+*.zip
+.venv/

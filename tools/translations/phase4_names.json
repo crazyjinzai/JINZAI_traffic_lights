@@ -1,0 +1,450 @@
+{
+  "schema": 1,
+  "assets": [
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_c35",
+      "id": "jinzai_traffic_light_c35",
+      "category": "frame",
+      "zh_cn": "北京红绿灯",
+      "en_us": "Beijing-Style Traffic Light"
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_c37",
+      "id": "jinzai_traffic_light_c37",
+      "category": "frame",
+      "zh_cn": "北京红绿灯2",
+      "en_us": "Beijing-Style Traffic Light 2"
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_r9",
+      "id": "jinzai_traffic_light_r9",
+      "category": "frame",
+      "zh_cn": "北京人行道红绿灯",
+      "en_us": "Beijing-Style Pedestrian Traffic Light"
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_f1",
+      "id": "jinzai_traffic_light_f1",
+      "category": "frame",
+      "zh_cn": "LED车道指示牌",
+      "en_us": "LED Lane Control Sign"
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_x1",
+      "id": "jinzai_traffic_light_x1",
+      "category": "frame",
+      "zh_cn": "车道指示框架1",
+      "en_us": "Lane Signal Frame 1"
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_x2",
+      "id": "jinzai_traffic_light_x2",
+      "category": "frame",
+      "zh_cn": "车道指示框架2",
+      "en_us": "Lane Signal Frame 2"
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f1",
+      "id": "jinzai_traffic_indicator_f1",
+      "category": "indicator",
+      "zh_cn": "可通行指示灯-LED指示牌专用",
+      "en_us": "Lane Open Signal - for LED Sign"
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f2",
+      "id": "jinzai_traffic_indicator_f2",
+      "category": "indicator",
+      "zh_cn": "禁止通行指示灯-LED指示牌专用",
+      "en_us": "Lane Closed Signal - for LED Sign"
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f3",
+      "id": "jinzai_traffic_indicator_f3",
+      "category": "indicator",
+      "zh_cn": "右变道指示灯-LED指示牌专用",
+      "en_us": "Merge Right Signal - for LED Sign"
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f4",
+      "id": "jinzai_traffic_indicator_f4",
+      "category": "indicator",
+      "zh_cn": "左变道指示灯-LED指示牌专用",
+      "en_us": "Merge Left Signal - for LED Sign"
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_x1",
+      "id": "jinzai_traffic_indicator_x1",
+      "category": "indicator",
+      "zh_cn": "可通行指示灯-指示框架专用",
+      "en_us": "Lane Open Signal - for Signal Frame"
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_x2",
+      "id": "jinzai_traffic_indicator_x2",
+      "category": "indicator",
+      "zh_cn": "禁止通行指示灯-指示框架专用",
+      "en_us": "Lane Closed Signal - for Signal Frame"
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "bd_pole_18",
+      "id": "bd_pole_18",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接8",
+      "en_us": "Thin Gray Horizontal Pole Connector 8"
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "bd_pole_19",
+      "id": "bd_pole_19",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-倒T字型",
+      "en_us": "Thin Gray Horizontal Pole - Inverted T-Shaped"
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "thick_pole_9",
+      "id": "thick_pole_9",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-连接3",
+      "en_us": "Thin Black Horizontal Pole Connector 3"
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "white_pole_9",
+      "id": "white_pole_9",
+      "category": "pole",
+      "zh_cn": "细白色横杆-连接3",
+      "en_us": "Thin White Horizontal Pole Connector 3"
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "white_pole_10",
+      "id": "white_pole_10",
+      "category": "pole",
+      "zh_cn": "细白色横杆-倒T字型",
+      "en_us": "Thin White Horizontal Pole - Inverted T-Shaped"
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5",
+      "id": "jinzai_traffic_annex_5",
+      "category": "annex",
+      "zh_cn": "交通摄像头",
+      "en_us": "Traffic Camera"
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5a",
+      "id": "jinzai_traffic_annex_5a",
+      "category": "annex",
+      "zh_cn": "交通摄像头2",
+      "en_us": "Traffic Camera 2"
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5b",
+      "id": "jinzai_traffic_annex_5b",
+      "category": "annex",
+      "zh_cn": "测速摄像头",
+      "en_us": "Speed Camera"
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5c",
+      "id": "jinzai_traffic_annex_5c",
+      "category": "annex",
+      "zh_cn": "交通闪光灯",
+      "en_us": "Traffic Flash Unit"
+    }
+  ],
+  "locales": {
+    "ar_sa": {
+      "names": {
+        "jinzai_traffic_light_c35": "إشارة مرور بطراز بكين",
+        "jinzai_traffic_light_c37": "إشارة مرور بطراز بكين 2",
+        "jinzai_traffic_light_r9": "إشارة مرور للمشاة بطراز بكين",
+        "jinzai_traffic_light_f1": "لوحة LED للتحكم بالمسارات",
+        "jinzai_traffic_light_x1": "إطار إشارة مسار 1",
+        "jinzai_traffic_light_x2": "إطار إشارة مسار 2",
+        "jinzai_traffic_indicator_f1": "إشارة مسار مفتوح - خاصة بلوحة LED",
+        "jinzai_traffic_indicator_f2": "إشارة مسار مغلق - خاصة بلوحة LED",
+        "jinzai_traffic_indicator_f3": "إشارة تغيير المسار إلى اليمين - خاصة بلوحة LED",
+        "jinzai_traffic_indicator_f4": "إشارة تغيير المسار إلى اليسار - خاصة بلوحة LED",
+        "jinzai_traffic_indicator_x1": "إشارة مسار مفتوح - خاصة بإطار الإشارة",
+        "jinzai_traffic_indicator_x2": "إشارة مسار مغلق - خاصة بإطار الإشارة",
+        "bd_pole_18": "عمود أفقي رمادي رفيع - موصل 8",
+        "bd_pole_19": "عمود أفقي رمادي رفيع - على شكل T مقلوب",
+        "thick_pole_9": "عمود أفقي أسود رفيع - موصل 3",
+        "white_pole_9": "عمود أفقي أبيض رفيع - موصل 3",
+        "white_pole_10": "عمود أفقي أبيض رفيع - على شكل T مقلوب",
+        "jinzai_traffic_annex_5": "كاميرا مرور",
+        "jinzai_traffic_annex_5a": "كاميرا مرور 2",
+        "jinzai_traffic_annex_5b": "كاميرا قياس السرعة",
+        "jinzai_traffic_annex_5c": "مصباح فلاش مروري"
+      }
+    },
+    "de_de": {
+      "names": {
+        "jinzai_traffic_light_c35": "Ampel im Peking-Stil",
+        "jinzai_traffic_light_c37": "Ampel im Peking-Stil 2",
+        "jinzai_traffic_light_r9": "Fußgängerampel im Peking-Stil",
+        "jinzai_traffic_light_f1": "LED-Fahrstreifenanzeige",
+        "jinzai_traffic_light_x1": "Fahrstreifensignalrahmen 1",
+        "jinzai_traffic_light_x2": "Fahrstreifensignalrahmen 2",
+        "jinzai_traffic_indicator_f1": "Signal für freien Fahrstreifen - Für LED-Anzeige",
+        "jinzai_traffic_indicator_f2": "Signal für gesperrten Fahrstreifen - Für LED-Anzeige",
+        "jinzai_traffic_indicator_f3": "Signal zum Fahrstreifenwechsel nach rechts - Für LED-Anzeige",
+        "jinzai_traffic_indicator_f4": "Signal zum Fahrstreifenwechsel nach links - Für LED-Anzeige",
+        "jinzai_traffic_indicator_x1": "Signal für freien Fahrstreifen - Für Signalrahmen",
+        "jinzai_traffic_indicator_x2": "Signal für gesperrten Fahrstreifen - Für Signalrahmen",
+        "bd_pole_18": "Dünner grauer Querarm - Verbinder 8",
+        "bd_pole_19": "Dünner grauer Querarm - Umgekehrte T-Form",
+        "thick_pole_9": "Dünner schwarzer Querarm - Verbinder 3",
+        "white_pole_9": "Dünner weißer Querarm - Verbinder 3",
+        "white_pole_10": "Dünner weißer Querarm - Umgekehrte T-Form",
+        "jinzai_traffic_annex_5": "Verkehrskamera",
+        "jinzai_traffic_annex_5a": "Verkehrskamera 2",
+        "jinzai_traffic_annex_5b": "Geschwindigkeitsmesskamera",
+        "jinzai_traffic_annex_5c": "Blitzlicht für den Straßenverkehr"
+      }
+    },
+    "es_es": {
+      "names": {
+        "jinzai_traffic_light_c35": "Semáforo de estilo pequinés",
+        "jinzai_traffic_light_c37": "Semáforo de estilo pequinés 2",
+        "jinzai_traffic_light_r9": "Semáforo peatonal de estilo pequinés",
+        "jinzai_traffic_light_f1": "Panel LED de control de carriles",
+        "jinzai_traffic_light_x1": "Marco de señal de carril 1",
+        "jinzai_traffic_light_x2": "Marco de señal de carril 2",
+        "jinzai_traffic_indicator_f1": "Señal de carril abierto - Para panel LED",
+        "jinzai_traffic_indicator_f2": "Señal de carril cerrado - Para panel LED",
+        "jinzai_traffic_indicator_f3": "Señal de cambio de carril a la derecha - Para panel LED",
+        "jinzai_traffic_indicator_f4": "Señal de cambio de carril a la izquierda - Para panel LED",
+        "jinzai_traffic_indicator_x1": "Señal de carril abierto - Para marco de señal",
+        "jinzai_traffic_indicator_x2": "Señal de carril cerrado - Para marco de señal",
+        "bd_pole_18": "Poste horizontal gris fino - Conector 8",
+        "bd_pole_19": "Poste horizontal gris fino - En forma de T invertida",
+        "thick_pole_9": "Poste horizontal negro fino - Conector 3",
+        "white_pole_9": "Poste horizontal blanco fino - Conector 3",
+        "white_pole_10": "Poste horizontal blanco fino - En forma de T invertida",
+        "jinzai_traffic_annex_5": "Cámara de tráfico",
+        "jinzai_traffic_annex_5a": "Cámara de tráfico 2",
+        "jinzai_traffic_annex_5b": "Cámara de control de velocidad",
+        "jinzai_traffic_annex_5c": "Flash de tráfico"
+      }
+    },
+    "fr_fr": {
+      "names": {
+        "jinzai_traffic_light_c35": "Feu de circulation de style pékinois",
+        "jinzai_traffic_light_c37": "Feu de circulation de style pékinois 2",
+        "jinzai_traffic_light_r9": "Feu piéton de style pékinois",
+        "jinzai_traffic_light_f1": "Panneau LED de contrôle des voies",
+        "jinzai_traffic_light_x1": "Cadre de signal de voie 1",
+        "jinzai_traffic_light_x2": "Cadre de signal de voie 2",
+        "jinzai_traffic_indicator_f1": "Signal de voie ouverte - Pour panneau LED",
+        "jinzai_traffic_indicator_f2": "Signal de voie fermée - Pour panneau LED",
+        "jinzai_traffic_indicator_f3": "Signal de changement de voie à droite - Pour panneau LED",
+        "jinzai_traffic_indicator_f4": "Signal de changement de voie à gauche - Pour panneau LED",
+        "jinzai_traffic_indicator_x1": "Signal de voie ouverte - Pour cadre de signal",
+        "jinzai_traffic_indicator_x2": "Signal de voie fermée - Pour cadre de signal",
+        "bd_pole_18": "Mât horizontal gris fin - Raccord 8",
+        "bd_pole_19": "Mât horizontal gris fin - En T inversé",
+        "thick_pole_9": "Mât horizontal noir fin - Raccord 3",
+        "white_pole_9": "Mât horizontal blanc fin - Raccord 3",
+        "white_pole_10": "Mât horizontal blanc fin - En T inversé",
+        "jinzai_traffic_annex_5": "Caméra de circulation",
+        "jinzai_traffic_annex_5a": "Caméra de circulation 2",
+        "jinzai_traffic_annex_5b": "Caméra de contrôle de vitesse",
+        "jinzai_traffic_annex_5c": "Flash routier"
+      }
+    },
+    "hi_in": {
+      "names": {
+        "jinzai_traffic_light_c35": "बीजिंग-शैली ट्रैफिक सिग्नल",
+        "jinzai_traffic_light_c37": "बीजिंग-शैली ट्रैफिक सिग्नल 2",
+        "jinzai_traffic_light_r9": "बीजिंग-शैली पैदल यात्री सिग्नल",
+        "jinzai_traffic_light_f1": "LED लेन नियंत्रण संकेत पट्ट",
+        "jinzai_traffic_light_x1": "लेन संकेत फ़्रेम 1",
+        "jinzai_traffic_light_x2": "लेन संकेत फ़्रेम 2",
+        "jinzai_traffic_indicator_f1": "खुली लेन की संकेत बत्ती - केवल LED संकेत पट्ट के लिए",
+        "jinzai_traffic_indicator_f2": "बंद लेन की संकेत बत्ती - केवल LED संकेत पट्ट के लिए",
+        "jinzai_traffic_indicator_f3": "दाईं लेन में जाने की संकेत बत्ती - केवल LED संकेत पट्ट के लिए",
+        "jinzai_traffic_indicator_f4": "बाईं लेन में जाने की संकेत बत्ती - केवल LED संकेत पट्ट के लिए",
+        "jinzai_traffic_indicator_x1": "खुली लेन की संकेत बत्ती - केवल संकेत फ़्रेम के लिए",
+        "jinzai_traffic_indicator_x2": "बंद लेन की संकेत बत्ती - केवल संकेत फ़्रेम के लिए",
+        "bd_pole_18": "पतला धूसर क्षैतिज खंभा - कनेक्टर 8",
+        "bd_pole_19": "पतला धूसर क्षैतिज खंभा - उल्टा T-आकार",
+        "thick_pole_9": "पतला काला क्षैतिज खंभा - कनेक्टर 3",
+        "white_pole_9": "पतला सफेद क्षैतिज खंभा - कनेक्टर 3",
+        "white_pole_10": "पतला सफेद क्षैतिज खंभा - उल्टा T-आकार",
+        "jinzai_traffic_annex_5": "यातायात कैमरा",
+        "jinzai_traffic_annex_5a": "यातायात कैमरा 2",
+        "jinzai_traffic_annex_5b": "गति मापने वाला कैमरा",
+        "jinzai_traffic_annex_5c": "यातायात फ़्लैश लाइट"
+      }
+    },
+    "id_id": {
+      "names": {
+        "jinzai_traffic_light_c35": "Lampu Lalu Lintas Gaya Beijing",
+        "jinzai_traffic_light_c37": "Lampu Lalu Lintas Gaya Beijing 2",
+        "jinzai_traffic_light_r9": "Lampu Lalu Lintas Pejalan Kaki Gaya Beijing",
+        "jinzai_traffic_light_f1": "Papan LED Pengatur Lajur",
+        "jinzai_traffic_light_x1": "Bingkai Sinyal Lajur 1",
+        "jinzai_traffic_light_x2": "Bingkai Sinyal Lajur 2",
+        "jinzai_traffic_indicator_f1": "Sinyal Lajur Terbuka - Khusus Papan LED",
+        "jinzai_traffic_indicator_f2": "Sinyal Lajur Tertutup - Khusus Papan LED",
+        "jinzai_traffic_indicator_f3": "Sinyal Pindah Lajur ke Kanan - Khusus Papan LED",
+        "jinzai_traffic_indicator_f4": "Sinyal Pindah Lajur ke Kiri - Khusus Papan LED",
+        "jinzai_traffic_indicator_x1": "Sinyal Lajur Terbuka - Khusus Bingkai Sinyal",
+        "jinzai_traffic_indicator_x2": "Sinyal Lajur Tertutup - Khusus Bingkai Sinyal",
+        "bd_pole_18": "Tiang Horizontal Abu-abu Tipis - Konektor 8",
+        "bd_pole_19": "Tiang Horizontal Abu-abu Tipis - Bentuk T Terbalik",
+        "thick_pole_9": "Tiang Horizontal Hitam Tipis - Konektor 3",
+        "white_pole_9": "Tiang Horizontal Putih Tipis - Konektor 3",
+        "white_pole_10": "Tiang Horizontal Putih Tipis - Bentuk T Terbalik",
+        "jinzai_traffic_annex_5": "Kamera Lalu Lintas",
+        "jinzai_traffic_annex_5a": "Kamera Lalu Lintas 2",
+        "jinzai_traffic_annex_5b": "Kamera Pengukur Kecepatan",
+        "jinzai_traffic_annex_5c": "Lampu Kilat Lalu Lintas"
+      }
+    },
+    "ja_jp": {
+      "names": {
+        "jinzai_traffic_light_c35": "北京式信号機",
+        "jinzai_traffic_light_c37": "北京式信号機2",
+        "jinzai_traffic_light_r9": "北京式歩行者信号機",
+        "jinzai_traffic_light_f1": "LED車線制御表示板",
+        "jinzai_traffic_light_x1": "車線信号フレーム1",
+        "jinzai_traffic_light_x2": "車線信号フレーム2",
+        "jinzai_traffic_indicator_f1": "通行可信号灯 - LED表示板専用",
+        "jinzai_traffic_indicator_f2": "通行禁止信号灯 - LED表示板専用",
+        "jinzai_traffic_indicator_f3": "右車線変更信号灯 - LED表示板専用",
+        "jinzai_traffic_indicator_f4": "左車線変更信号灯 - LED表示板専用",
+        "jinzai_traffic_indicator_x1": "通行可信号灯 - 信号フレーム専用",
+        "jinzai_traffic_indicator_x2": "通行禁止信号灯 - 信号フレーム専用",
+        "bd_pole_18": "細型グレー横杆 - 接続8",
+        "bd_pole_19": "細型グレー横杆 - 逆T字型",
+        "thick_pole_9": "細型ブラック横杆 - 接続3",
+        "white_pole_9": "細型ホワイト横杆 - 接続3",
+        "white_pole_10": "細型ホワイト横杆 - 逆T字型",
+        "jinzai_traffic_annex_5": "交通カメラ",
+        "jinzai_traffic_annex_5a": "交通カメラ2",
+        "jinzai_traffic_annex_5b": "速度測定カメラ",
+        "jinzai_traffic_annex_5c": "交通用フラッシュ灯"
+      }
+    },
+    "ko_kr": {
+      "names": {
+        "jinzai_traffic_light_c35": "베이징식 신호등",
+        "jinzai_traffic_light_c37": "베이징식 신호등 2",
+        "jinzai_traffic_light_r9": "베이징식 보행자 신호등",
+        "jinzai_traffic_light_f1": "LED 차로 제어 표지판",
+        "jinzai_traffic_light_x1": "차로 신호 프레임 1",
+        "jinzai_traffic_light_x2": "차로 신호 프레임 2",
+        "jinzai_traffic_indicator_f1": "통행 가능 신호 - LED 표지판 전용",
+        "jinzai_traffic_indicator_f2": "통행 금지 신호 - LED 표지판 전용",
+        "jinzai_traffic_indicator_f3": "오른쪽 차로 변경 신호 - LED 표지판 전용",
+        "jinzai_traffic_indicator_f4": "왼쪽 차로 변경 신호 - LED 표지판 전용",
+        "jinzai_traffic_indicator_x1": "통행 가능 신호 - 신호 프레임 전용",
+        "jinzai_traffic_indicator_x2": "통행 금지 신호 - 신호 프레임 전용",
+        "bd_pole_18": "얇은 회색 가로 기둥 - 연결부 8",
+        "bd_pole_19": "얇은 회색 가로 기둥 - 역T자형",
+        "thick_pole_9": "얇은 검은색 가로 기둥 - 연결부 3",
+        "white_pole_9": "얇은 흰색 가로 기둥 - 연결부 3",
+        "white_pole_10": "얇은 흰색 가로 기둥 - 역T자형",
+        "jinzai_traffic_annex_5": "교통 카메라",
+        "jinzai_traffic_annex_5a": "교통 카메라 2",
+        "jinzai_traffic_annex_5b": "속도 측정 카메라",
+        "jinzai_traffic_annex_5c": "교통용 플래시"
+      }
+    },
+    "pt_br": {
+      "names": {
+        "jinzai_traffic_light_c35": "Semáforo de Estilo Pequim",
+        "jinzai_traffic_light_c37": "Semáforo de Estilo Pequim 2",
+        "jinzai_traffic_light_r9": "Semáforo de Pedestres de Estilo Pequim",
+        "jinzai_traffic_light_f1": "Painel LED de Controle de Faixas",
+        "jinzai_traffic_light_x1": "Moldura de Sinal de Faixa 1",
+        "jinzai_traffic_light_x2": "Moldura de Sinal de Faixa 2",
+        "jinzai_traffic_indicator_f1": "Sinal de Faixa Liberada - Para Painel LED",
+        "jinzai_traffic_indicator_f2": "Sinal de Faixa Interditada - Para Painel LED",
+        "jinzai_traffic_indicator_f3": "Sinal de Mudança de Faixa à Direita - Para Painel LED",
+        "jinzai_traffic_indicator_f4": "Sinal de Mudança de Faixa à Esquerda - Para Painel LED",
+        "jinzai_traffic_indicator_x1": "Sinal de Faixa Liberada - Para Moldura de Sinal",
+        "jinzai_traffic_indicator_x2": "Sinal de Faixa Interditada - Para Moldura de Sinal",
+        "bd_pole_18": "Poste Horizontal Cinza Fino - Conector 8",
+        "bd_pole_19": "Poste Horizontal Cinza Fino - Em Forma de T Invertido",
+        "thick_pole_9": "Poste Horizontal Preto Fino - Conector 3",
+        "white_pole_9": "Poste Horizontal Branco Fino - Conector 3",
+        "white_pole_10": "Poste Horizontal Branco Fino - Em Forma de T Invertido",
+        "jinzai_traffic_annex_5": "Câmera de Trânsito",
+        "jinzai_traffic_annex_5a": "Câmera de Trânsito 2",
+        "jinzai_traffic_annex_5b": "Câmera de Controle de Velocidade",
+        "jinzai_traffic_annex_5c": "Flash de Trânsito"
+      }
+    },
+    "ru_ru": {
+      "names": {
+        "jinzai_traffic_light_c35": "Светофор в пекинском стиле",
+        "jinzai_traffic_light_c37": "Светофор в пекинском стиле 2",
+        "jinzai_traffic_light_r9": "Пешеходный светофор в пекинском стиле",
+        "jinzai_traffic_light_f1": "Светодиодное табло управления полосами",
+        "jinzai_traffic_light_x1": "Рамка полосного сигнала 1",
+        "jinzai_traffic_light_x2": "Рамка полосного сигнала 2",
+        "jinzai_traffic_indicator_f1": "Сигнал открытой полосы - Для светодиодного табло",
+        "jinzai_traffic_indicator_f2": "Сигнал закрытой полосы - Для светодиодного табло",
+        "jinzai_traffic_indicator_f3": "Сигнал перестроения вправо - Для светодиодного табло",
+        "jinzai_traffic_indicator_f4": "Сигнал перестроения влево - Для светодиодного табло",
+        "jinzai_traffic_indicator_x1": "Сигнал открытой полосы - Для рамки сигнала",
+        "jinzai_traffic_indicator_x2": "Сигнал закрытой полосы - Для рамки сигнала",
+        "bd_pole_18": "Тонкая серая горизонтальная стойка - Соединитель 8",
+        "bd_pole_19": "Тонкая серая горизонтальная стойка - Перевёрнутая Т-образная",
+        "thick_pole_9": "Тонкая чёрная горизонтальная стойка - Соединитель 3",
+        "white_pole_9": "Тонкая белая горизонтальная стойка - Соединитель 3",
+        "white_pole_10": "Тонкая белая горизонтальная стойка - Перевёрнутая Т-образная",
+        "jinzai_traffic_annex_5": "Дорожная камера",
+        "jinzai_traffic_annex_5a": "Дорожная камера 2",
+        "jinzai_traffic_annex_5b": "Камера контроля скорости",
+        "jinzai_traffic_annex_5c": "Дорожная фотовспышка"
+      }
+    },
+    "tr_tr": {
+      "names": {
+        "jinzai_traffic_light_c35": "Pekin Tarzı Trafik Lambası",
+        "jinzai_traffic_light_c37": "Pekin Tarzı Trafik Lambası 2",
+        "jinzai_traffic_light_r9": "Pekin Tarzı Yaya Trafik Lambası",
+        "jinzai_traffic_light_f1": "LED Şerit Kontrol Levhası",
+        "jinzai_traffic_light_x1": "Şerit Sinyali Çerçevesi 1",
+        "jinzai_traffic_light_x2": "Şerit Sinyali Çerçevesi 2",
+        "jinzai_traffic_indicator_f1": "Açık Şerit Sinyali - LED Levhaya Özel",
+        "jinzai_traffic_indicator_f2": "Kapalı Şerit Sinyali - LED Levhaya Özel",
+        "jinzai_traffic_indicator_f3": "Sağa Şerit Değiştirme Sinyali - LED Levhaya Özel",
+        "jinzai_traffic_indicator_f4": "Sola Şerit Değiştirme Sinyali - LED Levhaya Özel",
+        "jinzai_traffic_indicator_x1": "Açık Şerit Sinyali - Sinyal Çerçevesine Özel",
+        "jinzai_traffic_indicator_x2": "Kapalı Şerit Sinyali - Sinyal Çerçevesine Özel",
+        "bd_pole_18": "İnce Gri Yatay Direk - Bağlantı 8",
+        "bd_pole_19": "İnce Gri Yatay Direk - Ters T Şeklinde",
+        "thick_pole_9": "İnce Siyah Yatay Direk - Bağlantı 3",
+        "white_pole_9": "İnce Beyaz Yatay Direk - Bağlantı 3",
+        "white_pole_10": "İnce Beyaz Yatay Direk - Ters T Şeklinde",
+        "jinzai_traffic_annex_5": "Trafik Kamerası",
+        "jinzai_traffic_annex_5a": "Trafik Kamerası 2",
+        "jinzai_traffic_annex_5b": "Hız Ölçüm Kamerası",
+        "jinzai_traffic_annex_5c": "Trafik Flaş Lambası"
+      }
+    }
+  }
+}

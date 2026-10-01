@@ -1,6 +1,12 @@
 津仔的交通灯
-Minecraft 1.20.1 / Architectury Fabric + Forge / Version 2.0.41
+Minecraft 1.20.1 / Architectury Fabric + Forge / Version 2.0.45
 发布署名 / Published by: Crzay津仔
 
 本模组由"Crzay津仔"提供美术与资金支持，"QiZhang"提供技术实现与制作。发布署名仅为"Crzay津仔"，美术素材版权归 "Crzay津仔"所有，模组代码/配置版权归"QiZhang"所有。
-All rights reserved.
+This project's original code, configuration, documentation, models, textures,
+and other artwork are licensed under the MIT License. See LICENSE for the
+full terms. Copyright ownership and credits remain as stated above.
+Third-party components retain their respective licenses.
+
+本项目自身的代码、配置、文档、模型、贴图及其他美术素材采用 MIT 许可证，
+完整条款见 LICENSE。上述版权归属和署名保持不变；第三方组件保留各自的许可证。

@@ -12,6 +12,8 @@
     "jinzai_traffic_lights:bd_pole_15",
     "jinzai_traffic_lights:bd_pole_16",
     "jinzai_traffic_lights:bd_pole_17",
+    "jinzai_traffic_lights:bd_pole_18",
+    "jinzai_traffic_lights:bd_pole_19",
     "jinzai_traffic_lights:bd_pole_2",
     "jinzai_traffic_lights:bd_pole_3",
     "jinzai_traffic_lights:bd_pole_4",
@@ -58,7 +60,9 @@
     "jinzai_traffic_lights:thick_pole_7",
     "jinzai_traffic_lights:thick_pole_8",
     "jinzai_traffic_lights:thick_pole_8a",
+    "jinzai_traffic_lights:thick_pole_9",
     "jinzai_traffic_lights:white_pole_1",
+    "jinzai_traffic_lights:white_pole_10",
     "jinzai_traffic_lights:white_pole_3",
     "jinzai_traffic_lights:white_pole_3a",
     "jinzai_traffic_lights:white_pole_3b",
@@ -72,6 +76,7 @@
     "jinzai_traffic_lights:white_pole_6",
     "jinzai_traffic_lights:white_pole_7",
     "jinzai_traffic_lights:white_pole_7a",
-    "jinzai_traffic_lights:white_pole_8"
+    "jinzai_traffic_lights:white_pole_8",
+    "jinzai_traffic_lights:white_pole_9"
   ]
 }

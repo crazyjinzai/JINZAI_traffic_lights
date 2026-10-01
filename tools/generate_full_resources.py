@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import argparse
 import base64
 import binascii
 import itertools
@@ -20,6 +21,7 @@ from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
+WORKBOOK_ROOT = ROOT
 MOD_ID = "jinzai_traffic_lights"
 RESOURCE_ROOT = ROOT / "common" / "src" / "main" / "resources"
 ASSET_ROOT = RESOURCE_ROOT / "assets" / MOD_ID
@@ -27,6 +29,12 @@ DATA_ROOT = RESOURCE_ROOT / "data" / MOD_ID
 TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
 PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
 PHASE3_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase3_names.json"
+PHASE4_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase4_names.json"
+# Inventory-only fitting corrections; supplied art and placed geometry stay intact.
+GUI_DISPLAY_OVERRIDES = json.loads((ROOT / "tools" / "gui_display_overrides.json").read_text(encoding="utf-8"))
+# Supplied bd_pole_18 retains its author's old internal model/texture name.
+# Keep the source bytes intact; the workbook filename remains the registry ID.
+PHASE4_INTERNAL_SOURCE_ALIASES = {"bd_pole_18": "bd_pole_14"}
 EXTRA_LOCALES = (
     "ar_sa",
     "de_de",
@@ -95,11 +103,17 @@ PHASE3_EXPECTED_CATEGORY_COUNTS = {
 }
 
 CATEGORY_ORDER = ("frame", "indicator", "pole", "annex")
+PHASE4_SOURCE_FOLDERS = {
+    "红绿灯框架（四期新增）": ("frame", 6),
+    "指示灯（四期新增）": ("indicator", 6),
+    "杆子（四期新增）": ("pole", 5),
+    "交通灯附属（四期新增）": ("annex", 4),
+}
 EXPECTED_CATEGORY_COUNTS = {
-    "frame": 59,
-    "indicator": 72,
-    "pole": 72,
-    "annex": 10,
+    "frame": 65,
+    "indicator": 78,
+    "pole": 77,
+    "annex": 14,
 }
 
 # Phase-two frame identifiers intentionally preserve the identifiers supplied in
@@ -142,6 +156,14 @@ SIMPLIFIED_BOUNDING_COLLISION_IDS = frozenset({
 PHASE3_LONG_DIAGONAL_POLE_IDS = frozenset({
     "bd_pole_8",
     "bd_pole_10",
+})
+
+# Existing IDs whose visible model was replaced in the phase-four delivery.
+# All newly supplied visible models use one envelope of the placed volume.
+PHASE4_MODIFIED_MODEL_IDS = frozenset({
+    "jinzai_traffic_light_c5",
+    "jinzai_traffic_light_h30",
+    "jinzai_traffic_light_h31",
 })
 
 _SHEET_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
@@ -467,14 +489,14 @@ def localized_description(spec: AssetSpec) -> tuple[str, str]:
     raise ValueError(spec.category)
 
 
-def load_phase3_source() -> dict[str, Any]:
-    if not PHASE3_TRANSLATION_SOURCE.is_file():
-        raise ValueError(f"Missing phase-three source: {PHASE3_TRANSLATION_SOURCE}")
+def load_expansion_source(source_path: Path = PHASE3_TRANSLATION_SOURCE) -> dict[str, Any]:
+    if not source_path.is_file():
+        raise ValueError(f"Missing expansion source: {source_path}")
     try:
-        payload = json.loads(PHASE3_TRANSLATION_SOURCE.read_text(encoding="utf-8"))
+        payload = json.loads(source_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exception:
         raise ValueError(
-            f"Invalid phase-three source {PHASE3_TRANSLATION_SOURCE}: {exception}"
+            f"Invalid expansion source {source_path}: {exception}"
         ) from exception
     if not isinstance(payload, dict):
         raise ValueError("Phase-three source must be a JSON object")
@@ -500,10 +522,36 @@ def load_phase3_source() -> dict[str, Any]:
     return payload
 
 
+def discover_phase4_specs() -> list[AssetSpec]:
+    payload = load_expansion_source(PHASE4_TRANSLATION_SOURCE)
+    assets = payload["assets"]
+    if len(assets) != 21:
+        raise ValueError(f"Expected 21 phase-four assets, found {len(assets)}")
+    fields = {"source_folder", "source_stem", "id", "category", "zh_cn", "en_us"}
+    result: list[AssetSpec] = []
+    for index, asset in enumerate(assets):
+        if not isinstance(asset, dict) or set(asset) != fields:
+            raise ValueError(f"Invalid phase-four asset fields at {index}")
+        if any(not isinstance(asset[key], str) or not asset[key].strip() for key in fields):
+            raise ValueError(f"Blank phase-four asset field at {index}")
+        folder = asset["source_folder"]
+        if folder not in PHASE4_SOURCE_FOLDERS or asset["category"] != PHASE4_SOURCE_FOLDERS[folder][0]:
+            raise ValueError(f"Invalid phase-four folder/category: {folder}")
+        if asset["source_stem"] != asset["id"] or not _RESOURCE_ID_RE.fullmatch(asset["id"]):
+            raise ValueError(f"Phase-four source/id is not normalized: {asset['id']}")
+        result.append(AssetSpec(folder, asset["source_stem"], asset["id"], asset["category"],
+                                asset["zh_cn"], asset["en_us"], phase=4))
+    for folder, (_, count) in PHASE4_SOURCE_FOLDERS.items():
+        stems = {spec.source_stem for spec in result if spec.source_folder == folder}
+        if len(stems) != count or stems != source_pair_stems(folder):
+            raise ValueError(f"Phase-four source inventory mismatch: {folder}")
+    return result
+
+
 def discover_asset_specs() -> list[AssetSpec]:
     specs: list[AssetSpec] = []
 
-    pole_rows = read_first_sheet_rows(ROOT / "杆子" / SOURCE_CONFIG["杆子"]["workbook"])
+    pole_rows = read_first_sheet_rows(WORKBOOK_ROOT / "杆子" / SOURCE_CONFIG["杆子"]["workbook"])
     pole_mapping: dict[str, str] = {}
     deprecated: set[str] = set()
     for row in pole_rows[1:]:
@@ -528,7 +576,7 @@ def discover_asset_specs() -> list[AssetSpec]:
             AssetSpec("杆子", stem, identifier, "pole", zh_cn, english_name("pole", zh_cn, stem))
         )
 
-    frame_rows = read_first_sheet_rows(ROOT / "红绿灯框架" / SOURCE_CONFIG["红绿灯框架"]["workbook"])
+    frame_rows = read_first_sheet_rows(WORKBOOK_ROOT / "红绿灯框架" / SOURCE_CONFIG["红绿灯框架"]["workbook"])
     frame_mapping = {row.get("A", ""): row.get("B", "") for row in frame_rows[1:] if row.get("A")}
     actual_frames = source_pair_stems("红绿灯框架")
     if set(frame_mapping) != actual_frames:
@@ -544,7 +592,7 @@ def discover_asset_specs() -> list[AssetSpec]:
             )
         )
 
-    indicator_rows = read_first_sheet_rows(ROOT / "指示灯" / SOURCE_CONFIG["指示灯"]["workbook"])
+    indicator_rows = read_first_sheet_rows(WORKBOOK_ROOT / "指示灯" / SOURCE_CONFIG["指示灯"]["workbook"])
     indicator_mapping: dict[str, tuple[str, str]] = {}
     actual_indicators = source_pair_stems("指示灯")
     for row_number, row in enumerate(indicator_rows[1:], start=2):
@@ -594,7 +642,7 @@ def discover_asset_specs() -> list[AssetSpec]:
 
     phase2_pole_folder = "杆子（新增）"
     phase2_pole_rows = read_first_sheet_rows(
-        ROOT / phase2_pole_folder / PHASE2_SOURCE_CONFIG[phase2_pole_folder]["workbook"]
+        WORKBOOK_ROOT / phase2_pole_folder / PHASE2_SOURCE_CONFIG[phase2_pole_folder]["workbook"]
     )
     phase2_pole_mapping = {
         row.get("A", ""): row.get("B", "")
@@ -623,7 +671,7 @@ def discover_asset_specs() -> list[AssetSpec]:
 
     phase2_frame_folder = "红绿灯框架（新增）"
     phase2_frame_rows = read_first_sheet_rows(
-        ROOT / phase2_frame_folder / PHASE2_SOURCE_CONFIG[phase2_frame_folder]["workbook"]
+        WORKBOOK_ROOT / phase2_frame_folder / PHASE2_SOURCE_CONFIG[phase2_frame_folder]["workbook"]
     )
     phase2_frame_mapping: dict[str, tuple[str, str]] = {}
     for row_number, row in enumerate(phase2_frame_rows[1:], start=2):
@@ -666,7 +714,7 @@ def discover_asset_specs() -> list[AssetSpec]:
 
     phase2_indicator_folder = "指示灯（新增）"
     phase2_indicator_rows = read_first_sheet_rows(
-        ROOT
+        WORKBOOK_ROOT
         / phase2_indicator_folder
         / PHASE2_SOURCE_CONFIG[phase2_indicator_folder]["workbook"]
     )
@@ -705,7 +753,7 @@ def discover_asset_specs() -> list[AssetSpec]:
 
     annex_folder = "交通灯附属"
     annex_rows = read_first_sheet_rows(
-        ROOT / annex_folder / PHASE2_SOURCE_CONFIG[annex_folder]["workbook"]
+        WORKBOOK_ROOT / annex_folder / PHASE2_SOURCE_CONFIG[annex_folder]["workbook"]
     )
     annex_mapping: dict[str, str] = {}
     deprecated_annexes: set[str] = set()
@@ -748,7 +796,7 @@ def discover_asset_specs() -> list[AssetSpec]:
             )
         )
 
-    phase3_payload = load_phase3_source()
+    phase3_payload = load_expansion_source()
     phase3_specs: list[AssetSpec] = []
     expected_phase3_asset_fields = {
         "source_folder",
@@ -839,6 +887,7 @@ def discover_asset_specs() -> list[AssetSpec]:
                 f"source-only={sorted(actual_stems - mapped_stems)}"
             )
     specs.extend(phase3_specs)
+    specs.extend(discover_phase4_specs())
 
     counts = {
         category: sum(spec.category == category for spec in specs)
@@ -848,8 +897,8 @@ def discover_asset_specs() -> list[AssetSpec]:
         raise ValueError(
             f"Unexpected mapped counts: {counts}; expected {EXPECTED_CATEGORY_COUNTS}"
         )
-    if len(specs) != 213:
-        raise ValueError(f"Expected 213 assets, found {len(specs)}")
+    if len(specs) != 234:
+        raise ValueError(f"Expected 234 assets, found {len(specs)}")
     identifiers = [spec.identifier for spec in specs]
     if len(set(identifiers)) != len(identifiers):
         duplicates = sorted({identifier for identifier in identifiers if identifiers.count(identifier) > 1})
@@ -991,7 +1040,7 @@ def _validate_phase3_embedded_texture(
     texture_index: int,
     spec: AssetSpec,
 ) -> None:
-    if spec.phase != 3:
+    if spec.phase not in (3, 4):
         return
     texture_source = source.get("textures", [])[texture_index].get("source")
     prefix = "data:image/png;base64,"
@@ -1153,11 +1202,12 @@ def export_model(
     meta = source.get("meta", {})
     if meta.get("model_format") != "java_block":
         raise ValueError(f"{spec.source_model.name} is not a java_block model")
-    if source.get("name") != spec.source_stem:
+    internal_name = PHASE4_INTERNAL_SOURCE_ALIASES.get(spec.identifier, spec.source_stem) if spec.phase == 4 else spec.source_stem
+    if source.get("name") != internal_name:
         raise ValueError(f"Model name/file mismatch: {spec.source_model}")
     width = int(source["resolution"]["width"])
     height = int(source["resolution"]["height"])
-    texture_index = _referenced_texture_index(source, spec.source_stem)
+    texture_index = _referenced_texture_index(source, internal_name)
     _validate_phase3_embedded_texture(source, texture_index, spec)
     source_elements = source.get("elements", [])
     exported_source_elements = [
@@ -1183,6 +1233,8 @@ def export_model(
     ]
     if (
         spec.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS
+        or spec.identifier in PHASE4_MODIFIED_MODEL_IDS
+        or spec.phase == 4
         or (spec.phase == 3 and spec.category != "pole")
     ):
         boxes = enclosing_collision_box(boxes)
@@ -1202,6 +1254,8 @@ def export_model(
     }
     if "display" in source:
         model["display"] = copy.deepcopy(source["display"])
+    if spec.identifier in GUI_DISPLAY_OVERRIDES:
+        model.setdefault("display", {})["gui"] = copy.deepcopy(GUI_DISPLAY_OVERRIDES[spec.identifier])
     return model, boxes, len(source_elements), len(source_elements) - len(exported_source_elements)
 
 
@@ -1322,10 +1376,11 @@ def phase2_locale_values(
     return values
 
 
-def load_phase3_translation_locales(
+def load_expansion_translation_locales(
     phase3_specs: list[AssetSpec],
+    source_path: Path = PHASE3_TRANSLATION_SOURCE,
 ) -> dict[str, Any]:
-    payload = load_phase3_source()
+    payload = load_expansion_source(source_path)
     expected_ids = {spec.identifier for spec in phase3_specs}
     supplied_ids = {
         asset.get("id")
@@ -1341,7 +1396,7 @@ def load_phase3_translation_locales(
     return payload["locales"]
 
 
-def phase3_locale_values(
+def expansion_locale_values(
     locale: str,
     locale_source: Any,
     phase3_specs: list[AssetSpec],
@@ -1407,6 +1462,14 @@ def _loot_table(identifier: str) -> dict[str, Any]:
 
 
 def main() -> None:
+    global WORKBOOK_ROOT
+    parser = argparse.ArgumentParser(description="Generate traffic-light runtime resources from source art.")
+    parser.add_argument(
+        "--private-input-root", type=Path, default=ROOT,
+        help="Private project root containing the original naming workbooks; source art stays in this repository.",
+    )
+    args = parser.parse_args()
+    WORKBOOK_ROOT = args.private_input_root.resolve()
     specs = discover_asset_specs()
     identifiers = {spec.identifier for spec in specs}
     if not SIMPLIFIED_BOUNDING_COLLISION_IDS <= identifiers:
@@ -1515,10 +1578,14 @@ def main() -> None:
         f"block.{MOD_ID}.{spec.identifier}"
         for spec in phase3_specs
     }
+    phase4_specs = [spec for spec in specs if spec.phase == 4]
+    phase4_translation_keys = {f"block.{MOD_ID}.{spec.identifier}" for spec in phase4_specs}
+    if len(phase4_specs) != 21 or len(phase4_translation_keys) != 21:
+        raise ValueError("Expected 21 unique phase-four translation keys")
     if phase2_translation_keys & phase3_translation_keys:
         raise ValueError("Phase-two and phase-three translation keys overlap")
     phase1_translation_keys = (
-        expected_translation_keys - phase2_translation_keys - phase3_translation_keys
+        expected_translation_keys - phase2_translation_keys - phase3_translation_keys - phase4_translation_keys
     )
     if len(phase1_translation_keys) != 106:
         raise ValueError(
@@ -1532,12 +1599,13 @@ def main() -> None:
         raise ValueError(
             f"Expected 52 phase-three translation keys, found {len(phase3_translation_keys)}"
         )
-    if len(expected_translation_keys) != 217:
+    if len(expected_translation_keys) != 238:
         raise ValueError(
-            f"Expected 217 complete translation keys, found {len(expected_translation_keys)}"
+            f"Expected 238 complete translation keys, found {len(expected_translation_keys)}"
         )
     phase2_translation_locales = load_phase2_translation_source(phase2_specs)
-    phase3_translation_locales = load_phase3_translation_locales(phase3_specs)
+    phase3_translation_locales = load_expansion_translation_locales(phase3_specs)
+    phase4_translation_locales = load_expansion_translation_locales(phase4_specs, PHASE4_TRANSLATION_SOURCE)
     for locale in EXTRA_LOCALES:
         source_path = TRANSLATION_SOURCE_ROOT / f"{locale}.json"
         if not source_path.is_file():
@@ -1577,7 +1645,7 @@ def main() -> None:
                 f"{sorted(overlapping_keys)}"
             )
         translated.update(phase2_translated)
-        phase3_translated = phase3_locale_values(
+        phase3_translated = expansion_locale_values(
             locale,
             phase3_translation_locales[locale],
             phase3_specs,
@@ -1589,6 +1657,10 @@ def main() -> None:
                 f"{sorted(overlapping_keys)}"
             )
         translated.update(phase3_translated)
+        phase4_translated = expansion_locale_values(locale, phase4_translation_locales[locale], phase4_specs)
+        if set(translated) & set(phase4_translated):
+            raise ValueError(f"Earlier/phase-four translation overlap for {locale}")
+        translated.update(phase4_translated)
         if set(translated) != expected_translation_keys:
             raise ValueError(
                 f"Complete translation key mismatch for {locale}: "

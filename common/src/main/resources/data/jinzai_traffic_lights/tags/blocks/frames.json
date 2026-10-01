@@ -33,10 +33,13 @@
     "jinzai_traffic_lights:jinzai_traffic_light_c29",
     "jinzai_traffic_lights:jinzai_traffic_light_c3",
     "jinzai_traffic_lights:jinzai_traffic_light_c33",
+    "jinzai_traffic_lights:jinzai_traffic_light_c35",
+    "jinzai_traffic_lights:jinzai_traffic_light_c37",
     "jinzai_traffic_lights:jinzai_traffic_light_c4",
     "jinzai_traffic_lights:jinzai_traffic_light_c5",
     "jinzai_traffic_lights:jinzai_traffic_light_c6",
     "jinzai_traffic_lights:jinzai_traffic_light_c7",
+    "jinzai_traffic_lights:jinzai_traffic_light_f1",
     "jinzai_traffic_lights:jinzai_traffic_light_h10",
     "jinzai_traffic_lights:jinzai_traffic_light_h11",
     "jinzai_traffic_lights:jinzai_traffic_light_h12",
@@ -58,7 +61,10 @@
     "jinzai_traffic_lights:jinzai_traffic_light_r7a",
     "jinzai_traffic_lights:jinzai_traffic_light_r8",
     "jinzai_traffic_lights:jinzai_traffic_light_r8a",
+    "jinzai_traffic_lights:jinzai_traffic_light_r9",
     "jinzai_traffic_lights:jinzai_traffic_light_s24",
-    "jinzai_traffic_lights:jinzai_traffic_light_s25"
+    "jinzai_traffic_lights:jinzai_traffic_light_s25",
+    "jinzai_traffic_lights:jinzai_traffic_light_x1",
+    "jinzai_traffic_lights:jinzai_traffic_light_x2"
   ]
 }

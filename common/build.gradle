@@ -13,6 +13,7 @@ dependencies {
 }
 
 jar {
+    from(rootProject.file("LICENSE"))
     from(rootProject.file("COPYRIGHT.txt"))
     from(rootProject.file("README.md"))
 }

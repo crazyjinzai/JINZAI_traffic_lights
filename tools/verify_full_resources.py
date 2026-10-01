@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import base64
 import binascii
+import copy
 import hashlib
 import itertools
 import json
@@ -20,8 +21,9 @@ from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
+WORKBOOK_ROOT = ROOT
 MOD_ID = "jinzai_traffic_lights"
-MOD_VERSION = "2.0.41"
+MOD_VERSION = "2.0.45"
 RESOURCE_ROOT = ROOT / "common" / "src" / "main" / "resources"
 ASSET_ROOT = RESOURCE_ROOT / "assets" / MOD_ID
 DATA_ROOT = RESOURCE_ROOT / "data" / MOD_ID
@@ -43,6 +45,17 @@ FORGE_METADATA_PATH = ROOT / "forge" / "src" / "main" / "resources" / "META-INF"
 TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
 PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
 PHASE3_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase3_names.json"
+PHASE4_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase4_names.json"
+GUI_DISPLAY_OVERRIDES = json.loads((ROOT / "tools" / "gui_display_overrides.json").read_text(encoding="utf-8"))
+EXPECTED_GUI_OVERRIDE_IDS = frozenset({
+    "bd_pole_3", "bd_pole_4", "bd_pole_4a", "bd_pole_5a",
+    "bd_pole_7", "bd_pole_8", "bd_pole_9", "bd_pole_10",
+    "thick_pole_3", "thick_pole_3a", "thick_pole_3b", "thick_pole_3c", "thick_pole_4f", "thick_pole_5",
+    "white_pole_3", "white_pole_3a", "white_pole_3b", "white_pole_3c", "white_pole_4d", "white_pole_5",
+    "jinzai_traffic_light_h14", "jinzai_traffic_light_h18", "jinzai_traffic_light_h19", "jinzai_traffic_light_h20",
+    "jinzai_traffic_light_h23c", "jinzai_traffic_ligh_r6a",
+})
+PHASE4_INTERNAL_SOURCE_ALIASES = {"bd_pole_18": "bd_pole_14"}
 EXTRA_LOCALES = (
     "ar_sa",
     "de_de",
@@ -95,19 +108,28 @@ EXPECTED_ANIMATION_FRAME_COUNTS = {
     "jinzai_dynamic_light_12": 11,
 }
 PHASE3_LONG_DIAGONAL_POLE_IDS = frozenset({"bd_pole_8", "bd_pole_10"})
+PHASE4_MODIFIED_MODEL_IDS = frozenset({
+    "jinzai_traffic_light_c5", "jinzai_traffic_light_h30", "jinzai_traffic_light_h31",
+})
 
 CATEGORIES = ("frame", "indicator", "pole", "annex")
-EXPECTED_CATEGORY_COUNTS = {
-    "frame": 59,
-    "indicator": 72,
-    "pole": 72,
-    "annex": 10,
+PHASE4_SOURCE_FOLDERS = {
+    "红绿灯框架（四期新增）": ("frame", 6),
+    "指示灯（四期新增）": ("indicator", 6),
+    "杆子（四期新增）": ("pole", 5),
+    "交通灯附属（四期新增）": ("annex", 4),
 }
-EXPECTED_ASSET_COUNT = 213
-EXPECTED_LANGUAGE_KEY_COUNT = 217
-EXPECTED_SOURCE_ELEMENT_COUNT = 3380
-EXPECTED_VISIBLE_ELEMENT_COUNT = 3377
-EXPECTED_COLLISION_BOX_COUNT = 3443
+EXPECTED_CATEGORY_COUNTS = {
+    "frame": 65,
+    "indicator": 78,
+    "pole": 77,
+    "annex": 14,
+}
+EXPECTED_ASSET_COUNT = 234
+EXPECTED_LANGUAGE_KEY_COUNT = 238
+EXPECTED_SOURCE_ELEMENT_COUNT = 3627
+EXPECTED_VISIBLE_ELEMENT_COUNT = 3624
+EXPECTED_COLLISION_BOX_COUNT = 3375
 EXPECTED_PHASE3_COLLISION_BOX_COUNT = 237
 EXPECTED_PHASE3_POLE_COLLISION_BOX_COUNT = 209
 EXPECTED_ANIMATION_METADATA_COUNT = 15
@@ -243,6 +265,30 @@ def paired_source_stems(folder: str) -> set[str]:
     return models
 
 
+def discover_phase4_assets() -> list[ExpectedAsset]:
+    payload = load_json(PHASE4_TRANSLATION_SOURCE)
+    assert isinstance(payload, dict) and set(payload) == {"schema", "assets", "locales"}
+    assert payload["schema"] == 1 and isinstance(payload["assets"], list)
+    assert len(payload["assets"]) == 21, "Phase four must contain all 21 supplied new models"
+    fields = {"source_folder", "source_stem", "id", "category", "zh_cn", "en_us"}
+    result: list[ExpectedAsset] = []
+    for asset in payload["assets"]:
+        assert isinstance(asset, dict) and set(asset) == fields
+        assert all(isinstance(asset[key], str) and asset[key].strip() for key in fields)
+        folder = asset["source_folder"]
+        assert folder in PHASE4_SOURCE_FOLDERS
+        assert asset["category"] == PHASE4_SOURCE_FOLDERS[folder][0]
+        assert asset["id"] == asset["source_stem"] and _RESOURCE_ID_RE.fullmatch(asset["id"])
+        result.append(ExpectedAsset(folder, asset["source_stem"], asset["id"], asset["category"],
+                                    asset["zh_cn"], asset["en_us"]))
+    for folder, (_, count) in PHASE4_SOURCE_FOLDERS.items():
+        stems = {item.source_stem for item in result if item.folder == folder}
+        assert len(stems) == count and stems == paired_source_stems(folder), (
+            f"Phase-four source inventory mismatch: {folder}"
+        )
+    return result
+
+
 def discover_expected_assets() -> list[ExpectedAsset]:
     expected: list[ExpectedAsset] = []
 
@@ -256,7 +302,7 @@ def discover_expected_assets() -> list[ExpectedAsset]:
         resolved: dict[str, tuple[str, str]] = {}
         deprecated: set[str] = set()
         source_aliases = aliases or {}
-        for row in read_xlsx_rows(ROOT / folder / workbook)[1:]:
+        for row in read_xlsx_rows(WORKBOOK_ROOT / folder / workbook)[1:]:
             workbook_stem = row.get("A", "")
             if not workbook_stem:
                 continue
@@ -297,7 +343,7 @@ def discover_expected_assets() -> list[ExpectedAsset]:
         aliases=NEW_FRAME_SOURCE_ALIASES,
     )
 
-    indicator_rows = read_xlsx_rows(ROOT / "指示灯" / SOURCE_FOLDERS["指示灯"][1])
+    indicator_rows = read_xlsx_rows(WORKBOOK_ROOT / "指示灯" / SOURCE_FOLDERS["指示灯"][1])
     indicator_map: dict[str, tuple[str, str]] = {}
     for row_number, row in enumerate(indicator_rows[1:], start=2):
         stem = row.get("A", "")
@@ -317,7 +363,7 @@ def discover_expected_assets() -> list[ExpectedAsset]:
     )
 
     new_indicator_rows = read_xlsx_rows(
-        ROOT / "指示灯（新增）" / SOURCE_FOLDERS["指示灯（新增）"][1]
+        WORKBOOK_ROOT / "指示灯（新增）" / SOURCE_FOLDERS["指示灯（新增）"][1]
     )
     new_indicator_map: dict[str, tuple[str, str]] = {}
     duplicate_7b_seen = False
@@ -434,6 +480,7 @@ def discover_expected_assets() -> list[ExpectedAsset]:
     assert "jinzai_traffic_light_h34" in phase3_ids, "Corrected h34 frame is missing"
     assert "jinzai_traffic_light_c34" not in phase3_ids, "Obsolete c34 frame ID remains"
     expected.extend(phase3_items)
+    expected.extend(discover_phase4_assets())
 
     category_counts = {
         category: sum(item.category == category for item in expected)
@@ -544,15 +591,16 @@ def expected_phase2_locale_values(
 
 def phase3_translation_locales(
     phase3_items: list[ExpectedAsset],
+    source_path: Path = PHASE3_TRANSLATION_SOURCE,
 ) -> dict[str, dict[str, Any]]:
-    payload = load_json(PHASE3_TRANSLATION_SOURCE)
+    payload = load_json(source_path)
     assert isinstance(payload, dict) and set(payload) == {"schema", "assets", "locales"}, (
         "Unexpected phase-three translation root fields"
     )
     assert payload["schema"] == 1, "Unsupported phase-three translation schema"
     supplied_ids = [asset.get("id") for asset in payload["assets"]]
     expected_ids = {item.identifier for item in phase3_items}
-    assert len(supplied_ids) == len(set(supplied_ids)) == 52, (
+    assert len(supplied_ids) == len(set(supplied_ids)) == len(phase3_items), (
         "Phase-three translated identifiers are missing or duplicated"
     )
     assert set(supplied_ids) == expected_ids, "Phase-three translated identifier mismatch"
@@ -563,7 +611,7 @@ def phase3_translation_locales(
     return locales
 
 
-def expected_phase3_locale_values(
+def expected_expansion_locale_values(
     locale: str,
     locale_source: dict[str, Any],
     phase3_items: list[ExpectedAsset],
@@ -583,7 +631,7 @@ def expected_phase3_locale_values(
             f"Blank phase-three name for {locale}: {item.identifier}"
         )
         values[f"block.{MOD_ID}.{item.identifier}"] = name
-    assert len(values) == len(phase3_items) == 52
+    assert len(values) == len(phase3_items)
     return values
 
 
@@ -738,6 +786,8 @@ def phase_of(item: ExpectedAsset) -> int:
         return 1
     if item.folder in PHASE2_SOURCE_FOLDERS:
         return 2
+    if item.folder in PHASE4_SOURCE_FOLDERS:
+        return 4
     assert item.folder in PHASE3_SOURCE_FOLDERS, f"Unknown source phase: {item.folder}"
     return 3
 
@@ -747,7 +797,7 @@ def verify_phase3_embedded_texture(
     texture_index: int,
     item: ExpectedAsset,
 ) -> None:
-    if phase_of(item) != 3:
+    if phase_of(item) not in (3, 4):
         return
     texture_source = source["textures"][texture_index].get("source")
     prefix = "data:image/png;base64,"
@@ -925,9 +975,10 @@ def expected_element(
 
 def expected_model(source: dict[str, Any], item: ExpectedAsset) -> dict[str, Any]:
     assert source.get("meta", {}).get("model_format") == "java_block"
-    assert source.get("name") == item.source_stem
+    internal_name = PHASE4_INTERNAL_SOURCE_ALIASES.get(item.identifier, item.source_stem) if phase_of(item) == 4 else item.source_stem
+    assert source.get("name") == internal_name
     width, height = int(source["resolution"]["width"]), int(source["resolution"]["height"])
-    texture_index = referenced_texture_index(source, item.source_stem)
+    texture_index = referenced_texture_index(source, internal_name)
     verify_phase3_embedded_texture(source, texture_index, item)
     exported_elements = [
         element
@@ -951,7 +1002,16 @@ def expected_model(source: dict[str, Any], item: ExpectedAsset) -> dict[str, Any
         ],
     }
     if "display" in source:
-        result["display"] = source["display"]
+        result["display"] = copy.deepcopy(source["display"])
+    if item.identifier in GUI_DISPLAY_OVERRIDES:
+        original_gui = source.get("display", {}).get("gui", {})
+        override = GUI_DISPLAY_OVERRIDES[item.identifier]
+        assert set(override) == {"rotation", "translation", "scale"}
+        assert override["rotation"] == original_gui.get("rotation", [0, 0, 0])
+        assert override["translation"][2] == original_gui.get("translation", [0, 0, 0])[2]
+        ratios = [new / old for new, old in zip(override["scale"], original_gui.get("scale", [1, 1, 1]))]
+        assert all(0 < ratio < 1 for ratio in ratios) and max(ratios) - min(ratios) < 1e-7
+        result.setdefault("display", {})["gui"] = copy.deepcopy(override)
     return result
 
 
@@ -1022,11 +1082,15 @@ def verify_icon_and_metadata() -> None:
     ], f"Expected exactly four creative categories, found {category_pairs}"
     assert "for (Category category : Category.values())" in common_main
     assert "ITEM_GROUPS.register(" in common_main
+    assert f"EXPECTED_CATALOG_ENTRY_COUNT = {EXPECTED_ASSET_COUNT};" in common_main
+    for category, count in EXPECTED_CATEGORY_COUNTS.items():
+        assert f"case {category.upper()} -> {count};" in common_main
     assert "DYNAMIC_INDICATOR" not in common_main, (
         "Animated indicators must remain in the existing indicator creative tab"
     )
 
     metadata = load_json(FABRIC_METADATA_PATH)
+    assert metadata.get("license") == "MIT", "Fabric metadata must retain the MIT license"
     assert metadata.get("icon") == "icon.png", "fabric.mod.json does not reference the packaged icon"
     assert metadata.get("authors") == ["Crzay津仔"], "Unexpected release author metadata"
     assert metadata.get("depends", {}).get("architectury") == ">=9.0.6 <10.0.0"
@@ -1034,6 +1098,7 @@ def verify_icon_and_metadata() -> None:
     assert "Release credit" not in description
     assert "发布署名" not in description
     forge_metadata = FORGE_METADATA_PATH.read_text(encoding="utf-8")
+    assert 'license="MIT"' in forge_metadata, "Forge metadata must retain the MIT license"
     assert 'modId="jinzai_traffic_lights"' in forge_metadata
     assert 'authors="Crzay津仔"' in forge_metadata
     assert 'logoFile="icon.png"' in forge_metadata
@@ -1044,6 +1109,7 @@ def verify_icon_and_metadata() -> None:
 
 
 def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, int]:
+    assert set(GUI_DISPLAY_OVERRIDES) == EXPECTED_GUI_OVERRIDE_IDS, "Unexpected inventory GUI override IDs"
     verify_icon_and_metadata()
     items = discover_expected_assets()
     identifiers = {item.identifier for item in items}
@@ -1072,10 +1138,10 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         if item.folder == PHASE3_DYNAMIC_FOLDER:
             expected_asset_files.add(f"textures/block/{identifier}.png.mcmeta")
         expected_data_files.add(f"loot_tables/blocks/{identifier}.json")
-    assert len(expected_asset_files) == 881, (
+    assert len(expected_asset_files) == 965, (
         f"Unexpected generated asset-file expectation count: {len(expected_asset_files)}"
     )
-    assert len(expected_data_files) == 218, (
+    assert len(expected_data_files) == 239, (
         f"Unexpected generated data-file expectation count: {len(expected_data_files)}"
     )
     assert relative_file_set(ASSET_ROOT) == expected_asset_files, (
@@ -1122,8 +1188,10 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     phase1_items = [item for item in items if item.folder in PHASE1_SOURCE_FOLDERS]
     phase2_items = [item for item in items if item.folder in PHASE2_SOURCE_FOLDERS]
     phase3_items = [item for item in items if item.folder in PHASE3_SOURCE_FOLDERS]
+    phase4_items = [item for item in items if item.folder in PHASE4_SOURCE_FOLDERS]
     assert len(phase1_items) == 103 and len(phase2_items) == 58 and len(phase3_items) == 52
-    assert len(phase1_items) + len(phase2_items) + len(phase3_items) == len(items)
+    assert len(phase4_items) == 21
+    assert len(phase1_items) + len(phase2_items) + len(phase3_items) + len(phase4_items) == len(items)
     phase1_shared_keys = expected_shared_keys - {f"itemGroup.{MOD_ID}.annex"}
     expected_phase1_language_keys = (
         {f"block.{MOD_ID}.{item.identifier}" for item in phase1_items}
@@ -1140,6 +1208,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     assert len(expected_phase3_language_keys) == 52
     phase2_locale_sources = phase2_translation_locales(phase2_items)
     phase3_locale_sources = phase3_translation_locales(phase3_items)
+    phase4_locale_sources = phase3_translation_locales(phase4_items, PHASE4_TRANSLATION_SOURCE)
     for locale in EXTRA_LOCALES:
         raw_phase1_source = load_json(TRANSLATION_SOURCE_ROOT / f"{locale}.json")
         assert isinstance(raw_phase1_source, dict)
@@ -1160,7 +1229,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
             f"Phase-one and phase-two translation sources overlap for {locale}"
         )
         assert set(phase2_source) == expected_phase2_language_keys
-        phase3_source = expected_phase3_locale_values(
+        phase3_source = expected_expansion_locale_values(
             locale,
             phase3_locale_sources[locale],
             phase3_items,
@@ -1168,7 +1237,9 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         assert set(phase3_source) == expected_phase3_language_keys
         assert not (set(phase1_source) & set(phase3_source))
         assert not (set(phase2_source) & set(phase3_source))
-        source = {**phase1_source, **phase2_source, **phase3_source}
+        phase4_source = expected_expansion_locale_values(locale, phase4_locale_sources[locale], phase4_items)
+        assert not (set(phase4_source) & (set(phase1_source) | set(phase2_source) | set(phase3_source)))
+        source = {**phase1_source, **phase2_source, **phase3_source, **phase4_source}
         assert set(source) == expected_language_keys
         assert translations[locale] == source, (
             f"Generated {locale} differs from its merged phase-one/phase-two/phase-three sources"
@@ -1214,6 +1285,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     simplified_collision_ids: set[str] = set()
     phase3_enclosing_ids: set[str] = set()
     phase3_pole_ids: set[str] = set()
+    phase4_enclosing_ids: set[str] = set()
     animation_frame_counts: dict[str, int] = {}
     for item in items:
         item_phase = phase_of(item)
@@ -1277,6 +1349,8 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         ]
         use_enclosing_box = (
             item.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS
+            or item.identifier in PHASE4_MODIFIED_MODEL_IDS
+            or item_phase == 4
             or (item_phase == 3 and item.category != "pole")
         )
         if use_enclosing_box:
@@ -1300,6 +1374,9 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
             if item_phase == 3:
                 assert len(expected_boxes) == 1
                 phase3_enclosing_ids.add(item.identifier)
+            if item_phase == 4 or item.identifier in PHASE4_MODIFIED_MODEL_IDS:
+                assert len(expected_boxes) == 1
+                phase4_enclosing_ids.add(item.identifier)
         else:
             expected_boxes = precise_boxes
         assert entry["collision_boxes"] == expected_boxes, f"Collision AABB mismatch: {item.identifier}"
@@ -1343,6 +1420,9 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         f"{sorted(phase3_enclosing_ids)}"
     )
     assert len(phase3_pole_ids) == 24
+    assert phase4_enclosing_ids == ({item.identifier for item in phase4_items} | PHASE4_MODIFIED_MODEL_IDS), (
+        "All 21 new and three replaced phase-four models must use one placed-volume bounding box"
+    )
     assert PHASE3_LONG_DIAGONAL_POLE_IDS <= phase3_pole_ids
     assert phase3_pole_collision_boxes == EXPECTED_PHASE3_POLE_COLLISION_BOX_COUNT, (
         f"Unexpected phase-three pole collision count: {phase3_pole_collision_boxes}"
@@ -1472,12 +1552,93 @@ def verify_jar(jar_path: Path) -> None:
             assert archive.read(entry) == local_path.read_bytes(), f"JAR entry differs from verified file: {entry}"
 
 
+def verify_phase4_baseline(baseline_path: Path) -> None:
+    """Protect every old ID/name/resource except the explicitly supplied replacements."""
+    catalog_path = f"assets/{MOD_ID}/block_catalog.json"
+    with zipfile.ZipFile(baseline_path) as baseline:
+        if "fabric.mod.json" in baseline.namelist():
+            metadata = json.loads(baseline.read("fabric.mod.json"))
+            assert metadata["id"] == MOD_ID and metadata["version"] == "2.0.41"
+        else:
+            metadata = baseline.read("META-INF/mods.toml").decode("utf-8")
+            assert f'modId="{MOD_ID}"' in metadata and 'version="2.0.41"' in metadata
+        old_catalog = json.loads(baseline.read(catalog_path))
+        current_catalog = load_json(RESOURCE_ROOT / catalog_path)
+        old_by_id = {entry["id"]: entry for entry in old_catalog["blocks"]}
+        current_by_id = {entry["id"]: entry for entry in current_catalog["blocks"]}
+        new_ids = {item.identifier for item in discover_phase4_assets()}
+        assert len(old_by_id) == 213 and len(current_by_id) == 234
+        assert set(current_by_id) == set(old_by_id) | new_ids and not (set(old_by_id) & new_ids)
+        for identifier, old_entry in old_by_id.items():
+            current_entry = current_by_id[identifier]
+            fields = set(old_entry) - ({"collision_boxes"} if identifier in PHASE4_MODIFIED_MODEL_IDS else set())
+            assert all(old_entry[key] == current_entry[key] for key in fields), (
+                f"Existing catalog entry changed outside the phase-four request: {identifier}"
+            )
+
+        language_paths = {f"assets/{MOD_ID}/lang/{locale}.json" for locale in ALL_LOCALES}
+        for path in language_paths:
+            old_values = json.loads(baseline.read(path))
+            current_values = load_json(RESOURCE_ROOT / path)
+            assert len(old_values) == 217 and len(current_values) == 238
+            assert all(current_values.get(key) == value for key, value in old_values.items()), (
+                f"Existing localized name changed: {path}"
+            )
+
+        expected_changes = {
+            *(f"assets/{MOD_ID}/models/block/{identifier}.json" for identifier in PHASE4_MODIFIED_MODEL_IDS),
+            *(f"assets/{MOD_ID}/models/block/{identifier}.json" for identifier in GUI_DISPLAY_OVERRIDES),
+            f"assets/{MOD_ID}/textures/block/jinzai_traffic_light_c5.png",
+            f"assets/{MOD_ID}/textures/block/jinzai_dynamic_light_1.png.mcmeta",
+            f"assets/{MOD_ID}/textures/block/jinzai_dynamic_light_2.png.mcmeta",
+        }
+        tag_paths = {f"data/{MOD_ID}/tags/blocks/{name}.json" for name in ("all_blocks", "frames", "indicators", "poles", "annexes")}
+        old_paths = {name for name in baseline.namelist()
+                     if name.startswith((f"assets/{MOD_ID}/", f"data/{MOD_ID}/")) and not name.endswith("/")}
+        current_paths = ({f"assets/{MOD_ID}/{name}" for name in relative_file_set(ASSET_ROOT)}
+                         | {f"data/{MOD_ID}/{name}" for name in relative_file_set(DATA_ROOT)})
+        added_paths = set()
+        for identifier in new_ids:
+            added_paths.update({
+                f"assets/{MOD_ID}/models/block/{identifier}.json",
+                f"assets/{MOD_ID}/models/item/{identifier}.json",
+                f"assets/{MOD_ID}/blockstates/{identifier}.json",
+                f"assets/{MOD_ID}/textures/block/{identifier}.png",
+                f"data/{MOD_ID}/loot_tables/blocks/{identifier}.json",
+            })
+        assert current_paths == old_paths | added_paths, "Unexpected added or removed runtime resource"
+        excluded_paths = language_paths | tag_paths | {catalog_path}
+        changed_paths = {path for path in old_paths - excluded_paths
+                         if baseline.read(path) != (RESOURCE_ROOT / path).read_bytes()}
+        assert changed_paths == expected_changes, (
+            f"Unexpected old-resource delta: {sorted(changed_paths ^ expected_changes)}"
+        )
+        for identifier in GUI_DISPLAY_OVERRIDES:
+            path = f"assets/{MOD_ID}/models/block/{identifier}.json"
+            old_model = json.loads(baseline.read(path))
+            current_model = load_json(RESOURCE_ROOT / path)
+            assert current_model.get("display", {}).get("gui") == GUI_DISPLAY_OVERRIDES[identifier]
+            for model in (old_model, current_model):
+                model.setdefault("display", {}).pop("gui", None)
+                if not model["display"]:
+                    model.pop("display")
+            assert old_model == current_model, f"GUI repair changed placed model or other display transforms: {identifier}"
+    print("Verified 2.0.41 compatibility: all 213 old IDs/names retained; six requested resource changes and 26 strictly GUI-only icon repairs.")
+
+
 def main() -> None:
+    global WORKBOOK_ROOT
     parser = argparse.ArgumentParser(
         description=f"Verify all {EXPECTED_ASSET_COUNT} generated traffic-light resource chains."
     )
     parser.add_argument("jar", nargs="?", type=Path, help="Optional built JAR to verify byte-for-byte")
+    parser.add_argument("--baseline", type=Path, help="Optional 2.0.41 release JAR for phase-four compatibility checks")
+    parser.add_argument(
+        "--private-input-root", type=Path, default=ROOT,
+        help="Private project root containing the original naming workbooks.",
+    )
     args = parser.parse_args()
+    WORKBOOK_ROOT = args.private_input_root.resolve()
 
     (
         items,
@@ -1487,6 +1648,8 @@ def main() -> None:
         excluded_count,
         total_collision_boxes,
     ) = verify_resources()
+    if args.baseline is not None:
+        verify_phase4_baseline(args.baseline.resolve())
     if args.jar is not None:
         verify_jar(args.jar.resolve())
     suffix = f" and JAR {args.jar}" if args.jar is not None else ""

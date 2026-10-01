@@ -3,13 +3,13 @@
   "id": "jinzai_traffic_lights",
   "version": "${version}",
   "name": "津仔的交通灯",
-  "description": "JINZAI Traffic Lights is a Minecraft 1.20.1 city-building decoration mod for Fabric and Forge, sharing one Architectury codebase. Version 2.0.41 retains all 161 phase-one and phase-two blocks and adds 52 phase-three blocks, for 213 blocks total: 59 frames, 72 indicators, 72 poles and 10 pass-through accessories. Fifteen indicators use synchronized vanilla texture animation at 2 FPS. New non-pole models use one enclosing placed-volume outline, while new poles use reduced model-following outlines. The 10 accessories keep their own creative tab; all phase-three additions use the existing frame, indicator and pole tabs. Independent timers, functional countdowns, traffic-control logic and redstone signal control are not included. Art and funding by Crzay津仔; technical implementation and production by QiZhang. Copyright in the art assets belongs to \"Crzay津仔\"; copyright in the mod code and configuration belongs to \"QiZhang\".\n\n津仔的交通灯是适用于Minecraft 1.20.1的城建装饰模组，通过同一套Architectury代码提供Fabric与Forge版本。2.0.41完整保留一期、二期共161个方块并新增三期52个方块，总计213个：59个框架、72个指示灯、72个杆件和10个可穿透附属。15个指示灯使用原版同步纹理动画，以2 FPS播放。新增非杆件模型使用覆盖放置后整体体积的单一外包箱，新杆件使用适度简化的模型跟随轮廓。10个附属保留独立创造标签页，三期内容均进入原有框架、指示灯或杆子标签页。不包含独立计时、功能性倒计时、交通控制逻辑或红石信号控制。Crzay津仔提供美术与资金支持，QiZhang提供技术实现与制作。美术素材版权归 \"Crzay津仔\"所有，模组代码/配置版权归\"QiZhang\"所有。",
+  "description": "JINZAI Traffic Lights is a Minecraft 1.20.1 city-building decoration mod for Fabric and Forge, sharing one Architectury codebase. Version 2.0.45 preserves all 213 existing registry IDs and adds all 21 phase-four blocks, for 234 total: 65 frames, 78 indicators, 77 poles and 14 pass-through accessories in the four existing creative tabs. Every new model and the three replaced frames use one bounding box enclosing the placed model volume; unchanged older models retain their collision behavior. The 15 synchronized animated signals remain at 2 FPS, with interpolation disabled for the first two. Indicators and accessories remain illuminated and physically pass-through. Independent timers, functional countdowns, traffic-control logic and redstone signal control are not included. Art and funding by Crzay津仔; technical implementation and production by QiZhang. Original project code, configuration, documentation, models, textures and artwork use the MIT License; third-party components retain their own licenses.\n\n津仔的交通灯适用于Minecraft 1.20.1，通过同一套Architectury代码提供Fabric和Forge版本。2.0.45保留已有213个注册ID并加入四期全部21个新方块，总计234个：65个框架、78个指示灯、77个杆件、14个可穿透附属，沿用原有4个创造标签页。所有新增模型及3个替换框架均使用覆盖放置后整体体积的单一外包箱，未修改旧模型保留原碰撞行为。15个动态指示灯仍以2 FPS同步播放，前两个关闭插值。指示灯和附属保持发光且无物理碰撞。不包含独立计时、功能性倒计时、交通控制或红石信号控制。Crzay津仔提供美术与资金支持，QiZhang提供技术实现与制作。项目自身代码、配置、文档、模型、贴图及美术采用MIT许可证，第三方组件保留各自许可证。",
   "icon": "icon.png",
   "authors": [
     "Crzay津仔"
   ],
   "contact": {},
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [

@@ -41,6 +41,7 @@ public final class JinzaiTrafficLights {
     private static final String CATALOG_RESOURCE =
         "assets/" + MOD_ID + "/block_catalog.json";
     private static final int SUPPORTED_CATALOG_SCHEMA = 1;
+    private static final int EXPECTED_CATALOG_ENTRY_COUNT = 234;
     private static final Gson GSON = new Gson();
 
     private static final DeferredRegister<Block> BLOCKS =
@@ -223,6 +224,12 @@ public final class JinzaiTrafficLights {
         if (document.blocks == null) {
             throw new IllegalStateException("Block catalog field 'blocks' is missing");
         }
+        if (document.blocks.size() != EXPECTED_CATALOG_ENTRY_COUNT) {
+            throw new IllegalStateException(
+                "Block catalog must contain " + EXPECTED_CATALOG_ENTRY_COUNT
+                    + " entries; found " + document.blocks.size()
+            );
+        }
 
         List<PreparedEntry> prepared = new ArrayList<>(document.blocks.size());
         Set<Identifier> identifiers = new HashSet<>();
@@ -263,10 +270,17 @@ public final class JinzaiTrafficLights {
         }
 
         for (Category category : Category.values()) {
-            if (categoryCounts.get(category) == 0) {
+            int expectedCount = switch (category) {
+                case FRAME -> 65;
+                case INDICATOR -> 78;
+                case POLE -> 77;
+                case ANNEX -> 14;
+            };
+            if (categoryCounts.get(category) != expectedCount) {
                 throw new IllegalStateException(
-                    "Block catalog contains no entries for required category '"
-                        + category.serializedName + "'"
+                    "Block catalog category '" + category.serializedName
+                        + "' must contain " + expectedCount + " entries; found "
+                        + categoryCounts.get(category)
                 );
             }
         }
