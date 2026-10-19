@@ -1,0 +1,46 @@
+architectury { common(rootProject.enabled_platforms.split(",")) }
+base { archivesName = "JINZAI_Trafficlights-Common-1.21.1" }
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+}
+
+// All art, catalogs, translations and icons have one authoritative copy in the
+// repository's common resources. Adapt only the version-specific pack layout.
+sourceSets.main.resources.setSrcDirs([
+    new File(rootProject.sharedRepository, "common/src/main/resources")
+])
+
+processResources {
+    filteringCharset = "UTF-8"
+    eachFile { details ->
+        if (details.path.startsWith("data/")) {
+            def parts = details.path.split("/") as List
+            def singular = [advancements: "advancement", functions: "function",
+                            item_modifiers: "item_modifier", loot_tables: "loot_table",
+                            predicates: "predicate", recipes: "recipe", structures: "structure"]
+            if (parts.size() > 2 && singular.containsKey(parts[2])) {
+                parts[2] = singular[parts[2]]
+            } else if (parts.size() > 3 && parts[2] == "tags") {
+                def tags = [blocks: "block", items: "item", fluids: "fluid",
+                            entity_types: "entity_type", game_events: "game_event", functions: "function"]
+                if (tags.containsKey(parts[3])) parts[3] = tags[parts[3]]
+            }
+            details.path = parts.join("/")
+        }
+    }
+    filesMatching("pack.mcmeta") {
+        // The same mod archive supplies resource format 34 and data format 48.
+        // supported_formats lets each pack type accept its own current format.
+        filter { line -> line.replaceAll('"pack_format"\\s*:\\s*\\d+',
+            '"pack_format": 34, "supported_formats": {"min_inclusive": 34, "max_inclusive": 48}') }
+    }
+    includeEmptyDirs = false
+}
+
+jar {
+    from(new File(rootProject.sharedRepository, "LICENSE"))
+    from(new File(rootProject.sharedRepository, "COPYRIGHT.txt"))
+    from(rootProject.file("README.md"))
+}

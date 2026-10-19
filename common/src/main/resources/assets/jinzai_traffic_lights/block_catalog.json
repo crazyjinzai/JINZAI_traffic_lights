@@ -17322,6 +17322,262 @@
       ]
     },
     {
+      "id": "jinzai_dynamic_light_16a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_16a",
+      "collision_boxes": [
+        [
+          5.5,
+          -2,
+          28.9,
+          10.5,
+          18,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_17a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_17a",
+      "collision_boxes": [
+        [
+          5.5,
+          -2,
+          28.9,
+          10.5,
+          18,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_18",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_18",
+      "collision_boxes": [
+        [
+          6,
+          -2.7,
+          28.9,
+          10,
+          18.3,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_18a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_18a",
+      "collision_boxes": [
+        [
+          6,
+          -2.7,
+          28.9,
+          10,
+          18.3,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_19",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_19",
+      "collision_boxes": [
+        [
+          6,
+          -2,
+          28.9,
+          10.25,
+          18.5,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_19a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_19a",
+      "collision_boxes": [
+        [
+          6,
+          -2,
+          28.9,
+          10.25,
+          18.5,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_20",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_20",
+      "collision_boxes": [
+        [
+          -3.5,
+          6,
+          28.9,
+          19.5,
+          10,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_20a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_20a",
+      "collision_boxes": [
+        [
+          -3.5,
+          6,
+          28.9,
+          19.5,
+          10,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_21",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_21",
+      "collision_boxes": [
+        [
+          -3,
+          5.3,
+          28.9,
+          19,
+          10.3,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_21a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_21a",
+      "collision_boxes": [
+        [
+          -3,
+          5.3,
+          28.9,
+          19,
+          10.3,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_22",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_22",
+      "collision_boxes": [
+        [
+          -3,
+          6,
+          28.9,
+          19.25,
+          10.5,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_22a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_22a",
+      "collision_boxes": [
+        [
+          -3,
+          6,
+          28.9,
+          19.25,
+          10.5,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_23",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_23",
+      "collision_boxes": [
+        [
+          6.2,
+          1.165226,
+          28.9,
+          9.7,
+          14,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_23a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_23a",
+      "collision_boxes": [
+        [
+          6.2,
+          1.165226,
+          28.9,
+          9.7,
+          14,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_24",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_24",
+      "collision_boxes": [
+        [
+          6.2,
+          1.165226,
+          20.9,
+          9.7,
+          14,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_24a",
+      "category": "indicator",
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_24a",
+      "collision_boxes": [
+        [
+          6.2,
+          1.165226,
+          20.9,
+          9.7,
+          14,
+          21
+        ]
+      ]
+    },
+    {
       "id": "bd_pole_1",
       "category": "pole",
       "source_folder": "杆子",
@@ -28566,6 +28822,182 @@
           16,
           10,
           10
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_1",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_1",
+      "collision_boxes": [
+        [
+          6,
+          0,
+          6,
+          10,
+          16,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_2",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_2",
+      "collision_boxes": [
+        [
+          0,
+          6,
+          6,
+          16,
+          10,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_3",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_3",
+      "collision_boxes": [
+        [
+          0,
+          5,
+          0,
+          16,
+          11,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_4",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_4",
+      "collision_boxes": [
+        [
+          0,
+          0,
+          5,
+          16,
+          16,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_4a",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_4a",
+      "collision_boxes": [
+        [
+          5,
+          0,
+          5,
+          16,
+          16,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_4b",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_4b",
+      "collision_boxes": [
+        [
+          5,
+          0,
+          5,
+          16,
+          16,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_5",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_5",
+      "collision_boxes": [
+        [
+          0,
+          0,
+          0,
+          16,
+          16,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_5a",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_5a",
+      "collision_boxes": [
+        [
+          0,
+          0,
+          6,
+          16,
+          16,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_6",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_6",
+      "collision_boxes": [
+        [
+          0,
+          0,
+          5,
+          16,
+          16,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_6a",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_6a",
+      "collision_boxes": [
+        [
+          5,
+          0,
+          5,
+          16,
+          16,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "height_limit_bar_6b",
+      "category": "pole",
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_6b",
+      "collision_boxes": [
+        [
+          5,
+          0,
+          5,
+          16,
+          16,
+          11
         ]
       ]
     },

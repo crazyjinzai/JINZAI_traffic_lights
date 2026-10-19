@@ -41,7 +41,7 @@ public final class JinzaiTrafficLights {
     private static final String CATALOG_RESOURCE =
         "assets/" + MOD_ID + "/block_catalog.json";
     private static final int SUPPORTED_CATALOG_SCHEMA = 1;
-    private static final int EXPECTED_CATALOG_ENTRY_COUNT = 234;
+    private static final int EXPECTED_CATALOG_ENTRY_COUNT = 261;
     private static final Gson GSON = new Gson();
 
     private static final DeferredRegister<Block> BLOCKS =
@@ -272,8 +272,8 @@ public final class JinzaiTrafficLights {
         for (Category category : Category.values()) {
             int expectedCount = switch (category) {
                 case FRAME -> 65;
-                case INDICATOR -> 78;
-                case POLE -> 77;
+                case INDICATOR -> 94;
+                case POLE -> 88;
                 case ANNEX -> 14;
             };
             if (categoryCounts.get(category) != expectedCount) {

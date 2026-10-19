@@ -30,11 +30,16 @@ TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
 PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
 PHASE3_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase3_names.json"
 PHASE4_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase4_names.json"
+PHASE5_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase5_names.json"
 # Inventory-only fitting corrections; supplied art and placed geometry stay intact.
 GUI_DISPLAY_OVERRIDES = json.loads((ROOT / "tools" / "gui_display_overrides.json").read_text(encoding="utf-8"))
 # Supplied bd_pole_18 retains its author's old internal model/texture name.
 # Keep the source bytes intact; the workbook filename remains the registry ID.
 PHASE4_INTERNAL_SOURCE_ALIASES = {"bd_pole_18": "bd_pole_14"}
+PHASE5_TEXTURE_NAME_ALIASES = {
+    "jinzai_dynamic_light_16a": "jinzai_daynamic_light_16a",
+    "height_limit_bar_6b": "height_limit_bar_6a",
+}
 EXTRA_LOCALES = (
     "ar_sa",
     "de_de",
@@ -109,10 +114,14 @@ PHASE4_SOURCE_FOLDERS = {
     "杆子（四期新增）": ("pole", 5),
     "交通灯附属（四期新增）": ("annex", 4),
 }
+PHASE5_SOURCE_FOLDERS = {
+    "杆子（五期新增）": ("pole", 11),
+    "动态指示灯（五期）": ("indicator", 16),
+}
 EXPECTED_CATEGORY_COUNTS = {
     "frame": 65,
-    "indicator": 78,
-    "pole": 77,
+    "indicator": 94,
+    "pole": 88,
     "annex": 14,
 }
 
@@ -548,6 +557,29 @@ def discover_phase4_specs() -> list[AssetSpec]:
     return result
 
 
+def discover_phase5_specs() -> list[AssetSpec]:
+    payload = load_expansion_source(PHASE5_TRANSLATION_SOURCE)
+    assets = payload["assets"]
+    if len(assets) != 27:
+        raise ValueError("Phase five must contain 27 assets")
+    fields = {"source_folder", "source_stem", "id", "category", "zh_cn", "en_us"}
+    result = []
+    for asset in assets:
+        if set(asset) != fields or any(not isinstance(asset[k], str) or not asset[k].strip() for k in fields):
+            raise ValueError("Invalid phase-five mapping")
+        folder = asset["source_folder"]
+        if folder not in PHASE5_SOURCE_FOLDERS or asset["category"] != PHASE5_SOURCE_FOLDERS[folder][0]:
+            raise ValueError(f"Invalid phase-five folder/category: {folder}")
+        if asset["source_stem"] != asset["id"] or not _RESOURCE_ID_RE.fullmatch(asset["id"]):
+            raise ValueError(f"Invalid phase-five ID: {asset['id']}")
+        result.append(AssetSpec(folder, asset["source_stem"], asset["id"], asset["category"], asset["zh_cn"], asset["en_us"], phase=5))
+    for folder, (_, count) in PHASE5_SOURCE_FOLDERS.items():
+        stems = {s.source_stem for s in result if s.source_folder == folder}
+        if len(stems) != count or stems != source_pair_stems(folder):
+            raise ValueError(f"Phase-five source inventory mismatch: {folder}")
+    return result
+
+
 def discover_asset_specs() -> list[AssetSpec]:
     specs: list[AssetSpec] = []
 
@@ -888,6 +920,7 @@ def discover_asset_specs() -> list[AssetSpec]:
             )
     specs.extend(phase3_specs)
     specs.extend(discover_phase4_specs())
+    specs.extend(discover_phase5_specs())
 
     counts = {
         category: sum(spec.category == category for spec in specs)
@@ -897,8 +930,8 @@ def discover_asset_specs() -> list[AssetSpec]:
         raise ValueError(
             f"Unexpected mapped counts: {counts}; expected {EXPECTED_CATEGORY_COUNTS}"
         )
-    if len(specs) != 234:
-        raise ValueError(f"Expected 234 assets, found {len(specs)}")
+    if len(specs) != 261:
+        raise ValueError(f"Expected 261 assets, found {len(specs)}")
     identifiers = [spec.identifier for spec in specs]
     if len(set(identifiers)) != len(identifiers):
         duplicates = sorted({identifier for identifier in identifiers if identifiers.count(identifier) > 1})
@@ -1040,7 +1073,7 @@ def _validate_phase3_embedded_texture(
     texture_index: int,
     spec: AssetSpec,
 ) -> None:
-    if spec.phase not in (3, 4):
+    if spec.phase not in (3, 4, 5):
         return
     texture_source = source.get("textures", [])[texture_index].get("source")
     prefix = "data:image/png;base64,"
@@ -1062,7 +1095,7 @@ def validate_animation_metadata(
     texture_size: list[int],
 ) -> Path | None:
     metadata_path = spec.source_animation_metadata
-    expects_animation = spec.phase == 3 and spec.source_folder == "动态指示灯（三期）"
+    expects_animation = spec.source_folder in {"动态指示灯（三期）", "动态指示灯（五期）"}
     if metadata_path.is_file() != expects_animation:
         expectation = "required" if expects_animation else "unexpected"
         raise ValueError(f"Animation metadata is {expectation}: {metadata_path}")
@@ -1171,10 +1204,8 @@ def export_element(
         }
 
     for direction, face in element.get("faces", {}).items():
-        if face is None or face.get("enabled") is False:
+        if face is None or face.get("enabled") is False or face.get("texture") is None:
             continue
-        if face.get("texture") is None:
-            raise ValueError("A visible source face has no texture assignment")
         face_texture_index = int(face["texture"])
         if face_texture_index != referenced_texture_index:
             raise ValueError(f"A face unexpectedly references texture index {face_texture_index}")
@@ -1207,7 +1238,8 @@ def export_model(
         raise ValueError(f"Model name/file mismatch: {spec.source_model}")
     width = int(source["resolution"]["width"])
     height = int(source["resolution"]["height"])
-    texture_index = _referenced_texture_index(source, internal_name)
+    texture_name = PHASE5_TEXTURE_NAME_ALIASES.get(spec.identifier, internal_name) if spec.phase == 5 else internal_name
+    texture_index = _referenced_texture_index(source, texture_name)
     _validate_phase3_embedded_texture(source, texture_index, spec)
     source_elements = source.get("elements", [])
     exported_source_elements = [
@@ -1234,7 +1266,7 @@ def export_model(
     if (
         spec.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS
         or spec.identifier in PHASE4_MODIFIED_MODEL_IDS
-        or spec.phase == 4
+        or spec.phase in (4, 5)
         or (spec.phase == 3 and spec.category != "pole")
     ):
         boxes = enclosing_collision_box(boxes)
@@ -1261,7 +1293,7 @@ def export_model(
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
 def is_phase2_spec(spec: AssetSpec) -> bool:
@@ -1582,10 +1614,14 @@ def main() -> None:
     phase4_translation_keys = {f"block.{MOD_ID}.{spec.identifier}" for spec in phase4_specs}
     if len(phase4_specs) != 21 or len(phase4_translation_keys) != 21:
         raise ValueError("Expected 21 unique phase-four translation keys")
+    phase5_specs = [spec for spec in specs if spec.phase == 5]
+    phase5_translation_keys = {f"block.{MOD_ID}.{spec.identifier}" for spec in phase5_specs}
+    if len(phase5_specs) != 27 or len(phase5_translation_keys) != 27:
+        raise ValueError("Expected 27 unique phase-five translation keys")
     if phase2_translation_keys & phase3_translation_keys:
         raise ValueError("Phase-two and phase-three translation keys overlap")
     phase1_translation_keys = (
-        expected_translation_keys - phase2_translation_keys - phase3_translation_keys - phase4_translation_keys
+        expected_translation_keys - phase2_translation_keys - phase3_translation_keys - phase4_translation_keys - phase5_translation_keys
     )
     if len(phase1_translation_keys) != 106:
         raise ValueError(
@@ -1599,13 +1635,14 @@ def main() -> None:
         raise ValueError(
             f"Expected 52 phase-three translation keys, found {len(phase3_translation_keys)}"
         )
-    if len(expected_translation_keys) != 238:
+    if len(expected_translation_keys) != 265:
         raise ValueError(
-            f"Expected 238 complete translation keys, found {len(expected_translation_keys)}"
+            f"Expected 265 complete translation keys, found {len(expected_translation_keys)}"
         )
     phase2_translation_locales = load_phase2_translation_source(phase2_specs)
     phase3_translation_locales = load_expansion_translation_locales(phase3_specs)
     phase4_translation_locales = load_expansion_translation_locales(phase4_specs, PHASE4_TRANSLATION_SOURCE)
+    phase5_translation_locales = load_expansion_translation_locales(phase5_specs, PHASE5_TRANSLATION_SOURCE)
     for locale in EXTRA_LOCALES:
         source_path = TRANSLATION_SOURCE_ROOT / f"{locale}.json"
         if not source_path.is_file():
@@ -1661,6 +1698,10 @@ def main() -> None:
         if set(translated) & set(phase4_translated):
             raise ValueError(f"Earlier/phase-four translation overlap for {locale}")
         translated.update(phase4_translated)
+        phase5_translated = expansion_locale_values(locale, phase5_translation_locales[locale], phase5_specs)
+        if set(translated) & set(phase5_translated):
+            raise ValueError(f"Earlier/phase-five translation overlap for {locale}")
+        translated.update(phase5_translated)
         if set(translated) != expected_translation_keys:
             raise ValueError(
                 f"Complete translation key mismatch for {locale}: "

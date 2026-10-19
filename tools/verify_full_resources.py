@@ -23,7 +23,7 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 WORKBOOK_ROOT = ROOT
 MOD_ID = "jinzai_traffic_lights"
-MOD_VERSION = "2.0.45"
+MOD_VERSION = "2.0.46"
 RESOURCE_ROOT = ROOT / "common" / "src" / "main" / "resources"
 ASSET_ROOT = RESOURCE_ROOT / "assets" / MOD_ID
 DATA_ROOT = RESOURCE_ROOT / "data" / MOD_ID
@@ -46,6 +46,7 @@ TRANSLATION_SOURCE_ROOT = ROOT / "tools" / "translations"
 PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
 PHASE3_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase3_names.json"
 PHASE4_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase4_names.json"
+PHASE5_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase5_names.json"
 GUI_DISPLAY_OVERRIDES = json.loads((ROOT / "tools" / "gui_display_overrides.json").read_text(encoding="utf-8"))
 EXPECTED_GUI_OVERRIDE_IDS = frozenset({
     "bd_pole_3", "bd_pole_4", "bd_pole_4a", "bd_pole_5a",
@@ -56,6 +57,10 @@ EXPECTED_GUI_OVERRIDE_IDS = frozenset({
     "jinzai_traffic_light_h23c", "jinzai_traffic_ligh_r6a",
 })
 PHASE4_INTERNAL_SOURCE_ALIASES = {"bd_pole_18": "bd_pole_14"}
+PHASE5_TEXTURE_NAME_ALIASES = {
+    "jinzai_dynamic_light_16a": "jinzai_daynamic_light_16a",
+    "height_limit_bar_6b": "height_limit_bar_6a",
+}
 EXTRA_LOCALES = (
     "ar_sa",
     "de_de",
@@ -102,10 +107,14 @@ PHASE3_DYNAMIC_FOLDER = "动态指示灯（三期）"
 PHASE3_DYNAMIC_IDS = frozenset(
     f"jinzai_dynamic_light_{index}" for index in range(1, 16)
 )
+PHASE5_DYNAMIC_IDS = frozenset("jinzai_dynamic_light_" + suffix for suffix in (
+    "16a", "17a", "18", "18a", "19", "19a", "20", "20a", "21", "21a", "22", "22a", "23", "23a", "24", "24a",
+))
 EXPECTED_ANIMATION_FRAME_COUNTS = {
     **{f"jinzai_dynamic_light_{index}": 65 for index in (*range(1, 7), 14, 15)},
     **{f"jinzai_dynamic_light_{index}": 8 for index in (*range(7, 12), 13)},
     "jinzai_dynamic_light_12": 11,
+    **{identifier: 144 for identifier in PHASE5_DYNAMIC_IDS},
 }
 PHASE3_LONG_DIAGONAL_POLE_IDS = frozenset({"bd_pole_8", "bd_pole_10"})
 PHASE4_MODIFIED_MODEL_IDS = frozenset({
@@ -119,20 +128,24 @@ PHASE4_SOURCE_FOLDERS = {
     "杆子（四期新增）": ("pole", 5),
     "交通灯附属（四期新增）": ("annex", 4),
 }
+PHASE5_SOURCE_FOLDERS = {
+    "杆子（五期新增）": ("pole", 11),
+    "动态指示灯（五期）": ("indicator", 16),
+}
 EXPECTED_CATEGORY_COUNTS = {
     "frame": 65,
-    "indicator": 78,
-    "pole": 77,
+    "indicator": 94,
+    "pole": 88,
     "annex": 14,
 }
-EXPECTED_ASSET_COUNT = 234
-EXPECTED_LANGUAGE_KEY_COUNT = 238
-EXPECTED_SOURCE_ELEMENT_COUNT = 3627
-EXPECTED_VISIBLE_ELEMENT_COUNT = 3624
-EXPECTED_COLLISION_BOX_COUNT = 3375
+EXPECTED_ASSET_COUNT = 261
+EXPECTED_LANGUAGE_KEY_COUNT = 265
+EXPECTED_SOURCE_ELEMENT_COUNT = 4063
+EXPECTED_VISIBLE_ELEMENT_COUNT = 4056
+EXPECTED_COLLISION_BOX_COUNT = 3402
 EXPECTED_PHASE3_COLLISION_BOX_COUNT = 237
 EXPECTED_PHASE3_POLE_COLLISION_BOX_COUNT = 209
-EXPECTED_ANIMATION_METADATA_COUNT = 15
+EXPECTED_ANIMATION_METADATA_COUNT = 31
 
 # The phase-two workbooks contain a handful of filename typos.  Keep their
 # requested IDs stable while resolving them to the actual supplied source
@@ -286,6 +299,25 @@ def discover_phase4_assets() -> list[ExpectedAsset]:
         assert len(stems) == count and stems == paired_source_stems(folder), (
             f"Phase-four source inventory mismatch: {folder}"
         )
+    return result
+
+
+def discover_phase5_assets() -> list[ExpectedAsset]:
+    payload = load_json(PHASE5_TRANSLATION_SOURCE)
+    assert set(payload) == {"schema", "assets", "locales"} and payload["schema"] == 1
+    assert len(payload["assets"]) == 27
+    fields = {"source_folder", "source_stem", "id", "category", "zh_cn", "en_us"}
+    result = []
+    for asset in payload["assets"]:
+        assert set(asset) == fields and all(isinstance(asset[k], str) and asset[k].strip() for k in fields)
+        folder = asset["source_folder"]
+        assert folder in PHASE5_SOURCE_FOLDERS and asset["category"] == PHASE5_SOURCE_FOLDERS[folder][0]
+        assert asset["id"] == asset["source_stem"] and _RESOURCE_ID_RE.fullmatch(asset["id"])
+        result.append(ExpectedAsset(folder, asset["source_stem"], asset["id"], asset["category"], asset["zh_cn"], asset["en_us"]))
+    for folder, (_, count) in PHASE5_SOURCE_FOLDERS.items():
+        stems = {item.source_stem for item in result if item.folder == folder}
+        assert len(stems) == count and stems == paired_source_stems(folder)
+    assert {item.identifier for item in result if item.category == "indicator"} == PHASE5_DYNAMIC_IDS
     return result
 
 
@@ -481,6 +513,7 @@ def discover_expected_assets() -> list[ExpectedAsset]:
     assert "jinzai_traffic_light_c34" not in phase3_ids, "Obsolete c34 frame ID remains"
     expected.extend(phase3_items)
     expected.extend(discover_phase4_assets())
+    expected.extend(discover_phase5_assets())
 
     category_counts = {
         category: sum(item.category == category for item in expected)
@@ -782,6 +815,8 @@ def referenced_texture_index(source: dict[str, Any], stem: str) -> int:
 
 
 def phase_of(item: ExpectedAsset) -> int:
+    if item.folder in PHASE5_SOURCE_FOLDERS:
+        return 5
     if item.folder in PHASE1_SOURCE_FOLDERS:
         return 1
     if item.folder in PHASE2_SOURCE_FOLDERS:
@@ -797,7 +832,7 @@ def verify_phase3_embedded_texture(
     texture_index: int,
     item: ExpectedAsset,
 ) -> None:
-    if phase_of(item) not in (3, 4):
+    if phase_of(item) not in (3, 4, 5):
         return
     texture_source = source["textures"][texture_index].get("source")
     prefix = "data:image/png;base64,"
@@ -832,7 +867,7 @@ def verify_animation_metadata(
     generated_metadata = (
         ASSET_ROOT / "textures" / "block" / f"{item.identifier}.png.mcmeta"
     )
-    is_animated = item.folder == PHASE3_DYNAMIC_FOLDER
+    is_animated = item.folder in {PHASE3_DYNAMIC_FOLDER, "动态指示灯（五期）"}
     if not is_animated:
         if phase_of(item) == 3:
             assert not item.source_animation_metadata.exists(), (
@@ -843,7 +878,7 @@ def verify_animation_metadata(
         )
         return None
 
-    assert item.identifier in PHASE3_DYNAMIC_IDS
+    assert item.identifier in PHASE3_DYNAMIC_IDS | PHASE5_DYNAMIC_IDS
     assert item.source_animation_metadata.is_file(), (
         f"Missing source animation metadata: {item.identifier}"
     )
@@ -858,6 +893,8 @@ def verify_animation_metadata(
         f"Animation metadata must contain only 'animation': {item.identifier}"
     )
     animation = payload["animation"]
+    if phase_of(item) == 5:
+        assert animation == {"frametime": 10}, "Phase-five sequence must retain all 144 noninterpolated frames at 2 FPS"
     assert isinstance(animation, dict), f"Animation entry is not an object: {item.identifier}"
     assert set(animation) <= {"frametime", "interpolate", "frames"}, (
         f"Unexpected animation fields in {item.identifier}: {sorted(animation)}"
@@ -952,9 +989,8 @@ def expected_element(
             "rescale": bool(source_element.get("rescale", False)),
         }
     for direction, face in source_element.get("faces", {}).items():
-        if face is None or face.get("enabled") is False:
+        if face is None or face.get("enabled") is False or face.get("texture") is None:
             continue
-        assert face.get("texture") is not None
         face_texture_index = int(face["texture"])
         assert face_texture_index == texture_index
         expected_face: dict[str, Any] = {
@@ -978,7 +1014,8 @@ def expected_model(source: dict[str, Any], item: ExpectedAsset) -> dict[str, Any
     internal_name = PHASE4_INTERNAL_SOURCE_ALIASES.get(item.identifier, item.source_stem) if phase_of(item) == 4 else item.source_stem
     assert source.get("name") == internal_name
     width, height = int(source["resolution"]["width"]), int(source["resolution"]["height"])
-    texture_index = referenced_texture_index(source, internal_name)
+    texture_name = PHASE5_TEXTURE_NAME_ALIASES.get(item.identifier, internal_name) if phase_of(item) == 5 else internal_name
+    texture_index = referenced_texture_index(source, texture_name)
     verify_phase3_embedded_texture(source, texture_index, item)
     exported_elements = [
         element
@@ -1055,7 +1092,7 @@ def verify_icon_and_metadata() -> None:
     assert icon[:8] == b"\x89PNG\r\n\x1a\n", "Mod icon is not a PNG"
     assert icon[12:16] == b"IHDR", "Mod icon has no leading IHDR chunk"
     width, height = struct.unpack(">II", icon[16:24])
-    assert (width, height) == (512, 512), f"Unexpected mod icon size: {width}x{height}"
+    assert (width, height) == (1024, 1024), f"Unexpected mod icon size: {width}x{height}"
 
     gradle_properties = GRADLE_PROPERTIES_PATH.read_text(encoding="utf-8")
     version_match = re.search(r"(?m)^mod_version\s*=\s*(\S+)\s*$", gradle_properties)
@@ -1135,13 +1172,13 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
                 f"textures/block/{identifier}.png",
             }
         )
-        if item.folder == PHASE3_DYNAMIC_FOLDER:
+        if item.folder in {PHASE3_DYNAMIC_FOLDER, "动态指示灯（五期）"}:
             expected_asset_files.add(f"textures/block/{identifier}.png.mcmeta")
         expected_data_files.add(f"loot_tables/blocks/{identifier}.json")
-    assert len(expected_asset_files) == 965, (
+    assert len(expected_asset_files) == 1089, (
         f"Unexpected generated asset-file expectation count: {len(expected_asset_files)}"
     )
-    assert len(expected_data_files) == 239, (
+    assert len(expected_data_files) == 266, (
         f"Unexpected generated data-file expectation count: {len(expected_data_files)}"
     )
     assert relative_file_set(ASSET_ROOT) == expected_asset_files, (
@@ -1189,9 +1226,11 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     phase2_items = [item for item in items if item.folder in PHASE2_SOURCE_FOLDERS]
     phase3_items = [item for item in items if item.folder in PHASE3_SOURCE_FOLDERS]
     phase4_items = [item for item in items if item.folder in PHASE4_SOURCE_FOLDERS]
+    phase5_items = [item for item in items if item.folder in PHASE5_SOURCE_FOLDERS]
     assert len(phase1_items) == 103 and len(phase2_items) == 58 and len(phase3_items) == 52
     assert len(phase4_items) == 21
-    assert len(phase1_items) + len(phase2_items) + len(phase3_items) + len(phase4_items) == len(items)
+    assert len(phase5_items) == 27
+    assert len(phase1_items) + len(phase2_items) + len(phase3_items) + len(phase4_items) + len(phase5_items) == len(items)
     phase1_shared_keys = expected_shared_keys - {f"itemGroup.{MOD_ID}.annex"}
     expected_phase1_language_keys = (
         {f"block.{MOD_ID}.{item.identifier}" for item in phase1_items}
@@ -1209,6 +1248,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     phase2_locale_sources = phase2_translation_locales(phase2_items)
     phase3_locale_sources = phase3_translation_locales(phase3_items)
     phase4_locale_sources = phase3_translation_locales(phase4_items, PHASE4_TRANSLATION_SOURCE)
+    phase5_locale_sources = phase3_translation_locales(phase5_items, PHASE5_TRANSLATION_SOURCE)
     for locale in EXTRA_LOCALES:
         raw_phase1_source = load_json(TRANSLATION_SOURCE_ROOT / f"{locale}.json")
         assert isinstance(raw_phase1_source, dict)
@@ -1239,7 +1279,9 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         assert not (set(phase2_source) & set(phase3_source))
         phase4_source = expected_expansion_locale_values(locale, phase4_locale_sources[locale], phase4_items)
         assert not (set(phase4_source) & (set(phase1_source) | set(phase2_source) | set(phase3_source)))
-        source = {**phase1_source, **phase2_source, **phase3_source, **phase4_source}
+        phase5_source = expected_expansion_locale_values(locale, phase5_locale_sources[locale], phase5_items)
+        assert not (set(phase5_source) & (set(phase1_source) | set(phase2_source) | set(phase3_source) | set(phase4_source)))
+        source = {**phase1_source, **phase2_source, **phase3_source, **phase4_source, **phase5_source}
         assert set(source) == expected_language_keys
         assert translations[locale] == source, (
             f"Generated {locale} differs from its merged phase-one/phase-two/phase-three sources"
@@ -1286,6 +1328,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
     phase3_enclosing_ids: set[str] = set()
     phase3_pole_ids: set[str] = set()
     phase4_enclosing_ids: set[str] = set()
+    phase5_enclosing_ids: set[str] = set()
     animation_frame_counts: dict[str, int] = {}
     for item in items:
         item_phase = phase_of(item)
@@ -1350,7 +1393,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         use_enclosing_box = (
             item.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS
             or item.identifier in PHASE4_MODIFIED_MODEL_IDS
-            or item_phase == 4
+            or item_phase in (4, 5)
             or (item_phase == 3 and item.category != "pole")
         )
         if use_enclosing_box:
@@ -1377,6 +1420,9 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
             if item_phase == 4 or item.identifier in PHASE4_MODIFIED_MODEL_IDS:
                 assert len(expected_boxes) == 1
                 phase4_enclosing_ids.add(item.identifier)
+            if item_phase == 5:
+                assert len(expected_boxes) == 1
+                phase5_enclosing_ids.add(item.identifier)
         else:
             expected_boxes = precise_boxes
         assert entry["collision_boxes"] == expected_boxes, f"Collision AABB mismatch: {item.identifier}"
@@ -1401,6 +1447,10 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         ("jinzai_traffic_indicator_3a", 0),
         ("jinzai_traffic_indicator_4", 0),
         ("jinzai_dynamic_light_11", 0),
+        ("jinzai_dynamic_light_16a", 7),
+        ("jinzai_dynamic_light_17a", 7),
+        ("jinzai_dynamic_light_18", 7),
+        ("jinzai_dynamic_light_21", 7),
     }, f"Unexpected hidden placeholders: {excluded_hidden_elements}"
     assert total_exported_elements == EXPECTED_VISIBLE_ELEMENT_COUNT, (
         f"Unexpected visible source element count: {total_exported_elements}"
@@ -1424,6 +1474,7 @@ def verify_resources() -> tuple[list[ExpectedAsset], set[str], int, int, int, in
         "All 21 new and three replaced phase-four models must use one placed-volume bounding box"
     )
     assert PHASE3_LONG_DIAGONAL_POLE_IDS <= phase3_pole_ids
+    assert phase5_enclosing_ids == {item.identifier for item in phase5_items}, "All 27 phase-five blocks require one full-volume bounding box"
     assert phase3_pole_collision_boxes == EXPECTED_PHASE3_POLE_COLLISION_BOX_COUNT, (
         f"Unexpected phase-three pole collision count: {phase3_pole_collision_boxes}"
     )
@@ -1475,7 +1526,7 @@ def verify_jar(jar_path: Path) -> None:
         archive_files = set(archive_file_list)
         expected_animation_entries = {
             f"assets/{MOD_ID}/textures/block/{identifier}.png.mcmeta"
-            for identifier in PHASE3_DYNAMIC_IDS
+            for identifier in EXPECTED_ANIMATION_FRAME_COUNTS
         }
         packed_animation_entries = {
             name
@@ -1484,7 +1535,7 @@ def verify_jar(jar_path: Path) -> None:
             and name.endswith(".png.mcmeta")
         }
         assert packed_animation_entries == expected_animation_entries, (
-            "JAR must contain exactly the 15 phase-three animation metadata files: "
+            f"JAR must contain exactly the {len(EXPECTED_ANIMATION_FRAME_COUNTS)} animation metadata files: "
             f"missing={sorted(expected_animation_entries - packed_animation_entries)}, "
             f"extra={sorted(packed_animation_entries - expected_animation_entries)}"
         )
@@ -1566,8 +1617,8 @@ def verify_phase4_baseline(baseline_path: Path) -> None:
         current_catalog = load_json(RESOURCE_ROOT / catalog_path)
         old_by_id = {entry["id"]: entry for entry in old_catalog["blocks"]}
         current_by_id = {entry["id"]: entry for entry in current_catalog["blocks"]}
-        new_ids = {item.identifier for item in discover_phase4_assets()}
-        assert len(old_by_id) == 213 and len(current_by_id) == 234
+        new_ids = {item.identifier for item in [*discover_phase4_assets(), *discover_phase5_assets()]}
+        assert len(old_by_id) == 213 and len(current_by_id) == 261
         assert set(current_by_id) == set(old_by_id) | new_ids and not (set(old_by_id) & new_ids)
         for identifier, old_entry in old_by_id.items():
             current_entry = current_by_id[identifier]
@@ -1580,14 +1631,14 @@ def verify_phase4_baseline(baseline_path: Path) -> None:
         for path in language_paths:
             old_values = json.loads(baseline.read(path))
             current_values = load_json(RESOURCE_ROOT / path)
-            assert len(old_values) == 217 and len(current_values) == 238
+            assert len(old_values) == 217 and len(current_values) == 265
             assert all(current_values.get(key) == value for key, value in old_values.items()), (
                 f"Existing localized name changed: {path}"
             )
 
         expected_changes = {
             *(f"assets/{MOD_ID}/models/block/{identifier}.json" for identifier in PHASE4_MODIFIED_MODEL_IDS),
-            *(f"assets/{MOD_ID}/models/block/{identifier}.json" for identifier in GUI_DISPLAY_OVERRIDES),
+            *(f"assets/{MOD_ID}/models/block/{identifier}.json" for identifier in set(GUI_DISPLAY_OVERRIDES) & set(old_by_id)),
             f"assets/{MOD_ID}/textures/block/jinzai_traffic_light_c5.png",
             f"assets/{MOD_ID}/textures/block/jinzai_dynamic_light_1.png.mcmeta",
             f"assets/{MOD_ID}/textures/block/jinzai_dynamic_light_2.png.mcmeta",
@@ -1606,6 +1657,8 @@ def verify_phase4_baseline(baseline_path: Path) -> None:
                 f"assets/{MOD_ID}/textures/block/{identifier}.png",
                 f"data/{MOD_ID}/loot_tables/blocks/{identifier}.json",
             })
+            if identifier in PHASE5_DYNAMIC_IDS:
+                added_paths.add(f"assets/{MOD_ID}/textures/block/{identifier}.png.mcmeta")
         assert current_paths == old_paths | added_paths, "Unexpected added or removed runtime resource"
         excluded_paths = language_paths | tag_paths | {catalog_path}
         changed_paths = {path for path in old_paths - excluded_paths
@@ -1613,7 +1666,7 @@ def verify_phase4_baseline(baseline_path: Path) -> None:
         assert changed_paths == expected_changes, (
             f"Unexpected old-resource delta: {sorted(changed_paths ^ expected_changes)}"
         )
-        for identifier in GUI_DISPLAY_OVERRIDES:
+        for identifier in set(GUI_DISPLAY_OVERRIDES) & set(old_by_id):
             path = f"assets/{MOD_ID}/models/block/{identifier}.json"
             old_model = json.loads(baseline.read(path))
             current_model = load_json(RESOURCE_ROOT / path)
@@ -1626,13 +1679,60 @@ def verify_phase4_baseline(baseline_path: Path) -> None:
     print("Verified 2.0.41 compatibility: all 213 old IDs/names retained; six requested resource changes and 26 strictly GUI-only icon repairs.")
 
 
+def verify_phase5_baseline(baseline_path: Path) -> None:
+    """Require every 2.0.45 block resource and existing name to remain intact."""
+    with zipfile.ZipFile(baseline_path) as baseline:
+        if "fabric.mod.json" in baseline.namelist():
+            metadata = json.loads(baseline.read("fabric.mod.json"))
+            assert metadata["id"] == MOD_ID and metadata["version"] == "2.0.45"
+        else:
+            metadata = baseline.read("META-INF/mods.toml").decode("utf8")
+            assert f'modId="{MOD_ID}"' in metadata and 'version="2.0.45"' in metadata
+        catalog_path = f"assets/{MOD_ID}/block_catalog.json"
+        old_catalog = {entry["id"]: entry for entry in json.loads(baseline.read(catalog_path))["blocks"]}
+        current_catalog = {entry["id"]: entry for entry in load_json(RESOURCE_ROOT / catalog_path)["blocks"]}
+        additions = {item.identifier for item in discover_phase5_assets()}
+        assert len(old_catalog) == 234 and len(current_catalog) == 261 and len(additions) == 27
+        assert set(current_catalog) == set(old_catalog) | additions and not (set(old_catalog) & additions)
+        assert all(current_catalog[identifier] == entry for identifier, entry in old_catalog.items()), "Existing block category/source/collision changed"
+        languages = {f"assets/{MOD_ID}/lang/{locale}.json" for locale in ALL_LOCALES}
+        tags = {f"data/{MOD_ID}/tags/blocks/{name}.json" for name in ("all_blocks", "frames", "indicators", "poles", "annexes")}
+        excluded = languages | tags | {catalog_path}
+        for path in languages:
+            old = json.loads(baseline.read(path))
+            current = load_json(RESOURCE_ROOT / path)
+            assert len(old) == 238 and len(current) == 265
+            assert all(current.get(key) == value for key, value in old.items()), f"Existing translation changed: {path}"
+        for path in tags:
+            old = json.loads(baseline.read(path))
+            current = load_json(RESOURCE_ROOT / path)
+            assert old["replace"] == current["replace"]
+            assert set(old["values"]) <= set(current["values"]), f"Old block tag membership removed: {path}"
+        old_paths = {p for p in baseline.namelist() if p.startswith((f"assets/{MOD_ID}/", f"data/{MOD_ID}/")) and not p.endswith("/")}
+        current_paths = {f"assets/{MOD_ID}/{p}" for p in relative_file_set(ASSET_ROOT)} | {f"data/{MOD_ID}/{p}" for p in relative_file_set(DATA_ROOT)}
+        expected_added = set()
+        for identifier in additions:
+            expected_added.update({
+                f"assets/{MOD_ID}/models/block/{identifier}.json", f"assets/{MOD_ID}/models/item/{identifier}.json",
+                f"assets/{MOD_ID}/blockstates/{identifier}.json", f"assets/{MOD_ID}/textures/block/{identifier}.png",
+                f"data/{MOD_ID}/loot_tables/blocks/{identifier}.json",
+            })
+            if identifier in PHASE5_DYNAMIC_IDS:
+                expected_added.add(f"assets/{MOD_ID}/textures/block/{identifier}.png.mcmeta")
+        assert current_paths == old_paths | expected_added, "Unexpected phase-five namespace file delta"
+        for path in old_paths - excluded:
+            assert baseline.read(path) == (RESOURCE_ROOT / path).read_bytes(), f"Existing block resource changed: {path}"
+    print("Verified 2.0.45 compatibility: all 234 old IDs, names, shapes, models, textures and 15 animations unchanged; exactly 27 added blocks.")
+
+
 def main() -> None:
     global WORKBOOK_ROOT
     parser = argparse.ArgumentParser(
         description=f"Verify all {EXPECTED_ASSET_COUNT} generated traffic-light resource chains."
     )
     parser.add_argument("jar", nargs="?", type=Path, help="Optional built JAR to verify byte-for-byte")
-    parser.add_argument("--baseline", type=Path, help="Optional 2.0.41 release JAR for phase-four compatibility checks")
+    parser.add_argument("--baseline", type=Path, help="Optional 2.0.45 release JAR for strict phase-five compatibility checks")
+    parser.add_argument("--phase4-baseline", type=Path, help="Optional historical 2.0.41 release JAR compatibility check")
     parser.add_argument(
         "--private-input-root", type=Path, default=ROOT,
         help="Private project root containing the original naming workbooks.",
@@ -1649,7 +1749,9 @@ def main() -> None:
         total_collision_boxes,
     ) = verify_resources()
     if args.baseline is not None:
-        verify_phase4_baseline(args.baseline.resolve())
+        verify_phase5_baseline(args.baseline.resolve())
+    if args.phase4_baseline is not None:
+        verify_phase4_baseline(args.phase4_baseline.resolve())
     if args.jar is not None:
         verify_jar(args.jar.resolve())
     suffix = f" and JAR {args.jar}" if args.jar is not None else ""
@@ -1659,7 +1761,7 @@ def main() -> None:
         f"({excluded_count} hidden placeholders excluded from {total_source_elements} raw cubes), "
         f"{EXPECTED_ANIMATION_METADATA_COUNT} synchronized 2 FPS animated textures, "
         f"{len(ALL_LOCALES)} complete languages with exactly four creative tabs, "
-        f"a verified 512x512 mod icon, "
+        f"a verified 1024x1024 mod icon, "
         f"texture SHA-256 equality{suffix}."
     )
 

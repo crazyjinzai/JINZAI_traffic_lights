@@ -1,0 +1,39 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+
+[[mods]]
+modId = "jinzai_traffic_lights"
+version = "${version}"
+displayName = "津仔的交通灯"
+logoFile = "icon.png"
+authors = "Crzay津仔"
+description = '''
+JINZAI Traffic Lights for Minecraft 1.21.1. Models, textures, animations and the four creative tabs share the 2.0.46 content catalog.
+津仔的交通灯 Minecraft 1.21.1 移植版，与 2.0.46 共用模型、贴图、动态贴图及四个创造分类。
+Art and funding / 美术与资金支持: Crzay津仔. Technical implementation / 技术实现: QiZhang.
+'''
+
+[[dependencies.jinzai_traffic_lights]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.248,21.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.jinzai_traffic_lights]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.jinzai_traffic_lights]]
+modId = "architectury"
+type = "required"
+versionRange = "[13.0.8,14.0.0)"
+ordering = "AFTER"
+side = "BOTH"
+
+[features.jinzai_traffic_lights]
+javaVersion = "[21,)"

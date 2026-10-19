@@ -1,0 +1,55 @@
+// Art and funding: Crzay津仔. Technical implementation: QiZhang. MIT License.
+plugins {
+    id "architectury-plugin" version "3.4.164"
+    id "dev.architectury.loom" version "1.11.456" apply false
+    id "com.github.johnrengelman.shadow" version "8.1.1" apply false
+}
+
+ext.sharedRepository = file("../..")
+architectury { minecraft = rootProject.minecraft_version }
+
+allprojects {
+    group = rootProject.maven_group
+    version = rootProject.mod_version
+}
+
+subprojects {
+    apply plugin: "dev.architectury.loom"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
+
+    repositories {
+        mavenCentral()
+        maven { url "https://maven.fabricmc.net/" }
+        maven { url "https://maven.architectury.dev/" }
+        maven { url "https://maven.neoforged.net/releases/" }
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings loom.layered {
+            mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
+            mappings "dev.architectury:yarn-mappings-patch-neoforge:${rootProject.yarn_mappings_patch}"
+        }
+    }
+
+    configurations.configureEach {
+        if (name == "architecturyTransformerClasspath") {
+            resolutionStrategy.force "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release = 21
+    }
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+        withSourcesJar()
+    }
+    tasks.withType(AbstractArchiveTask).configureEach {
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
+    }
+}
