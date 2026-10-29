@@ -31,6 +31,8 @@ PHASE2_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase2_names.json"
 PHASE3_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase3_names.json"
 PHASE4_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase4_names.json"
 PHASE5_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase5_names.json"
+PHASE6_TRANSLATION_SOURCE = TRANSLATION_SOURCE_ROOT / "phase6_names.json"
+MANIFEST_SOURCE = ROOT / "tools" / "block_manifest.json"
 # Inventory-only fitting corrections; supplied art and placed geometry stay intact.
 GUI_DISPLAY_OVERRIDES = json.loads((ROOT / "tools" / "gui_display_overrides.json").read_text(encoding="utf-8"))
 # Supplied bd_pole_18 retains its author's old internal model/texture name.
@@ -119,10 +121,10 @@ PHASE5_SOURCE_FOLDERS = {
     "动态指示灯（五期）": ("indicator", 16),
 }
 EXPECTED_CATEGORY_COUNTS = {
-    "frame": 65,
-    "indicator": 94,
-    "pole": 88,
-    "annex": 14,
+    "frame": 89,
+    "indicator": 108,
+    "pole": 117,
+    "annex": 20,
 }
 
 # Phase-two frame identifiers intentionally preserve the identifiers supplied in
@@ -190,6 +192,11 @@ class AssetSpec:
     zh_cn: str
     en_us: str
     phase: int = 1
+    collision_mode: str = "legacy"
+    model_name: str | None = None
+    texture_name: str | None = None
+    animated: bool | None = None
+    light_level: int | None = None
 
     @property
     def source_model(self) -> Path:
@@ -580,7 +587,8 @@ def discover_phase5_specs() -> list[AssetSpec]:
     return result
 
 
-def discover_asset_specs() -> list[AssetSpec]:
+def discover_legacy_workbook_specs() -> list[AssetSpec]:
+    """Historical workbook importer; normal regeneration uses the public manifest."""
     specs: list[AssetSpec] = []
 
     pole_rows = read_first_sheet_rows(WORKBOOK_ROOT / "杆子" / SOURCE_CONFIG["杆子"]["workbook"])
@@ -926,9 +934,10 @@ def discover_asset_specs() -> list[AssetSpec]:
         category: sum(spec.category == category for spec in specs)
         for category in CATEGORY_ORDER
     }
-    if counts != EXPECTED_CATEGORY_COUNTS:
+    legacy_counts = {"frame": 65, "indicator": 94, "pole": 88, "annex": 14}
+    if counts != legacy_counts:
         raise ValueError(
-            f"Unexpected mapped counts: {counts}; expected {EXPECTED_CATEGORY_COUNTS}"
+            f"Unexpected mapped counts: {counts}; expected {legacy_counts}"
         )
     if len(specs) != 261:
         raise ValueError(f"Expected 261 assets, found {len(specs)}")
@@ -950,6 +959,53 @@ def discover_asset_specs() -> list[AssetSpec]:
             spec.source_stem,
         ),
     )
+
+
+def discover_asset_specs() -> list[AssetSpec]:
+    """Load the reviewed public ID/source mapping without private XLSX files.
+
+    The list order preserves the existing creative inventory order. Phase-six
+    replacement art keeps its original registry ID and phase; collision_mode
+    records the requested whole-model envelope independently of that history.
+    """
+    payload = json.loads(MANIFEST_SOURCE.read_text(encoding="utf-8"))
+    if set(payload) != {"schema", "assets"} or payload["schema"] != 1:
+        raise ValueError("Unsupported block manifest schema")
+    required = {"source_folder", "source_stem", "id", "category", "zh_cn", "en_us", "phase"}
+    optional = {"collision_mode", "model_name", "texture_name", "animated", "light_level"}
+    specs = []
+    for asset in payload["assets"]:
+        if not required <= set(asset) or set(asset) - required - optional:
+            raise ValueError(f"Invalid block manifest fields: {asset}")
+        if asset["category"] not in CATEGORY_ORDER or asset["phase"] not in range(1, 7):
+            raise ValueError(f"Invalid category/phase for {asset['id']}")
+        for key in ("source_folder", "source_stem", "id", "zh_cn", "en_us"):
+            if not isinstance(asset[key], str) or not asset[key].strip():
+                raise ValueError(f"Blank manifest field {key}: {asset['id']}")
+        if not _RESOURCE_ID_RE.fullmatch(asset["id"]):
+            raise ValueError(f"Invalid resource ID: {asset['id']}")
+        if asset.get("collision_mode", "legacy") not in {"legacy", "bounding"}:
+            raise ValueError(f"Invalid collision mode for {asset['id']}")
+        if "animated" in asset and not isinstance(asset["animated"], bool):
+            raise ValueError(f"Invalid animation flag for {asset['id']}")
+        if "light_level" in asset and (type(asset["light_level"]) is not int or not 0 <= asset["light_level"] <= 15):
+            raise ValueError(f"Invalid light level for {asset['id']}")
+        kwargs = {key: asset[key] for key in optional if key in asset}
+        spec = AssetSpec(asset["source_folder"], asset["source_stem"], asset["id"],
+                         asset["category"], asset["zh_cn"], asset["en_us"], asset["phase"], **kwargs)
+        for path in (spec.source_model, spec.source_texture):
+            if not path.resolve().is_relative_to(ROOT.resolve()) or not path.is_file():
+                raise ValueError(f"Missing or unsafe manifest source: {path}")
+        specs.append(spec)
+    if len(specs) != 334 or len({spec.identifier for spec in specs}) != len(specs):
+        raise ValueError("Expected 334 unique block manifest entries")
+    counts = {category: sum(spec.category == category for spec in specs) for category in CATEGORY_ORDER}
+    if counts != EXPECTED_CATEGORY_COUNTS:
+        raise ValueError(f"Manifest category counts differ: {counts}")
+    phases = {phase: sum(spec.phase == phase for spec in specs) for phase in range(1, 7)}
+    if phases != {1: 103, 2: 58, 3: 52, 4: 21, 5: 27, 6: 73}:
+        raise ValueError(f"Manifest phase counts differ: {phases}")
+    return specs
 
 
 def _inflated_bounds(element: dict[str, Any]) -> tuple[list[float], list[float]]:
@@ -1073,7 +1129,7 @@ def _validate_phase3_embedded_texture(
     texture_index: int,
     spec: AssetSpec,
 ) -> None:
-    if spec.phase not in (3, 4, 5):
+    if spec.phase not in (3, 4, 5, 6) and spec.collision_mode != "bounding":
         return
     texture_source = source.get("textures", [])[texture_index].get("source")
     prefix = "data:image/png;base64,"
@@ -1095,7 +1151,7 @@ def validate_animation_metadata(
     texture_size: list[int],
 ) -> Path | None:
     metadata_path = spec.source_animation_metadata
-    expects_animation = spec.source_folder in {"动态指示灯（三期）", "动态指示灯（五期）"}
+    expects_animation = spec.animated if spec.animated is not None else spec.source_folder in {"动态指示灯（三期）", "动态指示灯（五期）"}
     if metadata_path.is_file() != expects_animation:
         expectation = "required" if expects_animation else "unexpected"
         raise ValueError(f"Animation metadata is {expectation}: {metadata_path}")
@@ -1234,11 +1290,15 @@ def export_model(
     if meta.get("model_format") != "java_block":
         raise ValueError(f"{spec.source_model.name} is not a java_block model")
     internal_name = PHASE4_INTERNAL_SOURCE_ALIASES.get(spec.identifier, spec.source_stem) if spec.phase == 4 else spec.source_stem
+    if spec.model_name is not None:
+        internal_name = spec.model_name
     if source.get("name") != internal_name:
         raise ValueError(f"Model name/file mismatch: {spec.source_model}")
     width = int(source["resolution"]["width"])
     height = int(source["resolution"]["height"])
     texture_name = PHASE5_TEXTURE_NAME_ALIASES.get(spec.identifier, internal_name) if spec.phase == 5 else internal_name
+    if spec.texture_name is not None:
+        texture_name = spec.texture_name
     texture_index = _referenced_texture_index(source, texture_name)
     _validate_phase3_embedded_texture(source, texture_index, spec)
     source_elements = source.get("elements", [])
@@ -1265,8 +1325,9 @@ def export_model(
     ]
     if (
         spec.identifier in SIMPLIFIED_BOUNDING_COLLISION_IDS
+        or spec.collision_mode == "bounding"
         or spec.identifier in PHASE4_MODIFIED_MODEL_IDS
-        or spec.phase in (4, 5)
+        or spec.phase in (4, 5, 6)
         or (spec.phase == 3 and spec.category != "pole")
     ):
         boxes = enclosing_collision_box(boxes)
@@ -1498,7 +1559,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generate traffic-light runtime resources from source art.")
     parser.add_argument(
         "--private-input-root", type=Path, default=ROOT,
-        help="Private project root containing the original naming workbooks; source art stays in this repository.",
+        help="Deprecated compatibility option; normal generation uses tools/block_manifest.json and needs no private workbooks.",
     )
     args = parser.parse_args()
     WORKBOOK_ROOT = args.private_input_root.resolve()
@@ -1522,6 +1583,8 @@ def main() -> None:
 
     # These namespace roots are entirely generated by this script.
     for generated_root in (ASSET_ROOT, DATA_ROOT):
+        if not generated_root.resolve().is_relative_to(RESOURCE_ROOT.resolve()):
+            raise ValueError(f"Generated namespace is outside the resource root: {generated_root}")
         if generated_root.exists():
             shutil.rmtree(generated_root)
 
@@ -1587,6 +1650,8 @@ def main() -> None:
                 "collision_boxes": boxes,
             }
         )
+        if spec.light_level is not None:
+            catalog_entries[-1]["light_level"] = spec.light_level
 
     translations: dict[str, dict[str, str]] = {
         "zh_cn": zh_cn,
@@ -1618,10 +1683,14 @@ def main() -> None:
     phase5_translation_keys = {f"block.{MOD_ID}.{spec.identifier}" for spec in phase5_specs}
     if len(phase5_specs) != 27 or len(phase5_translation_keys) != 27:
         raise ValueError("Expected 27 unique phase-five translation keys")
+    phase6_specs = [spec for spec in specs if spec.phase == 6]
+    phase6_translation_keys = {f"block.{MOD_ID}.{spec.identifier}" for spec in phase6_specs}
+    if len(phase6_specs) != 73 or len(phase6_translation_keys) != 73:
+        raise ValueError("Expected 73 unique phase-six translation keys")
     if phase2_translation_keys & phase3_translation_keys:
         raise ValueError("Phase-two and phase-three translation keys overlap")
     phase1_translation_keys = (
-        expected_translation_keys - phase2_translation_keys - phase3_translation_keys - phase4_translation_keys - phase5_translation_keys
+        expected_translation_keys - phase2_translation_keys - phase3_translation_keys - phase4_translation_keys - phase5_translation_keys - phase6_translation_keys
     )
     if len(phase1_translation_keys) != 106:
         raise ValueError(
@@ -1635,14 +1704,15 @@ def main() -> None:
         raise ValueError(
             f"Expected 52 phase-three translation keys, found {len(phase3_translation_keys)}"
         )
-    if len(expected_translation_keys) != 265:
+    if len(expected_translation_keys) != 338:
         raise ValueError(
-            f"Expected 265 complete translation keys, found {len(expected_translation_keys)}"
+            f"Expected 338 complete translation keys, found {len(expected_translation_keys)}"
         )
     phase2_translation_locales = load_phase2_translation_source(phase2_specs)
     phase3_translation_locales = load_expansion_translation_locales(phase3_specs)
     phase4_translation_locales = load_expansion_translation_locales(phase4_specs, PHASE4_TRANSLATION_SOURCE)
     phase5_translation_locales = load_expansion_translation_locales(phase5_specs, PHASE5_TRANSLATION_SOURCE)
+    phase6_translation_locales = load_expansion_translation_locales(phase6_specs, PHASE6_TRANSLATION_SOURCE)
     for locale in EXTRA_LOCALES:
         source_path = TRANSLATION_SOURCE_ROOT / f"{locale}.json"
         if not source_path.is_file():
@@ -1702,6 +1772,10 @@ def main() -> None:
         if set(translated) & set(phase5_translated):
             raise ValueError(f"Earlier/phase-five translation overlap for {locale}")
         translated.update(phase5_translated)
+        phase6_translated = expansion_locale_values(locale, phase6_translation_locales[locale], phase6_specs)
+        if set(translated) & set(phase6_translated):
+            raise ValueError(f"Earlier/phase-six translation overlap for {locale}")
+        translated.update(phase6_translated)
         if set(translated) != expected_translation_keys:
             raise ValueError(
                 f"Complete translation key mismatch for {locale}: "

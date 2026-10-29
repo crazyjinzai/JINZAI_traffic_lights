@@ -4,7 +4,7 @@
 
 ## English
 
-Mod version: 2.0.46 on all four platforms.
+Mod version: 2.1.50 on all four platforms.
 
 | Minecraft | Loaders | Java | Source project |
 |---|---|---|---|
@@ -17,18 +17,18 @@ The project's original code, configuration, documentation, models, textures and 
 
 ### Introduction
 
-JINZAI Traffic Lights is a decorative expansion mod for city building. Version 2.0.46 keeps all 234 existing registry IDs and adds all 27 phase-five blocks, for 261 blocks in total:
+JINZAI Traffic Lights is a decorative expansion mod for city building. Version 2.1.50 keeps all 261 existing registry IDs, adds 73 phase-six blocks, and replaces 44 existing frame models. There are 334 blocks in total:
 
-- 65 traffic-light frames and frame components.
-- 63 static indicators and decorative lights, plus 31 animated signal blocks.
-- 88 poles and pole components.
-- 14 illuminated, pass-through traffic-light accessories.
+- 89 traffic-light frames and frame components.
+- 71 static indicators and decorative lights, plus 37 animated signal blocks.
+- 117 poles and pole components.
+- 20 pass-through traffic-light accessories.
 
-Phase five adds 11 height-restriction pole components and 16 animated indicators. Each new animated texture contains 144 frames at 10 ticks per frame, for a 72-second loop. All additions use the four established creative tabs. Every existing ID, name, model, texture, animation and collision box from 2.0.45 is preserved.
+Phase six adds 24 frames, 14 indicators (including six animated signals), 29 poles and six accessories. All additions use the four established creative tabs. The 217 unchanged older blocks retain their models, textures and collision behavior; all older IDs, names and animation strips are preserved.
 
-Every new phase-five model, every phase-four addition, and the three previously replaced frame models use one axis-aligned bounding box enclosing the complete placed model volume. Unmodified older models retain their existing selection and collision behavior. Indicators and accessories remain illuminated and have no physical collision; their bounding boxes are used for selection.
+Every phase-six addition and replacement uses one axis-aligned bounding box enclosing the complete placed model volume. Indicators and accessories have no physical collision; their boxes are used for selection. The new cylindrical camera emits light at level 15; the five other new accessories emit no light, as specified in the supplied naming table. Older lighting behavior is preserved.
 
-The 31 animated signals use vanilla synchronized texture animation at 2 FPS. These are decorative animations: independent per-block timing, functional countdowns, automatic traffic control and redstone-controlled signal logic are not included.
+The 37 animated signals use vanilla synchronized texture animation at 2 FPS. Each of the six new strips has 144 frames at 10 ticks per frame, for a 72-second loop. Independent per-block timing, functional countdowns, automatic traffic control and redstone-controlled signals are not included.
 
 The existing corrections that fit and center 26 older inventory icons within their slots are retained. These corrections affect only the GUI display transform; supplied art, placed models, textures, animation and collision boxes are unchanged. The explicit corrections are maintained in `tools/gui_display_overrides.json`.
 
@@ -42,13 +42,13 @@ Fabric:
 
 1. Install Fabric Loader 0.17.2 or a newer compatible release for Minecraft 1.20.1.
 2. Separately install Fabric API 0.92.6+1.20.1 and Architectury API 9.0.6 through versions earlier than 10.0.0. Testing used Architectury API 9.2.14; dependencies are not bundled in the release JARs.
-3. Put `JINZAI_Trafficlights-Fabric-1.20.1-2.0.46.jar` in the instance's `mods` folder.
+3. Put `JINZAI_Trafficlights-Fabric-1.20.1-2.1.50.jar` in the instance's `mods` folder.
 
 Forge:
 
 1. Install Forge 47.x for Minecraft 1.20.1.
 2. Separately install Architectury API 9.0.6 through versions earlier than 10.0.0. Testing used Architectury API 9.2.14; dependencies are not bundled in the release JARs.
-3. Put `JINZAI_Trafficlights-Forge-1.20.1-2.0.46.jar` in the instance's `mods` folder.
+3. Put `JINZAI_Trafficlights-Forge-1.20.1-2.1.50.jar` in the instance's `mods` folder.
 
 Remove older copies of this mod before launching so two JARs with the same mod ID are not loaded together.
 
@@ -60,17 +60,22 @@ Remove older copies of this mod before launching so two JARs with the same mod I
 
 This builds Minecraft 1.20.1 using JDK 17. To build Minecraft 1.21.1, select JDK 21, change to `versions/1.21.1`, then run that project's `gradlew.bat clean build`.
 
-The public source retains the original art files and all pre-generated runtime
-resources. Private non-build documents and workbooks are not part of the public
-source package. The resource generator and full art audit remain in `tools/`
-for development reference and require separately maintained private inputs;
-they are not public-package acceptance commands.
+The public source contains the original art, generated resources and the complete
+`tools/block_manifest.json` mapping. Resource generation and verification require
+Python 3.11 or newer and the standard library; private workbooks are not required:
+
+```powershell
+python tools/generate_full_resources.py
+python tools/verify_full_resources.py
+```
+
+Private documents, workbooks, runtime data and build caches are excluded from the source package.
 
 Release JARs:
 
 ```text
-fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.0.46.jar
-forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.46.jar
+fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.1.50.jar
+forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.1.50.jar
 ```
 
 ---
@@ -79,7 +84,7 @@ forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.46.jar
 
 ## 中文
 
-四端模组版本统一为2.0.46。
+四端模组版本统一为2.1.50。
 
 | Minecraft | 加载器 | Java | 源码工程 |
 |---|---|---|---|
@@ -92,18 +97,18 @@ forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.46.jar
 
 ### 模组介绍
 
-津仔的交通灯是一个面向城建装饰的扩展模组。2.0.46保留已有234个注册ID，并加入五期全部27个新方块，总计261个：
+津仔的交通灯是一个面向城建装饰的扩展模组。2.1.50保留全部261个旧注册ID，新增六期73个方块、替换44个旧框架模型，总计334个方块：
 
-- 65个红绿灯框架与框架部件。
-- 63个静态指示灯与照明装饰，以及31个动态指示灯方块。
-- 88个杆子与杆件部件。
-- 14个发光且可穿透的交通灯附属。
+- 89个红绿灯框架与框架部件。
+- 71个静态指示灯与照明装饰，以及37个动态指示灯。
+- 117个杆子与杆件部件。
+- 20个可穿透的交通灯附属。
 
-五期新增11个限高杆件和16个动态指示灯，沿用原有4个创造标签页。新动态贴图均为144帧、每帧10 tick，完整循环72秒。2.0.45的全部旧注册ID、名称、模型、贴图、动画和碰撞箱均保留。
+六期新增24个框架、14个指示灯（其中6个动态）、29个杆件和6个附属，沿用原有4个创造分类。217个未修改旧方块保留原有模型、贴图和碰撞；全部旧ID、名称及动画贴图均保留。
 
-五期全部新模型、四期全部新增模型和此前3个替换框架模型均使用一个覆盖放置后完整体积的轴对齐外包箱。未修改的旧模型保留原有选框与碰撞行为。指示灯和附属保持发光、没有物理碰撞，外包箱用于准星选中。
+本期新增和替换模型均使用覆盖放置后完整体积的单一轴对齐外包箱。指示灯和附属没有物理碰撞，外包箱用于准星选中。按素材命名表，新增圆筒摄像头亮度为15，其余五个新附属不发光；旧方块照明行为保持不变。
 
-31个动态指示灯仍使用原版同步纹理动画，以2 FPS播放，属于装饰动画，不包含每个方块独立计时、功能性倒计时、自动交通控制或红石控制信号逻辑。
+37组动态指示灯使用原版同步纹理动画，以2 FPS播放。六组新动画各144帧、每帧10 tick、完整循环72秒。它们属于装饰动画，不包含每个方块独立计时、功能性倒计时、自动交通控制或红石控制逻辑。
 
 保留此前26个旧物品图标的缩小和居中修复，避免图标跨出物品格。仅修改GUI展示变换，原始美术、放置后的模型、贴图、动画和碰撞箱均保持原样。明确的展示覆盖配置保存在`tools/gui_display_overrides.json`。
 
@@ -117,13 +122,13 @@ Fabric：
 
 1. 安装Minecraft 1.20.1对应的Fabric Loader 0.17.2或更高兼容版本。
 2. 另行安装Fabric API 0.92.6+1.20.1和Architectury API 9.0.6至低于10.0.0的版本；测试使用Architectury API 9.2.14，Release JAR不内置这些依赖。
-3. 将`JINZAI_Trafficlights-Fabric-1.20.1-2.0.46.jar`放入实例的`mods`文件夹。
+3. 将`JINZAI_Trafficlights-Fabric-1.20.1-2.1.50.jar`放入实例的`mods`文件夹。
 
 Forge：
 
 1. 安装Minecraft 1.20.1对应的Forge 47.x。
 2. 另行安装Architectury API 9.0.6至低于10.0.0的版本；测试使用Architectury API 9.2.14，Release JAR不内置这些依赖。
-3. 将`JINZAI_Trafficlights-Forge-1.20.1-2.0.46.jar`放入实例的`mods`文件夹。
+3. 将`JINZAI_Trafficlights-Forge-1.20.1-2.1.50.jar`放入实例的`mods`文件夹。
 
 启动前请移除本模组旧版本，避免同时加载两个具有相同模组ID的JAR。
 
@@ -135,13 +140,14 @@ Forge：
 
 上述命令在仓库根目录使用JDK 17构建Minecraft 1.20.1。构建Minecraft 1.21.1时，切换至JDK 21并进入`versions/1.21.1`，再运行该目录的`gradlew.bat clean build`。
 
-公开源码保留原始美术文件和全部已生成运行资源。私有且不参与构建的说明文档与
-工作表不属于公开源码包。`tools/`中的资源生成器和完整美术审计工具作为开发参考
-保留，运行时需要另行维护私有输入，不作为公开源码包的验收命令。
+公开源码包含原始美术、生成资源及完整的`tools/block_manifest.json`映射表。
+Python 3.11及以上版本可运行`python tools/generate_full_resources.py`和
+`python tools/verify_full_resources.py`重新生成和校验，无需私有工作表或额外Python依赖。
+源码包排除私有文档、工作表、运行数据和构建缓存。
 
 正式JAR：
 
 ```text
-fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.0.46.jar
-forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.0.46.jar
+fabric/build/libs/JINZAI_Trafficlights-Fabric-1.20.1-2.1.50.jar
+forge/build/libs/JINZAI_Trafficlights-Forge-1.20.1-2.1.50.jar
 ```

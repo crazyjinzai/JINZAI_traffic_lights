@@ -1767,4 +1767,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # Current public verification is independent of private historical XLSX files.
+    # Keep the original pure geometry checks above as the independent audit core.
+    from verify_phase6_resources import main as verify_current_public_resources
+    verify_current_public_resources()

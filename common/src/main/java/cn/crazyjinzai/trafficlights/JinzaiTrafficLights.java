@@ -41,7 +41,7 @@ public final class JinzaiTrafficLights {
     private static final String CATALOG_RESOURCE =
         "assets/" + MOD_ID + "/block_catalog.json";
     private static final int SUPPORTED_CATALOG_SCHEMA = 1;
-    private static final int EXPECTED_CATALOG_ENTRY_COUNT = 261;
+    private static final int EXPECTED_CATALOG_ENTRY_COUNT = 334;
     private static final Gson GSON = new Gson();
 
     private static final DeferredRegister<Block> BLOCKS =
@@ -265,16 +265,22 @@ public final class JinzaiTrafficLights {
 
             Category category = Category.parse(entry.category, index);
             List<Box> boxes = validateBoxes(entry.collision_boxes, index, identifier);
-            prepared.add(new PreparedEntry(identifier, category, boxes));
+            int lightLevel = entry.light_level == null
+                ? (category == Category.INDICATOR || category == Category.ANNEX ? 15 : 0)
+                : entry.light_level;
+            if (lightLevel < 0 || lightLevel > 15) {
+                throw catalogEntryError(index, "light_level must be between 0 and 15");
+            }
+            prepared.add(new PreparedEntry(identifier, category, boxes, lightLevel));
             categoryCounts.put(category, categoryCounts.get(category) + 1);
         }
 
         for (Category category : Category.values()) {
             int expectedCount = switch (category) {
-                case FRAME -> 65;
-                case INDICATOR -> 94;
-                case POLE -> 88;
-                case ANNEX -> 14;
+                case FRAME -> 89;
+                case INDICATOR -> 108;
+                case POLE -> 117;
+                case ANNEX -> 20;
             };
             if (categoryCounts.get(category) != expectedCount) {
                 throw new IllegalStateException(
@@ -371,6 +377,7 @@ public final class JinzaiTrafficLights {
                 AbstractBlock.Settings.create()
                     .strength(1.5F, 6.0F)
                     .sounds(BlockSoundGroup.METAL)
+                    .luminance(state -> entry.lightLevel())
                     .nonOpaque(),
                 entry.boxes(),
                 true
@@ -379,7 +386,7 @@ public final class JinzaiTrafficLights {
                 AbstractBlock.Settings.create()
                     .strength(0.3F)
                     .sounds(BlockSoundGroup.GLASS)
-                    .luminance(state -> 15)
+                    .luminance(state -> entry.lightLevel())
                     .noCollision()
                     .nonOpaque(),
                 entry.boxes(),
@@ -453,7 +460,8 @@ public final class JinzaiTrafficLights {
     private record PreparedEntry(
         Identifier identifier,
         Category category,
-        List<Box> boxes
+        List<Box> boxes,
+        int lightLevel
     ) {
     }
 
@@ -473,6 +481,7 @@ public final class JinzaiTrafficLights {
         private String category;
         private String source_folder;
         private String source_stem;
+        private Integer light_level;
         private List<List<Double>> collision_boxes;
     }
 }

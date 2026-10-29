@@ -55,9 +55,9 @@ def verify(path: Path) -> dict:
         assert jar.read("LICENSE") == (REPOSITORY / "LICENSE").read_bytes()
         assert jar.read("COPYRIGHT.txt") == (REPOSITORY / "COPYRIGHT.txt").read_bytes()
         catalog = json.loads(jar.read(f"assets/{MOD}/block_catalog.json"))["blocks"]
-        assert len(catalog) == 261
+        assert len(catalog) == 334
         assert Counter(entry["category"] for entry in catalog) == {
-            "frame": 65, "indicator": 94, "pole": 88, "annex": 14,
+            "frame": 89, "indicator": 108, "pole": 117, "annex": 20,
         }
         identifiers = {entry["id"] for entry in catalog}
         assert len(identifiers) == len(catalog)
@@ -82,7 +82,7 @@ def verify(path: Path) -> dict:
         if "fabric.mod.json" in entries:
             loader = "Fabric"
             metadata = json.loads(jar.read("fabric.mod.json"))
-            assert metadata["version"] == "2.0.46" and metadata["license"] == "MIT"
+            assert metadata["version"] == "2.1.50" and metadata["license"] == "MIT"
             assert metadata["depends"]["minecraft"] == "1.21.1"
             assert metadata["depends"]["java"] == ">=21"
             assert metadata["depends"]["architectury"] == ">=13.0.8 <14.0.0"
@@ -91,14 +91,14 @@ def verify(path: Path) -> dict:
             loader = "NeoForge"
             import tomllib
             metadata = tomllib.loads(jar.read("META-INF/neoforge.mods.toml").decode("utf-8"))
-            assert metadata["license"] == "MIT" and metadata["mods"][0]["version"] == "2.0.46"
+            assert metadata["license"] == "MIT" and metadata["mods"][0]["version"] == "2.1.50"
             dependencies = {d["modId"]: d for d in metadata["dependencies"][MOD]}
             assert dependencies["minecraft"]["versionRange"] == "[1.21.1,1.21.2)"
             assert dependencies["neoforge"]["versionRange"] == "[21.1.248,21.2)"
             assert metadata["features"][MOD]["javaVersion"] == "[21,)"
             assert "META-INF/mods.toml" not in entries
         animations = [n for n in entries if n.startswith(f"assets/{MOD}/textures/") and n.endswith(".png.mcmeta")]
-        assert len(animations) == 31
+        assert len(animations) == 37
     return {"jar": str(path), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "loader": loader, "blocks": len(catalog), "animations": len(animations),
             "shared_resources_identical": len(shared_files) - 1, "java_major": 65,

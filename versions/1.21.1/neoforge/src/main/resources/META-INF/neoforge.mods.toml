@@ -9,9 +9,9 @@ displayName = "津仔的交通灯"
 logoFile = "icon.png"
 authors = "Crzay津仔"
 description = '''
-JINZAI Traffic Lights for Minecraft 1.21.1. Models, textures, animations and the four creative tabs share the 2.0.46 content catalog.
-津仔的交通灯 Minecraft 1.21.1 移植版，与 2.0.46 共用模型、贴图、动态贴图及四个创造分类。
-Art and funding / 美术与资金支持: Crzay津仔. Technical implementation / 技术实现: QiZhang.
+JINZAI Traffic Lights 2.1.50 adds 73 blocks and replaces 44 frame models while preserving all 261 previous registry IDs. There are 334 blocks in four creative tabs: 89 frames, 108 indicators, 117 poles and 20 accessories. All 37 animated signals use synchronized vanilla texture animation; the six new strips each contain 144 frames at 10 ticks per frame (72 seconds). New and replaced models use one bounding box enclosing the placed volume. Indicators and accessories have no physical collision. The new cylindrical camera emits light; the five other new accessories do not. Older lighting behavior is preserved. These are decorative blocks without independent timers or redstone traffic control. Art and funding by Crzay津仔; technical implementation by QiZhang. Original project code and art use the MIT License; third-party components retain their licenses.
+
+津仔的交通灯2.1.50新增73个方块、替换44个框架模型，保留261个旧注册ID。现有334个方块：89个框架、108个指示灯、117个杆件、20个附属，沿用四个创造分类。37组动态贴图使用原版同步动画；六组新动画各144帧、每帧10 tick、循环72秒。新增和替换模型使用覆盖放置后体积的单一外包箱，指示灯及附属无物理碰撞。新增圆筒摄像头发光，其余五个新附属不发光，旧方块照明保持不变。本模组为城建装饰，不含独立计时或红石交通控制。Crzay津仔提供美术与资金支持，QiZhang提供技术实现。项目自身代码与美术采用MIT许可证，第三方组件保留各自许可证。
 '''
 
 [[dependencies.jinzai_traffic_lights]]

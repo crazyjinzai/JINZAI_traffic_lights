@@ -1,0 +1,3255 @@
+{
+  "schema": 1,
+  "assets": [
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "frame_rod_1",
+      "id": "frame_rod_1",
+      "category": "frame",
+      "zh_cn": "框架式栏杆-1",
+      "en_us": "Traffic Light Frame Rail 1",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "frame_rod_1a",
+      "id": "frame_rod_1a",
+      "category": "frame",
+      "zh_cn": "框架式栏杆-2",
+      "en_us": "Traffic Light Frame Rail 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "frame_rod_1b",
+      "id": "frame_rod_1b",
+      "category": "frame",
+      "zh_cn": "框架式栏杆-3",
+      "en_us": "Traffic Light Frame Rail 3",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "frame_rod_1c",
+      "id": "frame_rod_1c",
+      "category": "frame",
+      "zh_cn": "框架式栏杆-4",
+      "en_us": "Traffic Light Frame Rail 4",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "frame_rod_1d",
+      "id": "frame_rod_1d",
+      "category": "frame",
+      "zh_cn": "框架式栏杆-5",
+      "en_us": "Traffic Light Frame Rail 5",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "frame_rod_1e",
+      "id": "frame_rod_1e",
+      "category": "frame",
+      "zh_cn": "框架式栏杆-6",
+      "en_us": "Traffic Light Frame Rail 6",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_ligh_r1",
+      "id": "jinzai_traffic_ligh_r1",
+      "category": "frame",
+      "zh_cn": "无框人行道红绿灯",
+      "en_us": "Frameless Pedestrian Traffic Light",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_ligh_z1",
+      "id": "jinzai_traffic_ligh_z1",
+      "category": "frame",
+      "zh_cn": "框架式人行红绿灯-顶部",
+      "en_us": "Framed Pedestrian Traffic Light - Top",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_ligh_z1a",
+      "id": "jinzai_traffic_ligh_z1a",
+      "category": "frame",
+      "zh_cn": "框架式人行红绿灯-中部",
+      "en_us": "Framed Pedestrian Traffic Light - Middle",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_ligh_z1b",
+      "id": "jinzai_traffic_ligh_z1b",
+      "category": "frame",
+      "zh_cn": "框架式人行红绿灯-底部",
+      "en_us": "Framed Pedestrian Traffic Light - Bottom",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_ligh_z2",
+      "id": "jinzai_traffic_ligh_z2",
+      "category": "frame",
+      "zh_cn": "框架式人行红绿灯2-顶部",
+      "en_us": "Framed Pedestrian Traffic Light 2 - Top",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_ligh_z2a",
+      "id": "jinzai_traffic_ligh_z2a",
+      "category": "frame",
+      "zh_cn": "框架式人行红绿灯2-中部",
+      "en_us": "Framed Pedestrian Traffic Light 2 - Middle",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_ligh_z2c",
+      "id": "jinzai_traffic_ligh_z2c",
+      "category": "frame",
+      "zh_cn": "框架式人行红绿灯2-底部",
+      "en_us": "Framed Pedestrian Traffic Light 2 - Bottom",
+      "phase": 1
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c1",
+      "id": "jinzai_traffic_light_c1",
+      "category": "frame",
+      "zh_cn": "无框红绿灯",
+      "en_us": "Frameless Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c13",
+      "id": "jinzai_traffic_light_c13",
+      "category": "frame",
+      "zh_cn": "一体式红绿灯",
+      "en_us": "Integrated Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c2",
+      "id": "jinzai_traffic_light_c2",
+      "category": "frame",
+      "zh_cn": "正框红绿灯",
+      "en_us": "Square-Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c3",
+      "id": "jinzai_traffic_light_c3",
+      "category": "frame",
+      "zh_cn": "圆框红绿灯",
+      "en_us": "Round-Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c4",
+      "id": "jinzai_traffic_light_c4",
+      "category": "frame",
+      "zh_cn": "美式无框红绿灯",
+      "en_us": "American Frameless Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c5",
+      "id": "jinzai_traffic_light_c5",
+      "category": "frame",
+      "zh_cn": "美式有框红绿灯",
+      "en_us": "American Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c6",
+      "id": "jinzai_traffic_light_c6",
+      "category": "frame",
+      "zh_cn": "黑色圆框红绿灯",
+      "en_us": "Black Round-Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c7",
+      "id": "jinzai_traffic_light_c7",
+      "category": "frame",
+      "zh_cn": "广式圆框红绿灯",
+      "en_us": "Guangzhou-Style Round-Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h10",
+      "id": "jinzai_traffic_light_h10",
+      "category": "frame",
+      "zh_cn": "圆框横型红绿灯",
+      "en_us": "Horizontal Round-Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h11",
+      "id": "jinzai_traffic_light_h11",
+      "category": "frame",
+      "zh_cn": "黑色圆框横型红绿灯",
+      "en_us": "Horizontal Black Round-Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h12",
+      "id": "jinzai_traffic_light_h12",
+      "category": "frame",
+      "zh_cn": "一体式横型红绿灯",
+      "en_us": "Integrated Horizontal Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h14",
+      "id": "jinzai_traffic_light_h14",
+      "category": "frame",
+      "zh_cn": "框架式红绿灯",
+      "en_us": "Frame-Mounted Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h8",
+      "id": "jinzai_traffic_light_h8",
+      "category": "frame",
+      "zh_cn": "无框横型红绿灯",
+      "en_us": "Horizontal Frameless Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h9",
+      "id": "jinzai_traffic_light_h9",
+      "category": "frame",
+      "zh_cn": "正框横型红绿灯",
+      "en_us": "Horizontal Square-Framed Traffic Light",
+      "phase": 1,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c17",
+      "id": "jinzai_traffic_light_c17",
+      "category": "frame",
+      "zh_cn": "台北竖型红绿灯",
+      "en_us": "Taipei Vertical Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c22",
+      "id": "jinzai_traffic_light_c22",
+      "category": "frame",
+      "zh_cn": "双组合无框红绿灯",
+      "en_us": "Dual Frameless Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c23",
+      "id": "jinzai_traffic_light_c23",
+      "category": "frame",
+      "zh_cn": "移动式红绿灯",
+      "en_us": "Portable Traffic Light",
+      "phase": 2
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c26",
+      "id": "jinzai_traffic_light_c26",
+      "category": "frame",
+      "zh_cn": "双组合正框红绿灯",
+      "en_us": "Dual Square-Framed Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false,
+      "model_name": "jinzai_traffic_light_c23"
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c27",
+      "id": "jinzai_traffic_light_c27",
+      "category": "frame",
+      "zh_cn": "双组合圆框红绿灯",
+      "en_us": "Dual Round-Framed Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h15",
+      "id": "jinzai_traffic_light_h15",
+      "category": "frame",
+      "zh_cn": "台北横型红绿灯-1",
+      "en_us": "Taipei Horizontal Traffic Light 1",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h16",
+      "id": "jinzai_traffic_light_h16",
+      "category": "frame",
+      "zh_cn": "台北横型红绿灯-2",
+      "en_us": "Taipei Horizontal Traffic Light 2",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h18",
+      "id": "jinzai_traffic_light_h18",
+      "category": "frame",
+      "zh_cn": "无框四孔红绿灯",
+      "en_us": "Frameless Four-Lens Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h19",
+      "id": "jinzai_traffic_light_h19",
+      "category": "frame",
+      "zh_cn": "正框四孔红绿灯",
+      "en_us": "Square-Framed Four-Lens Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h20",
+      "id": "jinzai_traffic_light_h20",
+      "category": "frame",
+      "zh_cn": "复古四孔红绿灯",
+      "en_us": "Vintage Four-Lens Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h21",
+      "id": "jinzai_traffic_light_h21",
+      "category": "frame",
+      "zh_cn": "台北四孔红绿灯",
+      "en_us": "Taipei Four-Lens Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h23a",
+      "id": "jinzai_traffic_light_h23c",
+      "category": "frame",
+      "zh_cn": "移动式红绿灯底座",
+      "en_us": "Portable Traffic Light Base",
+      "phase": 2
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r2",
+      "id": "jinzai_traffic_ligh_r2",
+      "category": "frame",
+      "zh_cn": "新版无框人行道红绿灯",
+      "en_us": "New Frameless Pedestrian Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r3",
+      "id": "jinzai_traffic_ligh_r3",
+      "category": "frame",
+      "zh_cn": "正框人行道红绿灯",
+      "en_us": "Square-Framed Pedestrian Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r4",
+      "id": "jinzai_traffic_ligh_r4",
+      "category": "frame",
+      "zh_cn": "无框人行道红绿灯-2",
+      "en_us": "Frameless Pedestrian Traffic Light 2",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r5",
+      "id": "jinzai_traffic_ligh_r5",
+      "category": "frame",
+      "zh_cn": "台北人行道红绿灯",
+      "en_us": "Taipei Pedestrian Traffic Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r6",
+      "id": "jinzai_traffic_ligh_r6",
+      "category": "frame",
+      "zh_cn": "白色一体式人行道红绿灯-顶部",
+      "en_us": "White Integrated Pedestrian Traffic Light - Top",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r6a",
+      "id": "jinzai_traffic_ligh_r6a",
+      "category": "frame",
+      "zh_cn": "白色一体式人行道红绿灯-中部",
+      "en_us": "White Integrated Pedestrian Traffic Light - Middle",
+      "phase": 2
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r6b",
+      "id": "jinzai_traffic_ligh_r6b",
+      "category": "frame",
+      "zh_cn": "白色一体式人行道红绿灯-底部",
+      "en_us": "White Integrated Pedestrian Traffic Light - Bottom",
+      "phase": 2
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_s24",
+      "id": "jinzai_traffic_light_s24",
+      "category": "frame",
+      "zh_cn": "太阳能警示灯",
+      "en_us": "Solar Warning Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_s25",
+      "id": "jinzai_traffic_light_s25",
+      "category": "frame",
+      "zh_cn": "太阳能双警示灯",
+      "en_us": "Dual Solar Warning Light",
+      "phase": 2,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_c28",
+      "id": "jinzai_traffic_light_c28",
+      "category": "frame",
+      "zh_cn": "新广式红绿灯",
+      "en_us": "New Canton-Style Traffic Light",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_c29",
+      "id": "jinzai_traffic_light_c29",
+      "category": "frame",
+      "zh_cn": "新广式黑框红绿灯",
+      "en_us": "New Canton-Style Black-Frame Traffic Light",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_c33",
+      "id": "jinzai_traffic_light_c33",
+      "category": "frame",
+      "zh_cn": "方框红绿灯",
+      "en_us": "Square-Frame Traffic Light",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h30",
+      "id": "jinzai_traffic_light_h30",
+      "category": "frame",
+      "zh_cn": "新广式横型红绿灯",
+      "en_us": "New Canton-Style Horizontal Traffic Light",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h31",
+      "id": "jinzai_traffic_light_h31",
+      "category": "frame",
+      "zh_cn": "新广式横型黑框红绿灯",
+      "en_us": "New Canton-Style Horizontal Black-Frame Traffic Light",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h32",
+      "id": "jinzai_traffic_light_h32",
+      "category": "frame",
+      "zh_cn": "东京红绿灯",
+      "en_us": "Tokyo Traffic Light",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h34",
+      "id": "jinzai_traffic_light_h34",
+      "category": "frame",
+      "zh_cn": "方框横型红绿灯",
+      "en_us": "Square-Frame Horizontal Traffic Light",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r7",
+      "id": "jinzai_traffic_light_r7",
+      "category": "frame",
+      "zh_cn": "无框人行道红绿灯-右钛",
+      "en_us": "Frameless Pedestrian Traffic Light - Right Titanium Trim",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r7a",
+      "id": "jinzai_traffic_light_r7a",
+      "category": "frame",
+      "zh_cn": "无框人行道红绿灯-左钛",
+      "en_us": "Frameless Pedestrian Traffic Light - Left Titanium Trim",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r8",
+      "id": "jinzai_traffic_light_r8",
+      "category": "frame",
+      "zh_cn": "东京人行道红绿灯-右钛",
+      "en_us": "Tokyo Pedestrian Traffic Light - Right Titanium Trim",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r8a",
+      "id": "jinzai_traffic_light_r8a",
+      "category": "frame",
+      "zh_cn": "东京人行道红绿灯-左钛",
+      "en_us": "Tokyo Pedestrian Traffic Light - Left Titanium Trim",
+      "phase": 3,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_c35",
+      "id": "jinzai_traffic_light_c35",
+      "category": "frame",
+      "zh_cn": "北京红绿灯",
+      "en_us": "Beijing-Style Traffic Light",
+      "phase": 4,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_c37",
+      "id": "jinzai_traffic_light_c37",
+      "category": "frame",
+      "zh_cn": "北京红绿灯2",
+      "en_us": "Beijing-Style Traffic Light 2",
+      "phase": 4,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_f1",
+      "id": "jinzai_traffic_light_f1",
+      "category": "frame",
+      "zh_cn": "LED车道指示牌",
+      "en_us": "LED Lane Control Sign",
+      "phase": 4
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_r9",
+      "id": "jinzai_traffic_light_r9",
+      "category": "frame",
+      "zh_cn": "北京人行道红绿灯",
+      "en_us": "Beijing-Style Pedestrian Traffic Light",
+      "phase": 4
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_x1",
+      "id": "jinzai_traffic_light_x1",
+      "category": "frame",
+      "zh_cn": "车道指示框架1",
+      "en_us": "Lane Signal Frame 1",
+      "phase": 4
+    },
+    {
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_x2",
+      "id": "jinzai_traffic_light_x2",
+      "category": "frame",
+      "zh_cn": "车道指示框架2",
+      "en_us": "Lane Signal Frame 2",
+      "phase": 4
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c40",
+      "id": "jinzai_traffic_light_c40",
+      "category": "frame",
+      "zh_cn": "几何体红绿灯-悬挂式",
+      "en_us": "Geometric Traffic Light - Suspended",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c41",
+      "id": "jinzai_traffic_light_c41",
+      "category": "frame",
+      "zh_cn": "几何体红绿灯-柱子式",
+      "en_us": "Geometric Traffic Light - Post Mounted",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c44",
+      "id": "jinzai_traffic_light_c44",
+      "category": "frame",
+      "zh_cn": "香港红绿灯",
+      "en_us": "Hong Kong Traffic Light",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c45",
+      "id": "jinzai_traffic_light_c45",
+      "category": "frame",
+      "zh_cn": "香港箭头式红绿灯",
+      "en_us": "Hong Kong Arrow Traffic Light",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_h38",
+      "id": "jinzai_traffic_light_h38",
+      "category": "frame",
+      "zh_cn": "无框五孔红绿灯",
+      "en_us": "Frameless Five-Aperture Traffic Light",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_h39",
+      "id": "jinzai_traffic_light_h39",
+      "category": "frame",
+      "zh_cn": "台北五孔红绿灯",
+      "en_us": "Taipei Five-Aperture Traffic Light",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_j1",
+      "id": "jinzai_traffic_light_j1",
+      "category": "frame",
+      "zh_cn": "读秒框",
+      "en_us": "Countdown Display Frame",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_j2",
+      "id": "jinzai_traffic_light_j2",
+      "category": "frame",
+      "zh_cn": "框架式读秒框",
+      "en_us": "Countdown Display Frame - Open Frame",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10",
+      "id": "jinzai_traffic_light_r10",
+      "category": "frame",
+      "zh_cn": "黑色新版一体式红绿灯-顶部",
+      "en_us": "Integrated Traffic Light, New Style - Black - Top",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10a",
+      "id": "jinzai_traffic_light_r10a",
+      "category": "frame",
+      "zh_cn": "黑色新版一体式红绿灯-中部",
+      "en_us": "Integrated Traffic Light, New Style - Black - Middle",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10b",
+      "id": "jinzai_traffic_light_r10b",
+      "category": "frame",
+      "zh_cn": "黑色新版一体式红绿灯-底部",
+      "en_us": "Integrated Traffic Light, New Style - Black - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10c",
+      "id": "jinzai_traffic_light_r10c",
+      "category": "frame",
+      "zh_cn": "黑色新版一体式红绿灯-顶部（双灯）",
+      "en_us": "Integrated Traffic Light, New Style - Black - Top - Twin Lights",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10d",
+      "id": "jinzai_traffic_light_r10d",
+      "category": "frame",
+      "zh_cn": "黑色新版一体式红绿灯-中部（双灯）",
+      "en_us": "Integrated Traffic Light, New Style - Black - Middle - Twin Lights",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11",
+      "id": "jinzai_traffic_light_r11",
+      "category": "frame",
+      "zh_cn": "白色新版一体式红绿灯-顶部",
+      "en_us": "Integrated Traffic Light, New Style - White - Top",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11a",
+      "id": "jinzai_traffic_light_r11a",
+      "category": "frame",
+      "zh_cn": "白色新版一体式红绿灯-中部",
+      "en_us": "Integrated Traffic Light, New Style - White - Middle",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11b",
+      "id": "jinzai_traffic_light_r11b",
+      "category": "frame",
+      "zh_cn": "白色新版一体式红绿灯-底部",
+      "en_us": "Integrated Traffic Light, New Style - White - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11c",
+      "id": "jinzai_traffic_light_r11c",
+      "category": "frame",
+      "zh_cn": "白色新版一体式红绿灯-顶部（双灯）",
+      "en_us": "Integrated Traffic Light, New Style - White - Top - Twin Lights",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11d",
+      "id": "jinzai_traffic_light_r11d",
+      "category": "frame",
+      "zh_cn": "白色新版一体式红绿灯-中部（双灯）",
+      "en_us": "Integrated Traffic Light, New Style - White - Middle - Twin Lights",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r12",
+      "id": "jinzai_traffic_light_r12",
+      "category": "frame",
+      "zh_cn": "几何体一体式红绿灯-顶部",
+      "en_us": "Geometric Integrated Traffic Light - Top",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r12a",
+      "id": "jinzai_traffic_light_r12a",
+      "category": "frame",
+      "zh_cn": "几何体一体式红绿灯-中部",
+      "en_us": "Geometric Integrated Traffic Light - Middle",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r12b",
+      "id": "jinzai_traffic_light_r12b",
+      "category": "frame",
+      "zh_cn": "几何体一体式红绿灯-底部",
+      "en_us": "Geometric Integrated Traffic Light - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r13",
+      "id": "jinzai_traffic_light_r13",
+      "category": "frame",
+      "zh_cn": "香港人行道红绿灯（右钛）",
+      "en_us": "Hong Kong Pedestrian Traffic Light - Right Mount",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r13a",
+      "id": "jinzai_traffic_light_r13a",
+      "category": "frame",
+      "zh_cn": "香港人行道红绿灯（左钛）",
+      "en_us": "Hong Kong Pedestrian Traffic Light - Left Mount",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r14",
+      "id": "jinzai_traffic_light_r14",
+      "category": "frame",
+      "zh_cn": "香港人行道红绿灯",
+      "en_us": "Hong Kong Pedestrian Traffic Light",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_1",
+      "id": "jinzai_traffic_indicator_y1",
+      "category": "indicator",
+      "zh_cn": "竖型黄灯-圆框",
+      "en_us": "Vertical Yellow Signal - Circle",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_1a",
+      "id": "jinzai_traffic_indicator_yr1",
+      "category": "indicator",
+      "zh_cn": "竖型红灯-圆框",
+      "en_us": "Vertical Red Signal - Circle",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_1b",
+      "id": "jinzai_traffic_indicator_yg1",
+      "category": "indicator",
+      "zh_cn": "竖型绿灯-圆框",
+      "en_us": "Vertical Green Signal - Circle",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_1c",
+      "id": "jinzai_traffic_light_ly1",
+      "category": "indicator",
+      "zh_cn": "横型黄灯-圆框",
+      "en_us": "Horizontal Yellow Signal - Circle",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_1d",
+      "id": "jinzai_traffic_light_lr1",
+      "category": "indicator",
+      "zh_cn": "横型红灯-圆框",
+      "en_us": "Horizontal Red Signal - Circle",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_1e",
+      "id": "jinzai_traffic_light_lg1",
+      "category": "indicator",
+      "zh_cn": "横型绿灯-圆框",
+      "en_us": "Horizontal Green Signal - Circle",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_2",
+      "id": "jinzai_traffic_indicator_y2",
+      "category": "indicator",
+      "zh_cn": "横竖共用黄灯-直行",
+      "en_us": "Horizontal/Vertical Yellow Signal - Straight",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_2a",
+      "id": "jinzai_traffic_indicator_yr2",
+      "category": "indicator",
+      "zh_cn": "竖型红灯-直行",
+      "en_us": "Vertical Red Signal - Straight",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_2b",
+      "id": "jinzai_traffic_indicator_yg2",
+      "category": "indicator",
+      "zh_cn": "竖型绿灯-直行",
+      "en_us": "Vertical Green Signal - Straight",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_2d",
+      "id": "jinzai_traffic_light_lr2",
+      "category": "indicator",
+      "zh_cn": "横型红灯-直行",
+      "en_us": "Horizontal Red Signal - Straight",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_2e",
+      "id": "jinzai_traffic_light_lg2",
+      "category": "indicator",
+      "zh_cn": "横型绿灯-直行",
+      "en_us": "Horizontal Green Signal - Straight",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_3",
+      "id": "jinzai_traffic_indicator_y3",
+      "category": "indicator",
+      "zh_cn": "横竖共用黄灯-左转",
+      "en_us": "Horizontal/Vertical Yellow Signal - Left Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_3a",
+      "id": "jinzai_traffic_indicator_yr3",
+      "category": "indicator",
+      "zh_cn": "竖型红灯-左转",
+      "en_us": "Vertical Red Signal - Left Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_3b",
+      "id": "jinzai_traffic_indicator_yg3",
+      "category": "indicator",
+      "zh_cn": "竖型绿灯-左转",
+      "en_us": "Vertical Green Signal - Left Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_3d",
+      "id": "jinzai_traffic_light_lr3",
+      "category": "indicator",
+      "zh_cn": "横型红灯-左转",
+      "en_us": "Horizontal Red Signal - Left Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_3e",
+      "id": "jinzai_traffic_light_lg3",
+      "category": "indicator",
+      "zh_cn": "横型绿灯-左转",
+      "en_us": "Horizontal Green Signal - Left Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_4",
+      "id": "jinzai_traffic_indicator_y4",
+      "category": "indicator",
+      "zh_cn": "横竖共用黄灯-右转",
+      "en_us": "Horizontal/Vertical Yellow Signal - Right Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_4a",
+      "id": "jinzai_traffic_indicator_yr4",
+      "category": "indicator",
+      "zh_cn": "竖型红灯-右转",
+      "en_us": "Vertical Red Signal - Right Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_4b",
+      "id": "jinzai_traffic_indicator_yg4",
+      "category": "indicator",
+      "zh_cn": "竖型绿灯-右转",
+      "en_us": "Vertical Green Signal - Right Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_4d",
+      "id": "jinzai_traffic_light_lr4",
+      "category": "indicator",
+      "zh_cn": "横型红灯-右转",
+      "en_us": "Horizontal Red Signal - Right Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_4e",
+      "id": "jinzai_traffic_light_lg4",
+      "category": "indicator",
+      "zh_cn": "横型绿灯-右转",
+      "en_us": "Horizontal Green Signal - Right Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_5",
+      "id": "jinzai_traffic_indicator_y5",
+      "category": "indicator",
+      "zh_cn": "横竖共用黄灯-掉头",
+      "en_us": "Horizontal/Vertical Yellow Signal - U-Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_5a",
+      "id": "jinzai_traffic_indicator_yr5",
+      "category": "indicator",
+      "zh_cn": "竖型红灯-掉头",
+      "en_us": "Vertical Red Signal - U-Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_5b",
+      "id": "jinzai_traffic_indicator_yg5",
+      "category": "indicator",
+      "zh_cn": "竖型绿灯-掉头",
+      "en_us": "Vertical Green Signal - U-Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_5d",
+      "id": "jinzai_traffic_light_lr5",
+      "category": "indicator",
+      "zh_cn": "横型红灯-掉头",
+      "en_us": "Horizontal Red Signal - U-Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_5e",
+      "id": "jinzai_traffic_light_lg5",
+      "category": "indicator",
+      "zh_cn": "横型绿灯-掉头",
+      "en_us": "Horizontal Green Signal - U-Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_z1",
+      "id": "jinzai_traffic_light_ly2",
+      "category": "indicator",
+      "zh_cn": "非机动车道绿灯-直行",
+      "en_us": "Non-Motor-Vehicle Green Signal - Straight",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_z2",
+      "id": "jinzai_traffic_light_ly3",
+      "category": "indicator",
+      "zh_cn": "非机动车道绿灯-左转",
+      "en_us": "Non-Motor-Vehicle Green Signal - Left Turn",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_z3",
+      "id": "jinzai_traffic_light_ly4",
+      "category": "indicator",
+      "zh_cn": "非机动车道黄灯",
+      "en_us": "Non-Motor-Vehicle Yellow Signal",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯",
+      "source_stem": "jinzai_traffic_indicator_z3a",
+      "id": "jinzai_traffic_light_ly5",
+      "category": "indicator",
+      "zh_cn": "非机动车道红灯",
+      "en_us": "Non-Motor-Vehicle Red Signal",
+      "phase": 1
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_6",
+      "id": "jinzai_traffic_light_6",
+      "category": "indicator",
+      "zh_cn": "四孔型红灯",
+      "en_us": "Four-Lens Red Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_6a",
+      "id": "jinzai_traffic_light_6a",
+      "category": "indicator",
+      "zh_cn": "四孔型黄灯",
+      "en_us": "Four-Lens Yellow Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_6b",
+      "id": "jinzai_traffic_light_6b",
+      "category": "indicator",
+      "zh_cn": "四孔型绿灯-直行和左转",
+      "en_us": "Four-Lens Green Signal - Straight and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_6c",
+      "id": "jinzai_traffic_light_6c",
+      "category": "indicator",
+      "zh_cn": "四孔型混合灯-红灯和左转",
+      "en_us": "Four-Lens Mixed Signal - Red and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_6d",
+      "id": "jinzai_traffic_light_6d",
+      "category": "indicator",
+      "zh_cn": "四孔型混合灯-红灯和直行",
+      "en_us": "Four-Lens Mixed Signal - Red and Straight",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_7",
+      "id": "jinzai_traffic_light_7",
+      "category": "indicator",
+      "zh_cn": "双组合红灯-直行和左转",
+      "en_us": "Dual Red Signal - Straight and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_7a",
+      "id": "jinzai_traffic_light_7a",
+      "category": "indicator",
+      "zh_cn": "双组合黄灯-直行和左转",
+      "en_us": "Dual Yellow Signal - Straight and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_7b",
+      "id": "jinzai_traffic_light_7b",
+      "category": "indicator",
+      "zh_cn": "双组合绿灯-直行和左转",
+      "en_us": "Dual Green Signal - Straight and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_7c",
+      "id": "jinzai_traffic_light_7c",
+      "category": "indicator",
+      "zh_cn": "双组合混合灯1-直行和左转",
+      "en_us": "Dual Mixed Signal 1 - Straight and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_7d",
+      "id": "jinzai_traffic_light_7d",
+      "category": "indicator",
+      "zh_cn": "双组合混合灯2-直行和左转",
+      "en_us": "Dual Mixed Signal 2 - Straight and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_8",
+      "id": "jinzai_traffic_light_8",
+      "category": "indicator",
+      "zh_cn": "移动式红灯",
+      "en_us": "Portable Red Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_8a",
+      "id": "jinzai_traffic_light_8a",
+      "category": "indicator",
+      "zh_cn": "移动式黄灯",
+      "en_us": "Portable Yellow Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_8b",
+      "id": "jinzai_traffic_light_8b",
+      "category": "indicator",
+      "zh_cn": "移动式绿灯",
+      "en_us": "Portable Green Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_8c",
+      "id": "jinzai_traffic_light_8c",
+      "category": "indicator",
+      "zh_cn": "移动式绿灯-直行",
+      "en_us": "Portable Green Signal - Straight",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_8d",
+      "id": "jinzai_traffic_light_8d",
+      "category": "indicator",
+      "zh_cn": "移动式混合灯-红灯和左转",
+      "en_us": "Portable Mixed Signal - Red and Left Turn",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_r1",
+      "id": "jinzai_traffic_light_r1",
+      "category": "indicator",
+      "zh_cn": "新版人行道绿灯",
+      "en_us": "New Pedestrian Green Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_r2",
+      "id": "jinzai_traffic_light_r2",
+      "category": "indicator",
+      "zh_cn": "新版人行道红灯",
+      "en_us": "New Pedestrian Red Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_r3",
+      "id": "jinzai_traffic_light_r3",
+      "category": "indicator",
+      "zh_cn": "带计时人行道绿灯",
+      "en_us": "Timed Pedestrian Green Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_r4",
+      "id": "jinzai_traffic_light_r4",
+      "category": "indicator",
+      "zh_cn": "带计时人行道红灯",
+      "en_us": "Timed Pedestrian Red Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_xg1",
+      "id": "jinzai_traffic_light_xg1",
+      "category": "indicator",
+      "zh_cn": "旧版人行道绿灯",
+      "en_us": "Legacy Pedestrian Green Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_xg2",
+      "id": "jinzai_traffic_light_xg2",
+      "category": "indicator",
+      "zh_cn": "旧版人行道红灯",
+      "en_us": "Legacy Pedestrian Red Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_zg1",
+      "id": "jinzai_traffic_light_zg1",
+      "category": "indicator",
+      "zh_cn": "框架式人行道绿灯",
+      "en_us": "Framed Pedestrian Green Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_zg2",
+      "id": "jinzai_traffic_light_zg2",
+      "category": "indicator",
+      "zh_cn": "框架式提示语绿灯",
+      "en_us": "Framed Message Green Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_zr1",
+      "id": "jinzai_traffic_light_zr1",
+      "category": "indicator",
+      "zh_cn": "框架式人行道红灯",
+      "en_us": "Framed Pedestrian Red Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "指示灯（新增）",
+      "source_stem": "jinzai_traffic_light_zr2",
+      "id": "jinzai_traffic_light_zr2",
+      "category": "indicator",
+      "zh_cn": "框架式提示语红灯",
+      "en_us": "Framed Message Red Signal",
+      "phase": 2
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_1",
+      "id": "jinzai_dynamic_light_1",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯1",
+      "en_us": "Vertical Animated Signal 1",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_10",
+      "id": "jinzai_dynamic_light_10",
+      "category": "indicator",
+      "zh_cn": "闪烁动态指示灯4",
+      "en_us": "Animated Flashing Signal 4",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_11",
+      "id": "jinzai_dynamic_light_11",
+      "category": "indicator",
+      "zh_cn": "闪烁动态指示灯5",
+      "en_us": "Animated Flashing Signal 5",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_12",
+      "id": "jinzai_dynamic_light_12",
+      "category": "indicator",
+      "zh_cn": "警示动态指示灯1",
+      "en_us": "Animated Warning Signal 1",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_13",
+      "id": "jinzai_dynamic_light_13",
+      "category": "indicator",
+      "zh_cn": "警示动态指示灯2",
+      "en_us": "Animated Warning Signal 2",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_14",
+      "id": "jinzai_dynamic_light_14",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯3",
+      "en_us": "Animated Pedestrian Signal 3",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_15",
+      "id": "jinzai_dynamic_light_15",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯4",
+      "en_us": "Animated Pedestrian Signal 4",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_2",
+      "id": "jinzai_dynamic_light_2",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯2",
+      "en_us": "Vertical Animated Signal 2",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_3",
+      "id": "jinzai_dynamic_light_3",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯1",
+      "en_us": "Horizontal Animated Signal 1",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_4",
+      "id": "jinzai_dynamic_light_4",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯2",
+      "en_us": "Horizontal Animated Signal 2",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_5",
+      "id": "jinzai_dynamic_light_5",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯1",
+      "en_us": "Animated Pedestrian Signal 1",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_6",
+      "id": "jinzai_dynamic_light_6",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯2",
+      "en_us": "Animated Pedestrian Signal 2",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_7",
+      "id": "jinzai_dynamic_light_7",
+      "category": "indicator",
+      "zh_cn": "闪烁动态指示灯1",
+      "en_us": "Animated Flashing Signal 1",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_8",
+      "id": "jinzai_dynamic_light_8",
+      "category": "indicator",
+      "zh_cn": "闪烁动态指示灯2",
+      "en_us": "Animated Flashing Signal 2",
+      "phase": 3
+    },
+    {
+      "source_folder": "动态指示灯（三期）",
+      "source_stem": "jinzai_dynamic_light_9",
+      "id": "jinzai_dynamic_light_9",
+      "category": "indicator",
+      "zh_cn": "闪烁动态指示灯3",
+      "en_us": "Animated Flashing Signal 3",
+      "phase": 3
+    },
+    {
+      "source_folder": "指示灯（三期新增）",
+      "source_stem": "jinzai_traffic_light_r5",
+      "id": "jinzai_traffic_light_r5",
+      "category": "indicator",
+      "zh_cn": "左右钛人行道指示灯-绿灯",
+      "en_us": "Dual Titanium-Trim Pedestrian Signal - Green",
+      "phase": 3
+    },
+    {
+      "source_folder": "指示灯（三期新增）",
+      "source_stem": "jinzai_traffic_light_r6",
+      "id": "jinzai_traffic_light_r6",
+      "category": "indicator",
+      "zh_cn": "左右钛人行道指示灯-红灯",
+      "en_us": "Dual Titanium-Trim Pedestrian Signal - Red",
+      "phase": 3
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f1",
+      "id": "jinzai_traffic_indicator_f1",
+      "category": "indicator",
+      "zh_cn": "可通行指示灯-LED指示牌专用",
+      "en_us": "Lane Open Signal - for LED Sign",
+      "phase": 4
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f2",
+      "id": "jinzai_traffic_indicator_f2",
+      "category": "indicator",
+      "zh_cn": "禁止通行指示灯-LED指示牌专用",
+      "en_us": "Lane Closed Signal - for LED Sign",
+      "phase": 4
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f3",
+      "id": "jinzai_traffic_indicator_f3",
+      "category": "indicator",
+      "zh_cn": "右变道指示灯-LED指示牌专用",
+      "en_us": "Merge Right Signal - for LED Sign",
+      "phase": 4
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_f4",
+      "id": "jinzai_traffic_indicator_f4",
+      "category": "indicator",
+      "zh_cn": "左变道指示灯-LED指示牌专用",
+      "en_us": "Merge Left Signal - for LED Sign",
+      "phase": 4
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_x1",
+      "id": "jinzai_traffic_indicator_x1",
+      "category": "indicator",
+      "zh_cn": "可通行指示灯-指示框架专用",
+      "en_us": "Lane Open Signal - for Signal Frame",
+      "phase": 4
+    },
+    {
+      "source_folder": "指示灯（四期新增）",
+      "source_stem": "jinzai_traffic_indicator_x2",
+      "id": "jinzai_traffic_indicator_x2",
+      "category": "indicator",
+      "zh_cn": "禁止通行指示灯-指示框架专用",
+      "en_us": "Lane Closed Signal - for Signal Frame",
+      "phase": 4
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_16a",
+      "id": "jinzai_dynamic_light_16a",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯3-南北向左转",
+      "en_us": "Vertical Animated Signal 3 - North/South - Left Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_17a",
+      "id": "jinzai_dynamic_light_17a",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯3-东西向左转",
+      "en_us": "Vertical Animated Signal 3 - East/West - Left Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_18",
+      "id": "jinzai_dynamic_light_18",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯4-南北向直行",
+      "en_us": "Vertical Animated Signal 4 - North/South - Straight Ahead",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_18a",
+      "id": "jinzai_dynamic_light_18a",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯4-东西向直行",
+      "en_us": "Vertical Animated Signal 4 - East/West - Straight Ahead",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_19",
+      "id": "jinzai_dynamic_light_19",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯5-南北向掉头",
+      "en_us": "Vertical Animated Signal 5 - North/South - U-Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_19a",
+      "id": "jinzai_dynamic_light_19a",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯5-东西向掉头",
+      "en_us": "Vertical Animated Signal 5 - East/West - U-Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_20",
+      "id": "jinzai_dynamic_light_20",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯3-东西向左转",
+      "en_us": "Horizontal Animated Signal 3 - East/West - Left Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_20a",
+      "id": "jinzai_dynamic_light_20a",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯3-南北向左转",
+      "en_us": "Horizontal Animated Signal 3 - North/South - Left Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_21",
+      "id": "jinzai_dynamic_light_21",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯4-南北向直行",
+      "en_us": "Horizontal Animated Signal 4 - North/South - Straight Ahead",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_21a",
+      "id": "jinzai_dynamic_light_21a",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯4-东西向直行",
+      "en_us": "Horizontal Animated Signal 4 - East/West - Straight Ahead",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_22",
+      "id": "jinzai_dynamic_light_22",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯5-南北向掉头",
+      "en_us": "Horizontal Animated Signal 5 - North/South - U-Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_22a",
+      "id": "jinzai_dynamic_light_22a",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯5-东西向掉头",
+      "en_us": "Horizontal Animated Signal 5 - East/West - U-Turn",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_23",
+      "id": "jinzai_dynamic_light_23",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯6-南北向",
+      "en_us": "Animated Pedestrian Signal 6 - North/South",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_23a",
+      "id": "jinzai_dynamic_light_23a",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯6-东西向",
+      "en_us": "Animated Pedestrian Signal 6 - East/West",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_24",
+      "id": "jinzai_dynamic_light_24",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯7-左右钛南北向",
+      "en_us": "Animated Pedestrian Signal 7 - North/South - Dual Titanium Trim",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（五期）",
+      "source_stem": "jinzai_dynamic_light_24a",
+      "id": "jinzai_dynamic_light_24a",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯7-左右钛东西向",
+      "en_us": "Animated Pedestrian Signal 7 - East/West - Dual Titanium Trim",
+      "phase": 5
+    },
+    {
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_25",
+      "id": "jinzai_dynamic_light_25",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯8-提示语南北向",
+      "en_us": "Animated Pedestrian Indicator 8 - Message - North–South",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": true
+    },
+    {
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_25a",
+      "id": "jinzai_dynamic_light_25a",
+      "category": "indicator",
+      "zh_cn": "人行道动态指示灯8-提示语东西向",
+      "en_us": "Animated Pedestrian Indicator 8 - Message - East–West",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": true
+    },
+    {
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_26",
+      "id": "jinzai_dynamic_light_26",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯9-南北向右转",
+      "en_us": "Animated Vertical Indicator 9 - Right Turn - North–South",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": true
+    },
+    {
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_26a",
+      "id": "jinzai_dynamic_light_26a",
+      "category": "indicator",
+      "zh_cn": "竖型动态指示灯9-东西向右转",
+      "en_us": "Animated Vertical Indicator 9 - Right Turn - East–West",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": true
+    },
+    {
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_27",
+      "id": "jinzai_dynamic_light_27",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯9-南北向右转",
+      "en_us": "Animated Horizontal Indicator 9 - Right Turn - North–South",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": true
+    },
+    {
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_27a",
+      "id": "jinzai_dynamic_light_27a",
+      "category": "indicator",
+      "zh_cn": "横型动态指示灯9-东西向右转",
+      "en_us": "Animated Horizontal Indicator 9 - Right Turn - East–West",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": true
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_10",
+      "id": "jinzai_traffic_indicator_10",
+      "category": "indicator",
+      "zh_cn": "香港箭头式指示灯-直行",
+      "en_us": "Hong Kong Arrow Indicator - Straight Ahead",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_10a",
+      "id": "jinzai_traffic_indicator_10a",
+      "category": "indicator",
+      "zh_cn": "香港箭头式指示灯-左转",
+      "en_us": "Hong Kong Arrow Indicator - Left Turn",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_10b",
+      "id": "jinzai_traffic_indicator_10b",
+      "category": "indicator",
+      "zh_cn": "香港箭头式指示灯-右转",
+      "en_us": "Hong Kong Arrow Indicator - Right Turn",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9",
+      "id": "jinzai_traffic_indicator_9",
+      "category": "indicator",
+      "zh_cn": "五孔型红灯",
+      "en_us": "Five-Aperture Indicator - Red",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9b",
+      "id": "jinzai_traffic_indicator_9a",
+      "category": "indicator",
+      "zh_cn": "五孔型黄灯",
+      "en_us": "Five-Aperture Indicator - Yellow",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9c",
+      "id": "jinzai_traffic_indicator_9b",
+      "category": "indicator",
+      "zh_cn": "五孔型绿灯",
+      "en_us": "Five-Aperture Indicator - Green",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10",
+      "id": "jinzai_traffic_indicator_r10",
+      "category": "indicator",
+      "zh_cn": "新版一体式提示语红灯",
+      "en_us": "Integrated Message Indicator, New Style - Red",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10a",
+      "id": "jinzai_traffic_indicator_r10a",
+      "category": "indicator",
+      "zh_cn": "新版一体式提示语绿灯",
+      "en_us": "Integrated Message Indicator, New Style - Green",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_1",
+      "id": "bd_pole_1",
+      "category": "pole",
+      "zh_cn": "粗灰色圆杆",
+      "en_us": "Thick Gray Round Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_2",
+      "id": "bd_pole_2",
+      "category": "pole",
+      "zh_cn": "细灰色杆",
+      "en_us": "Thin Gray Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_3",
+      "id": "bd_pole_3",
+      "category": "pole",
+      "zh_cn": "细灰色弯杆",
+      "en_us": "Thin Gray Bent Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_4",
+      "id": "bd_pole_4",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接1",
+      "en_us": "Thin Gray Horizontal Pole Connector 1",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_4a",
+      "id": "bd_pole_4a",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接2",
+      "en_us": "Thin Gray Horizontal Pole Connector 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_5",
+      "id": "bd_pole_5",
+      "category": "pole",
+      "zh_cn": "细灰色横杆",
+      "en_us": "Thin Gray Horizontal Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_5a",
+      "id": "bd_pole_5a",
+      "category": "pole",
+      "zh_cn": "细灰色延长杆",
+      "en_us": "Thin Gray Extension Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "bd_pole_5b",
+      "id": "bd_pole_5b",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-接点",
+      "en_us": "Thin Gray Horizontal Pole Joint",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "Lights_1",
+      "id": "lights_1",
+      "category": "pole",
+      "zh_cn": "白杆配件-1",
+      "en_us": "White Pole Accessory 1",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "Lights_1a",
+      "id": "lights_1a",
+      "category": "pole",
+      "zh_cn": "白杆配件-2",
+      "en_us": "White Pole Accessory 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_1",
+      "id": "pole_1",
+      "category": "pole",
+      "zh_cn": "细白色杆",
+      "en_us": "Thin White Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_2",
+      "id": "pole_2",
+      "category": "pole",
+      "zh_cn": "细白色杆接点-1",
+      "en_us": "Traffic Light Pole Component Pole 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_3",
+      "id": "pole_3",
+      "category": "pole",
+      "zh_cn": "细白色杆接点-2",
+      "en_us": "Traffic Light Pole Component Pole 3",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_4",
+      "id": "pole_4",
+      "category": "pole",
+      "zh_cn": "细白色杆接点-3",
+      "en_us": "Traffic Light Pole Component Pole 4",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_5",
+      "id": "pole_5",
+      "category": "pole",
+      "zh_cn": "细白色杆接点-4",
+      "en_us": "Traffic Light Pole Component Pole 5",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_6",
+      "id": "pole_6",
+      "category": "pole",
+      "zh_cn": "红色警示柱",
+      "en_us": "Red Warning Post",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_6a",
+      "id": "pole_6a",
+      "category": "pole",
+      "zh_cn": "红色警示柱-底部",
+      "en_us": "Red Warning Post Base",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_7",
+      "id": "pole_7",
+      "category": "pole",
+      "zh_cn": "黄色警示柱",
+      "en_us": "Yellow Warning Post",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "pole_7a",
+      "id": "pole_7a",
+      "category": "pole",
+      "zh_cn": "黄色警示柱-底部",
+      "en_us": "Yellow Warning Post Base",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_1",
+      "id": "thick_pole_1",
+      "category": "pole",
+      "zh_cn": "粗黑色杆",
+      "en_us": "Thick Black Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_1a",
+      "id": "thick_pole_1a",
+      "category": "pole",
+      "zh_cn": "粗黑色杆配件",
+      "en_us": "Traffic Light Pole Component Thick Pole 1A",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_3",
+      "id": "thick_pole_3",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-连接1",
+      "en_us": "Thin Black Horizontal Pole Connector 1",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_3a",
+      "id": "thick_pole_3a",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-连接2",
+      "en_us": "Thin Black Horizontal Pole Connector 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_3b",
+      "id": "thick_pole_3b",
+      "category": "pole",
+      "zh_cn": "粗黑色横杆-连接1",
+      "en_us": "Thick Black Horizontal Pole Connector 1",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_3c",
+      "id": "thick_pole_3c",
+      "category": "pole",
+      "zh_cn": "粗黑色横杆-连接2",
+      "en_us": "Thick Black Horizontal Pole Connector 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_4",
+      "id": "thick_pole_4",
+      "category": "pole",
+      "zh_cn": "细黑色横杆",
+      "en_us": "Thin Black Horizontal Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_4a",
+      "id": "thick_pole_4a",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-接点",
+      "en_us": "Thin Black Horizontal Pole Joint",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_4b",
+      "id": "thick_pole_4b",
+      "category": "pole",
+      "zh_cn": "粗黑色横杆-接点",
+      "en_us": "Thick Black Horizontal Pole Joint",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_4c",
+      "id": "thick_pole_4c",
+      "category": "pole",
+      "zh_cn": "粗黑色横杆",
+      "en_us": "Thick Black Horizontal Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_4d",
+      "id": "thick_pole_4d",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-倒T字型",
+      "en_us": "Thin Black Horizontal Pole Inverted-T",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_4e",
+      "id": "thick_pole_4e",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-T字型",
+      "en_us": "Thin Black Horizontal Pole T-Shaped",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_4f",
+      "id": "thick_pole_4f",
+      "category": "pole",
+      "zh_cn": "细黑色延长杆",
+      "en_us": "Thin Black Extension Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_5",
+      "id": "thick_pole_5",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-沪式连接",
+      "en_us": "Thin Black Horizontal Pole Shanghai-Style Connector",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "thick_pole_6",
+      "id": "thick_pole_6",
+      "category": "pole",
+      "zh_cn": "粗黑色圆杆",
+      "en_us": "Thick Black Round Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_1",
+      "id": "white_pole_1",
+      "category": "pole",
+      "zh_cn": "粗白色杆",
+      "en_us": "Thick White Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_3",
+      "id": "white_pole_3",
+      "category": "pole",
+      "zh_cn": "细白色横杆-连接1",
+      "en_us": "Thin White Horizontal Pole Connector 1",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_3a",
+      "id": "white_pole_3a",
+      "category": "pole",
+      "zh_cn": "细白色横杆-连接2",
+      "en_us": "Thin White Horizontal Pole Connector 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_3b",
+      "id": "white_pole_3b",
+      "category": "pole",
+      "zh_cn": "粗白色横杆-连接1",
+      "en_us": "Thick White Horizontal Pole Connector 1",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_3c",
+      "id": "white_pole_3c",
+      "category": "pole",
+      "zh_cn": "粗白色横杆-连接2",
+      "en_us": "Thick White Horizontal Pole Connector 2",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_4",
+      "id": "white_pole_4",
+      "category": "pole",
+      "zh_cn": "细白色横杆",
+      "en_us": "Thin White Horizontal Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_4a",
+      "id": "white_pole_4a",
+      "category": "pole",
+      "zh_cn": "细白色横杆-接点",
+      "en_us": "Thin White Horizontal Pole Joint",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_4b",
+      "id": "white_pole_4b",
+      "category": "pole",
+      "zh_cn": "粗白色横杆-接点",
+      "en_us": "Thick White Horizontal Pole Joint",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_4c",
+      "id": "white_pole_4c",
+      "category": "pole",
+      "zh_cn": "粗白色横杆",
+      "en_us": "Thick White Horizontal Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_4d",
+      "id": "white_pole_4d",
+      "category": "pole",
+      "zh_cn": "细白色延长杆",
+      "en_us": "Thin White Extension Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_5",
+      "id": "white_pole_5",
+      "category": "pole",
+      "zh_cn": "细白色横杆-沪式连接",
+      "en_us": "Thin White Horizontal Pole Shanghai-Style Connector",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子",
+      "source_stem": "white_pole_6",
+      "id": "white_pole_6",
+      "category": "pole",
+      "zh_cn": "粗白色圆杆",
+      "en_us": "Thick White Round Pole",
+      "phase": 1
+    },
+    {
+      "source_folder": "杆子（新增）",
+      "source_stem": "lights_2",
+      "id": "lights_2",
+      "category": "pole",
+      "zh_cn": "黑杆配件",
+      "en_us": "Black Pole Accessory",
+      "phase": 2
+    },
+    {
+      "source_folder": "杆子（新增）",
+      "source_stem": "thick_pole_7",
+      "id": "thick_pole_7",
+      "category": "pole",
+      "zh_cn": "细黑色杆",
+      "en_us": "Thin Black Pole",
+      "phase": 2
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_10",
+      "id": "bd_pole_10",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接7",
+      "en_us": "Thin Gray Horizontal Pole Connector 7",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_11",
+      "id": "bd_pole_11",
+      "category": "pole",
+      "zh_cn": "粗灰色横杆-接点",
+      "en_us": "Thick Gray Horizontal Pole Joint",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_11a",
+      "id": "bd_pole_11a",
+      "category": "pole",
+      "zh_cn": "粗灰色横杆",
+      "en_us": "Thick Gray Horizontal Pole",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_12",
+      "id": "bd_pole_12",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-双接点",
+      "en_us": "Thin Gray Horizontal Pole Double Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_12a",
+      "id": "bd_pole_12a",
+      "category": "pole",
+      "zh_cn": "粗灰色横杆-双接点",
+      "en_us": "Thick Gray Horizontal Pole Double Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_13",
+      "id": "bd_pole_13",
+      "category": "pole",
+      "zh_cn": "粗灰色圆杆-双接点",
+      "en_us": "Thick Gray Round Pole Double Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_14",
+      "id": "bd_pole_14",
+      "category": "pole",
+      "zh_cn": "粗灰色圆杆-接点",
+      "en_us": "Thick Gray Round Pole Joint",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_15",
+      "id": "bd_pole_15",
+      "category": "pole",
+      "zh_cn": "粗灰色圆杆-双粗接点",
+      "en_us": "Thick Gray Round Pole Double Thick Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_16",
+      "id": "bd_pole_16",
+      "category": "pole",
+      "zh_cn": "粗灰色圆杆-粗接点",
+      "en_us": "Thick Gray Round Pole Thick Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_17",
+      "id": "bd_pole_17",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-T字型",
+      "en_us": "Thin Gray Horizontal Pole - T-Shaped",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_7",
+      "id": "bd_pole_7",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接4",
+      "en_us": "Thin Gray Horizontal Pole Connector 4",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_8",
+      "id": "bd_pole_8",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接5",
+      "en_us": "Thin Gray Horizontal Pole Connector 5",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "bd_pole_9",
+      "id": "bd_pole_9",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接6",
+      "en_us": "Thin Gray Horizontal Pole Connector 6",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "pole_10",
+      "id": "pole_10",
+      "category": "pole",
+      "zh_cn": "细黑色杆-接点3",
+      "en_us": "Thin Black Pole Joint 3",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "pole_11",
+      "id": "pole_11",
+      "category": "pole",
+      "zh_cn": "细灰色杆-接点1",
+      "en_us": "Thin Gray Pole Joint 1",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "pole_12",
+      "id": "pole_12",
+      "category": "pole",
+      "zh_cn": "细灰色杆-接点2",
+      "en_us": "Thin Gray Pole Joint 2",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "pole_13",
+      "id": "pole_13",
+      "category": "pole",
+      "zh_cn": "细灰色杆-接点3",
+      "en_us": "Thin Gray Pole Joint 3",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "pole_8",
+      "id": "pole_8",
+      "category": "pole",
+      "zh_cn": "细黑色杆-接点1",
+      "en_us": "Thin Black Pole Joint 1",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "pole_9",
+      "id": "pole_9",
+      "category": "pole",
+      "zh_cn": "细黑色杆-接点2",
+      "en_us": "Thin Black Pole Joint 2",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "thick_pole_8",
+      "id": "thick_pole_8",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-双接点",
+      "en_us": "Thin Black Horizontal Pole Double Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "thick_pole_8a",
+      "id": "thick_pole_8a",
+      "category": "pole",
+      "zh_cn": "粗黑色横杆-双接点",
+      "en_us": "Thick Black Horizontal Pole Double Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "white_pole_7",
+      "id": "white_pole_7",
+      "category": "pole",
+      "zh_cn": "细白色横杆-双接点",
+      "en_us": "Thin White Horizontal Pole Double Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "white_pole_7a",
+      "id": "white_pole_7a",
+      "category": "pole",
+      "zh_cn": "粗白色横杆-双接点",
+      "en_us": "Thick White Horizontal Pole Double Connector",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（三期新增）",
+      "source_stem": "white_pole_8",
+      "id": "white_pole_8",
+      "category": "pole",
+      "zh_cn": "细白色横杆-T字型",
+      "en_us": "Thin White Horizontal Pole - T-Shaped",
+      "phase": 3
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "bd_pole_18",
+      "id": "bd_pole_18",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-连接8",
+      "en_us": "Thin Gray Horizontal Pole Connector 8",
+      "phase": 4
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "bd_pole_19",
+      "id": "bd_pole_19",
+      "category": "pole",
+      "zh_cn": "细灰色横杆-倒T字型",
+      "en_us": "Thin Gray Horizontal Pole - Inverted T-Shaped",
+      "phase": 4
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "thick_pole_9",
+      "id": "thick_pole_9",
+      "category": "pole",
+      "zh_cn": "细黑色横杆-连接3",
+      "en_us": "Thin Black Horizontal Pole Connector 3",
+      "phase": 4
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "white_pole_10",
+      "id": "white_pole_10",
+      "category": "pole",
+      "zh_cn": "细白色横杆-倒T字型",
+      "en_us": "Thin White Horizontal Pole - Inverted T-Shaped",
+      "phase": 4
+    },
+    {
+      "source_folder": "杆子（四期新增）",
+      "source_stem": "white_pole_9",
+      "id": "white_pole_9",
+      "category": "pole",
+      "zh_cn": "细白色横杆-连接3",
+      "en_us": "Thin White Horizontal Pole Connector 3",
+      "phase": 4
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_1",
+      "id": "height_limit_bar_1",
+      "category": "pole",
+      "zh_cn": "限高杆柱",
+      "en_us": "Height Restriction - Post",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_2",
+      "id": "height_limit_bar_2",
+      "category": "pole",
+      "zh_cn": "限高粗横杆",
+      "en_us": "Height Restriction - Thick Crossbar",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_3",
+      "id": "height_limit_bar_3",
+      "category": "pole",
+      "zh_cn": "限高粗横杆-接点",
+      "en_us": "Height Restriction - Thick Crossbar - Connector",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_4",
+      "id": "height_limit_bar_4",
+      "category": "pole",
+      "zh_cn": "限高杆柱-接点1",
+      "en_us": "Height Restriction - Post - Connector - 1",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_4a",
+      "id": "height_limit_bar_4a",
+      "category": "pole",
+      "zh_cn": "限高杆柱-接点2-黑色",
+      "en_us": "Height Restriction - Post - Connector - 2 - Black",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_4b",
+      "id": "height_limit_bar_4b",
+      "category": "pole",
+      "zh_cn": "限高杆柱-接点2-黄色",
+      "en_us": "Height Restriction - Post - Connector - 2 - Yellow",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_5",
+      "id": "height_limit_bar_5",
+      "category": "pole",
+      "zh_cn": "限高双杆-接点",
+      "en_us": "Height Restriction - Twin Bars - Connector",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_5a",
+      "id": "height_limit_bar_5a",
+      "category": "pole",
+      "zh_cn": "限高双杆",
+      "en_us": "Height Restriction - Twin Bars",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_6",
+      "id": "height_limit_bar_6",
+      "category": "pole",
+      "zh_cn": "限高杆柱-双杆接点1",
+      "en_us": "Height Restriction - Post - Twin Bars - Connector - 1",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_6a",
+      "id": "height_limit_bar_6a",
+      "category": "pole",
+      "zh_cn": "限高杆柱-双杆接点2-黑色",
+      "en_us": "Height Restriction - Post - Twin Bars - Connector - 2 - Black",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（五期新增）",
+      "source_stem": "height_limit_bar_6b",
+      "id": "height_limit_bar_6b",
+      "category": "pole",
+      "zh_cn": "限高杆柱-双杆接点2-黄色",
+      "en_us": "Height Restriction - Post - Twin Bars - Connector - 2 - Yellow",
+      "phase": 5
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_20",
+      "id": "bd_pole_20",
+      "category": "pole",
+      "zh_cn": "灰色粗圆杆-底部",
+      "en_us": "Thick Round Pole - Gray - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_21",
+      "id": "bd_pole_21",
+      "category": "pole",
+      "zh_cn": "灰色粗圆杆-底部（半砖）",
+      "en_us": "Thick Round Pole - Gray - Bottom - Half Height",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_22",
+      "id": "bd_pole_22",
+      "category": "pole",
+      "zh_cn": "灰色粗圆杆-顶部",
+      "en_us": "Thick Round Pole - Gray - Top",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_23",
+      "id": "bd_pole_23",
+      "category": "pole",
+      "zh_cn": "灰色细圆杆",
+      "en_us": "Thin Round Pole - Gray",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_24",
+      "id": "bd_pole_24",
+      "category": "pole",
+      "zh_cn": "灰色细圆杆-底部",
+      "en_us": "Thin Round Pole - Gray - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_25",
+      "id": "bd_pole_25",
+      "category": "pole",
+      "zh_cn": "灰色细圆杆-顶部",
+      "en_us": "Thin Round Pole - Gray - Top",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_26",
+      "id": "bd_pole_26",
+      "category": "pole",
+      "zh_cn": "灰色细圆杆-接点",
+      "en_us": "Thin Round Pole - Gray - Joint",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_27",
+      "id": "bd_pole_27",
+      "category": "pole",
+      "zh_cn": "灰色细圆杆-接点2",
+      "en_us": "Thin Round Pole - Gray - Joint - 2",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1",
+      "id": "geometric_pole_1",
+      "category": "pole",
+      "zh_cn": "侧边圆柱细杆",
+      "en_us": "Side-Mounted Thin Round Pole",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "model_name": "geometric_pole-1"
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1a",
+      "id": "geometric_pole_1a",
+      "category": "pole",
+      "zh_cn": "侧边圆柱细杆-底部",
+      "en_us": "Side-Mounted Thin Round Pole - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1b",
+      "id": "geometric_pole_1b",
+      "category": "pole",
+      "zh_cn": "侧边圆柱细杆-底部（半砖）",
+      "en_us": "Side-Mounted Thin Round Pole - Bottom - Half Height",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2",
+      "id": "geometric_pole_2",
+      "category": "pole",
+      "zh_cn": "圆柱竖杆",
+      "en_us": "Round Vertical Pole",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "model_name": "geometric_pole-2"
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2a",
+      "id": "geometric_pole_2a",
+      "category": "pole",
+      "zh_cn": "圆柱竖杆-连接接点",
+      "en_us": "Round Vertical Pole - Connector",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "model_name": "geometric_pole-2a"
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2b",
+      "id": "geometric_pole_2b",
+      "category": "pole",
+      "zh_cn": "圆柱竖杆-连接接点2",
+      "en_us": "Round Vertical Pole - Connector - 2",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2c",
+      "id": "geometric_pole_2c",
+      "category": "pole",
+      "zh_cn": "圆柱竖杆-接点1",
+      "en_us": "Round Vertical Pole - Joint - 1",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2d",
+      "id": "geometric_pole_2d",
+      "category": "pole",
+      "zh_cn": "圆柱竖杆-接点2",
+      "en_us": "Round Vertical Pole - Joint - 2",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3",
+      "id": "geometric_pole_3",
+      "category": "pole",
+      "zh_cn": "圆柱横杆-连接",
+      "en_us": "Round Crossbar - Connector",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3a",
+      "id": "geometric_pole_3a",
+      "category": "pole",
+      "zh_cn": "圆柱横杆",
+      "en_us": "Round Crossbar",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3b",
+      "id": "geometric_pole_3b",
+      "category": "pole",
+      "zh_cn": "圆柱横杆-双接点",
+      "en_us": "Round Crossbar - Double Joint",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3c",
+      "id": "geometric_pole_3c",
+      "category": "pole",
+      "zh_cn": "圆柱横杆-接点",
+      "en_us": "Round Crossbar - Joint",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_4",
+      "id": "geometric_pole_4",
+      "category": "pole",
+      "zh_cn": "粗圆柱竖杆",
+      "en_us": "Thick Round Vertical Pole",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_4a",
+      "id": "geometric_pole_4a",
+      "category": "pole",
+      "zh_cn": "粗圆柱竖杆-底部",
+      "en_us": "Thick Round Vertical Pole - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_4b",
+      "id": "geometric_pole_4b",
+      "category": "pole",
+      "zh_cn": "粗圆柱竖杆-底部（半砖）",
+      "en_us": "Thick Round Vertical Pole - Bottom - Half Height",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "thick_pole_10",
+      "id": "thick_pole_10",
+      "category": "pole",
+      "zh_cn": "黑色粗圆杆-底部",
+      "en_us": "Thick Round Pole - Black - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "thick_pole_11",
+      "id": "thick_pole_11",
+      "category": "pole",
+      "zh_cn": "黑色粗圆杆-底部（半砖）",
+      "en_us": "Thick Round Pole - Black - Bottom - Half Height",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "thick_pole_12",
+      "id": "thick_pole_12",
+      "category": "pole",
+      "zh_cn": "黑色粗圆杆-顶部",
+      "en_us": "Thick Round Pole - Black - Top",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "white_pole_11",
+      "id": "white_pole_11",
+      "category": "pole",
+      "zh_cn": "白色粗圆杆-底部",
+      "en_us": "Thick Round Pole - White - Bottom",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "white_pole_12",
+      "id": "white_pole_12",
+      "category": "pole",
+      "zh_cn": "白色粗圆杆-底部（半砖）",
+      "en_us": "Thick Round Pole - White - Bottom - Half Height",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "white_pole_13",
+      "id": "white_pole_13",
+      "category": "pole",
+      "zh_cn": "白色粗圆杆-顶部",
+      "en_us": "Thick Round Pole - White - Top",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_2",
+      "id": "jinzai_traffic_annex_2",
+      "category": "annex",
+      "zh_cn": "地面式交通灯-绿灯",
+      "en_us": "Ground Traffic Light - Green",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_2a",
+      "id": "jinzai_traffic_annex_2a",
+      "category": "annex",
+      "zh_cn": "地面式交通灯-红灯",
+      "en_us": "Ground Traffic Light - Red",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_3",
+      "id": "jinzai_traffic_annex_3",
+      "category": "annex",
+      "zh_cn": "LED竖型交通灯条-红灯（细杆）",
+      "en_us": "Vertical LED Traffic Light Strip - Red (Thin Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_3a",
+      "id": "jinzai_traffic_annex_3a",
+      "category": "annex",
+      "zh_cn": "LED竖型交通灯条-绿灯（细杆）",
+      "en_us": "Vertical LED Traffic Light Strip - Green (Thin Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_3b",
+      "id": "jinzai_traffic_annex_3b",
+      "category": "annex",
+      "zh_cn": "LED竖型交通灯条-红灯（粗杆）",
+      "en_us": "Vertical LED Traffic Light Strip - Red (Thick Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_3c",
+      "id": "jinzai_traffic_annex_3c",
+      "category": "annex",
+      "zh_cn": "LED竖型交通灯条-绿灯（粗杆）",
+      "en_us": "Vertical LED Traffic Light Strip - Green (Thick Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_4",
+      "id": "jinzai_traffic_annex_4",
+      "category": "annex",
+      "zh_cn": "LED横型交通灯条-红灯（细杆）",
+      "en_us": "Horizontal LED Traffic Light Strip - Red (Thin Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_4a",
+      "id": "jinzai_traffic_annex_4a",
+      "category": "annex",
+      "zh_cn": "LED横型交通灯条-绿灯（细杆）",
+      "en_us": "Horizontal LED Traffic Light Strip - Green (Thin Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_4b",
+      "id": "jinzai_traffic_annex_4b",
+      "category": "annex",
+      "zh_cn": "LED横型交通灯条-红灯（粗杆）",
+      "en_us": "Horizontal LED Traffic Light Strip - Red (Thick Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属",
+      "source_stem": "jinzai_traffic_annex_4c",
+      "id": "jinzai_traffic_annex_4c",
+      "category": "annex",
+      "zh_cn": "LED横型交通灯条-绿灯（粗杆）",
+      "en_us": "Horizontal LED Traffic Light Strip - Green (Thick Pole)",
+      "phase": 2
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5",
+      "id": "jinzai_traffic_annex_5",
+      "category": "annex",
+      "zh_cn": "交通摄像头",
+      "en_us": "Traffic Camera",
+      "phase": 4
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5a",
+      "id": "jinzai_traffic_annex_5a",
+      "category": "annex",
+      "zh_cn": "交通摄像头2",
+      "en_us": "Traffic Camera 2",
+      "phase": 4
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5b",
+      "id": "jinzai_traffic_annex_5b",
+      "category": "annex",
+      "zh_cn": "测速摄像头",
+      "en_us": "Speed Camera",
+      "phase": 4
+    },
+    {
+      "source_folder": "交通灯附属（四期新增）",
+      "source_stem": "jinzai_traffic_annex_5c",
+      "id": "jinzai_traffic_annex_5c",
+      "category": "annex",
+      "zh_cn": "交通闪光灯",
+      "en_us": "Traffic Flash Unit",
+      "phase": 4
+    },
+    {
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_6",
+      "id": "jinzai_traffic_annex_6",
+      "category": "annex",
+      "zh_cn": "圆筒摄像头",
+      "en_us": "Bullet Camera",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "light_level": 15
+    },
+    {
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_7",
+      "id": "jinzai_traffic_annex_7",
+      "category": "annex",
+      "zh_cn": "路口LED显示屏",
+      "en_us": "Intersection LED Display",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "light_level": 0
+    },
+    {
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_8",
+      "id": "jinzai_traffic_annex_8",
+      "category": "annex",
+      "zh_cn": "杆子配电箱",
+      "en_us": "Pole Electrical Box",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "light_level": 0
+    },
+    {
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9",
+      "id": "jinzai_traffic_annex_9",
+      "category": "annex",
+      "zh_cn": "过街按钮1",
+      "en_us": "Pedestrian Crossing Button - 1",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "light_level": 0
+    },
+    {
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9a",
+      "id": "jinzai_traffic_annex_9a",
+      "category": "annex",
+      "zh_cn": "过街按钮2",
+      "en_us": "Pedestrian Crossing Button - 2",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "light_level": 0
+    },
+    {
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9b",
+      "id": "jinzai_traffic_annex_9b",
+      "category": "annex",
+      "zh_cn": "过街按钮3",
+      "en_us": "Pedestrian Crossing Button - 3",
+      "phase": 6,
+      "collision_mode": "bounding",
+      "animated": false,
+      "light_level": 0
+    }
+  ]
+}

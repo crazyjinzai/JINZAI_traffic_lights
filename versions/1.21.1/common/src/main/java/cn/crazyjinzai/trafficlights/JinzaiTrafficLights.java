@@ -261,7 +261,13 @@ public final class JinzaiTrafficLights {
 
             Category category = Category.parse(entry.category, index);
             List<Box> boxes = validateBoxes(entry.collision_boxes, index, identifier);
-            prepared.add(new PreparedEntry(identifier, category, boxes));
+            int lightLevel = entry.light_level == null
+                ? (category == Category.INDICATOR || category == Category.ANNEX ? 15 : 0)
+                : entry.light_level;
+            if (lightLevel < 0 || lightLevel > 15) {
+                throw catalogEntryError(index, "light_level must be between 0 and 15");
+            }
+            prepared.add(new PreparedEntry(identifier, category, boxes, lightLevel));
             categoryCounts.put(category, categoryCounts.get(category) + 1);
         }
 
@@ -357,6 +363,7 @@ public final class JinzaiTrafficLights {
                 AbstractBlock.Settings.create()
                     .strength(1.5F, 6.0F)
                     .sounds(BlockSoundGroup.METAL)
+                    .luminance(state -> entry.lightLevel())
                     .nonOpaque(),
                 entry.boxes(),
                 true
@@ -365,7 +372,7 @@ public final class JinzaiTrafficLights {
                 AbstractBlock.Settings.create()
                     .strength(0.3F)
                     .sounds(BlockSoundGroup.GLASS)
-                    .luminance(state -> 15)
+                    .luminance(state -> entry.lightLevel())
                     .noCollision()
                     .nonOpaque(),
                 entry.boxes(),
@@ -439,7 +446,8 @@ public final class JinzaiTrafficLights {
     private record PreparedEntry(
         Identifier identifier,
         Category category,
-        List<Box> boxes
+        List<Box> boxes,
+        int lightLevel
     ) {
     }
 
@@ -459,6 +467,7 @@ public final class JinzaiTrafficLights {
         private String category;
         private String source_folder;
         private String source_stem;
+        private Integer light_level;
         private List<List<Double>> collision_boxes;
     }
 }

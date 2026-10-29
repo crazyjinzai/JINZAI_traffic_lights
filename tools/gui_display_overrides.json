@@ -237,6 +237,23 @@
       0.5
     ]
   },
+  "jinzai_traffic_light_r10c": {
+    "rotation": [
+      30,
+      -135,
+      0
+    ],
+    "translation": [
+      0.25,
+      -0.25,
+      0
+    ],
+    "scale": [
+      0.625,
+      0.625,
+      0.625
+    ]
+  },
   "thick_pole_3": {
     "rotation": [
       0,

@@ -1,0 +1,996 @@
+{
+  "schema": 1,
+  "added": [
+    {
+      "id": "jinzai_traffic_annex_6",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_6",
+      "model_sha256": "78c513d16ad550417000d5bb6c2a71dc08feb2776ace7c7f6e2d6d4d0a6ae2fc",
+      "texture_sha256": "4ec15e48e2de5b68265aad6a2d5fff30c892e98b037e17e204ee52b2c9433ea5"
+    },
+    {
+      "id": "jinzai_traffic_annex_7",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_7",
+      "model_sha256": "78b1fffe1c630645a4e96832d0ea92265935951eefaa0ae38671ad0bf5702470",
+      "texture_sha256": "94c5c611ef4ba60de4dbb81eb600ff1b259cc444194c3dd706552c6267478247"
+    },
+    {
+      "id": "jinzai_traffic_annex_8",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_8",
+      "model_sha256": "39aeba50b5c1a7042f3ec33050b89f1fe3d64bf3bc23d702d5ad7724e45c963a",
+      "texture_sha256": "9be83862813ef3db95128701a2e0ca021c4d2e8fd1aa96ba7953493f42eaa522"
+    },
+    {
+      "id": "jinzai_traffic_annex_9",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9",
+      "model_sha256": "49100cf4a0fdf3b63bd1afdbe1d6b7b61e070c1a8b458ed94ddac81f8eb2c1a4",
+      "texture_sha256": "bc0c0c4fe9c355b07fe5f461bb5cabbeb6b3d8fae47f9a9fbb1f5c656abb514f"
+    },
+    {
+      "id": "jinzai_traffic_annex_9a",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9a",
+      "model_sha256": "3eeae1db5a17b167d002f5ce94db8eb79bc59cf2adb32afe2ae8b5251ac1c925",
+      "texture_sha256": "9beefe8ea086228a24a4737a6bcabdf2ef2ad2dbd6d9e5f946c9c403f91f5920"
+    },
+    {
+      "id": "jinzai_traffic_annex_9b",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9b",
+      "model_sha256": "2610cd0543e394b03eb0f29efac6086ad04da3c6c4e785cc2dcf8e8458f5325a",
+      "texture_sha256": "4dcf6390d67de27d96f8aa236dcbb43e5b5c415e8e7abbc56b7d0fa3fcdf94db"
+    },
+    {
+      "id": "jinzai_traffic_indicator_r10",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10",
+      "model_sha256": "3a630d1c17cbce5b061ae3b203b51d5af9c38a0a49f3f1a2ee763ca28f18eed5",
+      "texture_sha256": "9c7e8a37bfc1ecdc0498454ffa5737fbef9751c65c276df414099bf3d3e925a1"
+    },
+    {
+      "id": "jinzai_traffic_indicator_r10a",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10a",
+      "model_sha256": "4e640235a65140ccf7a87c1b5b2703a064541573f5d14594a9e356913bc8adee",
+      "texture_sha256": "a80fa57d6398402ddd0754f09c20a12105a7bc480a33e98ef22c015e322cdfb7"
+    },
+    {
+      "id": "jinzai_dynamic_light_25",
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_25",
+      "model_sha256": "25ea0b39ae669b3926cd06699a0caf3f333e30ee154eef87c1bf9844d4648c6e",
+      "texture_sha256": "92e71e81f1f8eb6fbbf36a90fc550b371d8eddcfbed1654a8954286d28dd5cb7",
+      "animation_sha256": "4b944f03771af2238798df791a91c4a2fe6b93a5bfedd90b4b9fcad6debcd79e"
+    },
+    {
+      "id": "jinzai_dynamic_light_25a",
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_25a",
+      "model_sha256": "6e1fc9bd319774d018556893aa1b29c7f9fb501afc3a20c2749c0417c42bd835",
+      "texture_sha256": "49e837c73e9d457cdd993cbeedb134ad21fad20c1960a448e9872c4777e07857",
+      "animation_sha256": "4b944f03771af2238798df791a91c4a2fe6b93a5bfedd90b4b9fcad6debcd79e"
+    },
+    {
+      "id": "jinzai_dynamic_light_26",
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_26",
+      "model_sha256": "d8cd893921aa7b5d056b4f5df05df669b69858ab1ed071dff1669e726b2b0312",
+      "texture_sha256": "bcf11a07ab080981529d4a6b059a49ab68bf3b55fca88bd133d93a46d76b735c",
+      "animation_sha256": "4b944f03771af2238798df791a91c4a2fe6b93a5bfedd90b4b9fcad6debcd79e"
+    },
+    {
+      "id": "jinzai_dynamic_light_26a",
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_26a",
+      "model_sha256": "ccb9d77f5fa98642d4b586231622123cf2bb430d2362ded5997bba20a5a225b4",
+      "texture_sha256": "730b2b44b42bd8e33f1c9e74d568327ea9000f440215a7874eef619924e2039b",
+      "animation_sha256": "4b944f03771af2238798df791a91c4a2fe6b93a5bfedd90b4b9fcad6debcd79e"
+    },
+    {
+      "id": "jinzai_dynamic_light_27",
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_27",
+      "model_sha256": "91902daf3d40bc622483f430a604b8e924f6468ac1274d740381706692550f07",
+      "texture_sha256": "bcf11a07ab080981529d4a6b059a49ab68bf3b55fca88bd133d93a46d76b735c",
+      "animation_sha256": "4b944f03771af2238798df791a91c4a2fe6b93a5bfedd90b4b9fcad6debcd79e"
+    },
+    {
+      "id": "jinzai_dynamic_light_27a",
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_27a",
+      "model_sha256": "df3cc68ab8c6dd3c92dffe29142e7db4db42ebceea3cbfb8d34bef77119602d2",
+      "texture_sha256": "730b2b44b42bd8e33f1c9e74d568327ea9000f440215a7874eef619924e2039b",
+      "animation_sha256": "4b944f03771af2238798df791a91c4a2fe6b93a5bfedd90b4b9fcad6debcd79e"
+    },
+    {
+      "id": "jinzai_traffic_indicator_9",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9",
+      "model_sha256": "17d614aeb5ed2c8f367666b36e6b02aee3b65698ff17b75b9fbec2e27b041f78",
+      "texture_sha256": "8e7928520fbac30ea158ebb44923ff10001aaf7369eeccd9dbbd4105e62465f9"
+    },
+    {
+      "id": "jinzai_traffic_indicator_9a",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9b",
+      "model_sha256": "46a12741ca63013c33e2e746551e5b1bc0001409e77b1345121fc9b6ad502d55",
+      "texture_sha256": "07af1d51d0cf262797086ef932d13123e650447e358f70d3511fe632335de849"
+    },
+    {
+      "id": "jinzai_traffic_indicator_9b",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9c",
+      "model_sha256": "4a3bf2e2561d7289df7c6d8a94a5199c5b95bc9577ae2002e32ccc2e292d2f6c",
+      "texture_sha256": "651520b4d0f4dd3da836b2c24194363fac9fd23f7566a56c0e98250c51a60c49"
+    },
+    {
+      "id": "jinzai_traffic_indicator_10",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_10",
+      "model_sha256": "4a59dbcfe259823641f351713e62c0f77192042fdc57021a35b3a635cea2df56",
+      "texture_sha256": "38d4d8d603af3d935bd634b65738153ffd13bec8fec5ad9cd6fef8bb353c3bf4"
+    },
+    {
+      "id": "jinzai_traffic_indicator_10a",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_10a",
+      "model_sha256": "d3555b55be1341517ac7ba3e579dc8123847b5e75506ccc133c2d3ce1b4ee49a",
+      "texture_sha256": "4e8286d5101c907203d13afb79bdfc20367beebead72d7b539d5e6b880d6cd49"
+    },
+    {
+      "id": "jinzai_traffic_indicator_10b",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_10b",
+      "model_sha256": "4b864e1e60fbed3a89a4b9f05c6acb833b86e4ce7ab0b6497c1f366b16b32467",
+      "texture_sha256": "4e8286d5101c907203d13afb79bdfc20367beebead72d7b539d5e6b880d6cd49"
+    },
+    {
+      "id": "bd_pole_20",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_20",
+      "model_sha256": "ca4e9b840fd027e11c3c1606a7afe5c8081223059508899690c10d8d894775df",
+      "texture_sha256": "ea770232898d8b7c4d171d9514a1b50ff068341ee3a8c3b4588f626b3e5ba6b8"
+    },
+    {
+      "id": "bd_pole_21",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_21",
+      "model_sha256": "abdddd10c026d996f943a682aca8d29d03b58af48561f5f1d38edb18d78c07e7",
+      "texture_sha256": "5bf17c292ac2d40e3660f49b562f4b75c46024ba8e077eddd0d356d5a58321e6"
+    },
+    {
+      "id": "bd_pole_22",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_22",
+      "model_sha256": "cf215d1c35182bfaebaf4929aa7b1d081593fa2f94521797c10ff382a1ed227d",
+      "texture_sha256": "f4b8b6d492759792bc19777e119cd62655c25fe21cc06264bcdabe427e5ef8e4"
+    },
+    {
+      "id": "bd_pole_23",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_23",
+      "model_sha256": "54b76e259249bbefffc4b56dacf6955ce4cae02be72dd430278b4f8a88183bd7",
+      "texture_sha256": "ce6abdcbc44c31e44dbc06f6246055797b1abd67c6e36afce83e396a32f3d128"
+    },
+    {
+      "id": "bd_pole_24",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_24",
+      "model_sha256": "3d08bb4037b83b88a096b1e73f0758b1aea32ad42fffd9bdc7b79eb619ddb84f",
+      "texture_sha256": "afeabc5d7d89b6edb4c0142fe9ae30dfc3361bc9226a5bdb30efa956aa36c473"
+    },
+    {
+      "id": "bd_pole_25",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_25",
+      "model_sha256": "cf4468a59a1434590d47256875b7052e3a5be9289940843cb98e19c3c9e73cb3",
+      "texture_sha256": "15650615526b58d1a39950c9c3190a20ce2265f6e3c2914a0668f767b218ab1c"
+    },
+    {
+      "id": "bd_pole_26",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_26",
+      "model_sha256": "01ea043baca273e397819bd4b5e4892962fc91bf9fbb53c6cb96919b875d8466",
+      "texture_sha256": "6f3dc253c204490ab4ac45db04457ddfd73678fc96ea8d8b2e2cdf5f4b4b536b"
+    },
+    {
+      "id": "bd_pole_27",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "bd_pole_27",
+      "model_sha256": "1fca01103c418e85108d36b81753064f252a643bdfe6bfc13b22e9855f5db1b5",
+      "texture_sha256": "a3beb4dfbcb71ade736a6018a31d56e1a52094b46739aa97f29c4972e4eab200"
+    },
+    {
+      "id": "thick_pole_10",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "thick_pole_10",
+      "model_sha256": "3031ed03fe42d828224dce6d0fcc176bf8f64c00bf7a1f6f6818291b6ffea32f",
+      "texture_sha256": "075c9d66c0478da3e9718733f4adffeb052f927865d24292b5ab4a9137418908"
+    },
+    {
+      "id": "thick_pole_11",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "thick_pole_11",
+      "model_sha256": "1e82d7ddd6d4542ee8a87de41f31fa30b0375a85ba25b10d46b63088b6c080a4",
+      "texture_sha256": "c30b2cd4ca022f276b2325662fd84b4d8bfa626198ec7d8b4f81fb45182babeb"
+    },
+    {
+      "id": "thick_pole_12",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "thick_pole_12",
+      "model_sha256": "c1f6a13e04fedd32822ac1d7a10e7f6360709cef85d87533dc420de9f89fe1ef",
+      "texture_sha256": "15e34212fcf29c39e6f74acc25a02e9103c42584cea127c210ba9be7dfdd2a5a"
+    },
+    {
+      "id": "white_pole_11",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "white_pole_11",
+      "model_sha256": "39decfa448098a0b9d2b8f65d61903c439e341a4f78017197f679588e2412b7e",
+      "texture_sha256": "414cf7c04cc90249d969346b5a84a602dd990c981effa031b9e261763a60a785"
+    },
+    {
+      "id": "white_pole_12",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "white_pole_12",
+      "model_sha256": "e0593aae7f6dde851dda6dfe7b9ecfc77defb686d4c3ec1178ad6c79a2785f4a",
+      "texture_sha256": "7b7b4379bd49802f42e1d063866fc459c17b7006e96ee67b0fe8a196d60596d5"
+    },
+    {
+      "id": "white_pole_13",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "white_pole_13",
+      "model_sha256": "506bcd5d8904aec97088345e88ce294d2a012895eb6b25a49f1a9edbe21c0219",
+      "texture_sha256": "7b7b4379bd49802f42e1d063866fc459c17b7006e96ee67b0fe8a196d60596d5"
+    },
+    {
+      "id": "geometric_pole_1",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1",
+      "model_sha256": "db28b13d206f808dd7018ea77a8b4102310d53e0741cd3d1b3707f8dbab657f4",
+      "texture_sha256": "49b33413f4812d1816da35e43b4214c1dad8d1ac666c15cba3c02275fe326dac"
+    },
+    {
+      "id": "geometric_pole_1a",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1a",
+      "model_sha256": "2ef0c17debe14c99a9e42cc8b54d3ff1797bc9a42d35aaea9942ab9490487b0f",
+      "texture_sha256": "dd45a65008a55d099113966fa3e74a49ca8d378901824a008d149265cb9ba47d"
+    },
+    {
+      "id": "geometric_pole_1b",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1b",
+      "model_sha256": "d9a81699c0576d6b5638cb0bf59930f117b089f33f81c3a949a5607cb26731b0",
+      "texture_sha256": "d5fab1dc9e0ee1866cbb74e9f777c4818c7b935a6aaf305a6711ad9d384fbc62"
+    },
+    {
+      "id": "geometric_pole_2",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2",
+      "model_sha256": "0c14695b3d0df6de72631dfcdfa8d4533f04ed6d752ad79c1f2cd55ba7279692",
+      "texture_sha256": "a9ed566451bd866c00e92cd87c3abd5039a8039e33d253f14f999c67d2a7d39b"
+    },
+    {
+      "id": "geometric_pole_2a",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2a",
+      "model_sha256": "83aeeb2259d8acc94c1b575e887d7c0b402e830a020d4dd00a2dbddfd92579d6",
+      "texture_sha256": "91a47955a12bae240445d008d440b9cdf6494f40c892275cc80d941d46d07007"
+    },
+    {
+      "id": "geometric_pole_2b",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2b",
+      "model_sha256": "06ae8ce4cb482a8453ea8e50cfe3fe05bc5c9df56fb8d97c588ae2b1afd13edd",
+      "texture_sha256": "749473add6c299737561b45f60214d08d95e2d3331e4d5a79056f1cf2e43138c"
+    },
+    {
+      "id": "geometric_pole_2c",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2c",
+      "model_sha256": "6f1afaec29d9ac93f75441b57a7379dd86db31b963734a446a8a54c63b0c3993",
+      "texture_sha256": "2c0069cec246220dea9dde40a063c131b288526601f1fe03bb93765da0a48536"
+    },
+    {
+      "id": "geometric_pole_2d",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2d",
+      "model_sha256": "0d2316903bd91aaef266ce3c0227a458c24df7a686bcb8345028406b541e9154",
+      "texture_sha256": "558f696fc83c9794d1e32f999bac3c42b204f1c453e64220cc4605ab496817bd"
+    },
+    {
+      "id": "geometric_pole_3",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3",
+      "model_sha256": "72eec45907e742ebdef739e1e94a2cb64dd41b672542f3be5b65310e3ff7b9cd",
+      "texture_sha256": "f1ca480a82fe9caea6ba4a97f087eb626afe41134809afdf0251d96b0f6f3064"
+    },
+    {
+      "id": "geometric_pole_3a",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3a",
+      "model_sha256": "885708c5de8d7e1ae416d93fa3282a6e22f028a26cfc5ae823e006c18146caae",
+      "texture_sha256": "ae39b937ed11996b5cdfb2d4a1fa4c40f93eeca80dad7e98f0882895db03e529"
+    },
+    {
+      "id": "geometric_pole_3b",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3b",
+      "model_sha256": "33970956f5af47a50b56d35dfe46c9511d7734a3c81080de31156ce0d49feab5",
+      "texture_sha256": "c5e3a5c0068834fe58fa23ac48d53253537fd9aad59ddf09729a91ed56181c7a"
+    },
+    {
+      "id": "geometric_pole_3c",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_3c",
+      "model_sha256": "cbf1ae10035dff3155b2177c83a7cc24f8b80d5f54c0e41c1ce7cfa24728342b",
+      "texture_sha256": "ec87dddd3102ebcc4e9e3d631533dfab451a7bb806ab38804fc7891670ab64d9"
+    },
+    {
+      "id": "geometric_pole_4",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_4",
+      "model_sha256": "1cca8e12f08b9732fa15c322fc13ae9d321e63dbbd2414d4f3fbdd687d862faa",
+      "texture_sha256": "386a43c33e8f5ed7ab37b1bfe301ef19a815b045c2be7304b8c044adcaad6a00"
+    },
+    {
+      "id": "geometric_pole_4a",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_4a",
+      "model_sha256": "261f42df6fd958d0defbd8efe313a75291956926de56a9745d7dac2b9d860517",
+      "texture_sha256": "66eb87a059415af5e800d2438d72b3a62d88aa763d38de3e6ba99e6d3bfc04e5"
+    },
+    {
+      "id": "geometric_pole_4b",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_4b",
+      "model_sha256": "f65caec40068b767783e59ed4204d0dda986e406e0fdd44461d55935c3828be8",
+      "texture_sha256": "34268bffd66f79f335e01f768baecc46213661b8c32e70a9052af3141b9a56f6"
+    },
+    {
+      "id": "jinzai_traffic_light_h38",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_h38",
+      "model_sha256": "585cd6fae82e5a2c50526caf0cb88fc17e165a4f925537e91ad526e8813b7a66",
+      "texture_sha256": "dfbc1bf19c9f5d7a6699778c5e67e2c915e9a9a168dc943fcb994444be277ffb"
+    },
+    {
+      "id": "jinzai_traffic_light_h39",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_h39",
+      "model_sha256": "21250f61f90a55d60821ab8e64cf875ffa9458a0e04b337d17478442c6b21930",
+      "texture_sha256": "b1223f7cbb10326684764aaa24bd7382a605c0d80948bd2bcc0bb0540ddb4326"
+    },
+    {
+      "id": "jinzai_traffic_light_r10",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10",
+      "model_sha256": "751675b5530d47250048ea885f6fcba1687241cbb56dd2415208e105ed7d71b6",
+      "texture_sha256": "a13986342dc3d0ea9dc313c8a48218016c9c410641672822e4a5916c80b66e30"
+    },
+    {
+      "id": "jinzai_traffic_light_r10a",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10a",
+      "model_sha256": "4b96505d34027c9e6f5cbc7e6f3f1bbd97b2f3a9b9b7f7b42c369b16ea544fd3",
+      "texture_sha256": "0805a45025eb039752d914382a31b838258b01d09eae1dc508e82645a39d6651"
+    },
+    {
+      "id": "jinzai_traffic_light_r10b",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10b",
+      "model_sha256": "a30e3c2b6ef3932b43e4d72000117ae917a00b06aee1189a1af8c7fc1dbdc666",
+      "texture_sha256": "2c32b033d14a37f639a18195e260339e5261ce4c78edd9640c1b280cca5f2856"
+    },
+    {
+      "id": "jinzai_traffic_light_r10c",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10c",
+      "model_sha256": "796a4cc1864ccbce4b1ed26b06950acc6c59a320287ea241ee8519ddb93a5b93",
+      "texture_sha256": "b89584cf0cc276f223524c8b46f6a63f48ddb97d154c80c3249129094dac5645"
+    },
+    {
+      "id": "jinzai_traffic_light_r10d",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10d",
+      "model_sha256": "a9a5e26404cd05d459a6c8609885b3ab14833abd47fca7649968b2c4896de36a",
+      "texture_sha256": "53b971a12341a3b021a4920b78934c1121ac87013e5bbadc3b19fb32d78ad7b2"
+    },
+    {
+      "id": "jinzai_traffic_light_r11",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11",
+      "model_sha256": "6b4d760bd70d6b52f5803ea141e8812ee05ec9beb73a5bef58773da06f16bf8a",
+      "texture_sha256": "84527142abaa6e517c6b5761c6ff0a103ada8c0261ec1317237d7a5abdbf752a"
+    },
+    {
+      "id": "jinzai_traffic_light_r11a",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11a",
+      "model_sha256": "4bdc6965d919b35e2531b79e0be0fd31b659b606a01f361449ecd5c352de5ce0",
+      "texture_sha256": "c2350a9a0ba48ca97a1ad8e31e096a38802915baefbde78a314f0476dca93b96"
+    },
+    {
+      "id": "jinzai_traffic_light_r11b",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11b",
+      "model_sha256": "5d5a76ef0c35b73693ae0d0d06a6aeb19e2b1c123ef8d0de096ccf43f38c9883",
+      "texture_sha256": "eb7e7ef60174d9c429527402d13b3167a9c444d1a02e8c8093572230b7317f2c"
+    },
+    {
+      "id": "jinzai_traffic_light_r11c",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11c",
+      "model_sha256": "23ff52426a8bb943c94d8e1fcf30d23f4b4885527f2e9daf1d0390043bf1a9d9",
+      "texture_sha256": "09bcd710428ac1ec4914d7ac806b44121b2ef9344b4620383a5d7b9e35f11442"
+    },
+    {
+      "id": "jinzai_traffic_light_r11d",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r11d",
+      "model_sha256": "54a5d7cf317594728a308aeab1d3e864cd81d3822c20d1cba9f5917100336b02",
+      "texture_sha256": "758120d073e9da830f93f156fad6abf610c0a09179a3f0bdbdfd2de8799e57a0"
+    },
+    {
+      "id": "jinzai_traffic_light_r12",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r12",
+      "model_sha256": "a434dad2549192a14826526f6a4ca59661f8f742414c1fcc7901aed211636c3c",
+      "texture_sha256": "c88e6e3493ac1ba88017a2b8d3eb147693534150d7ba722ef593ba960b50761f"
+    },
+    {
+      "id": "jinzai_traffic_light_r12a",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r12a",
+      "model_sha256": "11f5b0722415fb18bad411cadb48e3e91b622e7c733ee72bbdade6409daa8795",
+      "texture_sha256": "0fe0c2707168ecaf4d78b70455eea754899c89f0d944266ee4ac6e64aaa597ba"
+    },
+    {
+      "id": "jinzai_traffic_light_r12b",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r12b",
+      "model_sha256": "b45697b7c2245b3385c609073ad8b9e40af641459bb06cd0e23b984bd62d7e8c",
+      "texture_sha256": "59894c3a0536c45d54640da90f7a55556d09713f768b564abf53d67677677d33"
+    },
+    {
+      "id": "jinzai_traffic_light_r13",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r13",
+      "model_sha256": "01c292aa9a2d59751e2b9eea59dc90c883ecdee669c37a3da0a5f3a625f7c432",
+      "texture_sha256": "774bb3743b3aa2a880b5537f2d9e38ee2db6965aae71cc2ce85304acf265a844"
+    },
+    {
+      "id": "jinzai_traffic_light_r13a",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r13a",
+      "model_sha256": "de8c916353c4d8fb415580fb8ee99fe4b7037d4b4e64a372cc152786536bd661",
+      "texture_sha256": "f7c7d234123a3bea625552725422d6d5886925c4829cfa71122625c7dab18d97"
+    },
+    {
+      "id": "jinzai_traffic_light_r14",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_r14",
+      "model_sha256": "c1d3b8cc67627f17e11abe1e9e4022937289f8ad655040195c8c33d99ebafc7e",
+      "texture_sha256": "909c914e8149ac40d455f28b19f8931785433191d4cfdaa0ef1002d129d27dbe"
+    },
+    {
+      "id": "jinzai_traffic_light_c40",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c40",
+      "model_sha256": "1421cf88559277f4c579dd6007d0bbf3958aee5735fe25a797289de43691cb10",
+      "texture_sha256": "fbfa85320218aabd177c0fd62cd264fee1c32a594e6122d5cb374d6a15247395"
+    },
+    {
+      "id": "jinzai_traffic_light_c41",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c41",
+      "model_sha256": "13f2a3adaa2b85e577eceb43bb03f88fe76392c18bc6933c3ccf1823c5c235c0",
+      "texture_sha256": "1fcf8abc229c46904760e7da85bd34f42c78172e39175d8b56e85abe726165ad"
+    },
+    {
+      "id": "jinzai_traffic_light_c44",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c44",
+      "model_sha256": "e1dbd363b40cb2378f2723ffdd7b8fcc6643c88acedcea56bc971ad2428bab9d",
+      "texture_sha256": "6591a73db5d2bcebe13e8cd8ba5dabacb9e30c1dcc7785f09628c09f50a8a7d8"
+    },
+    {
+      "id": "jinzai_traffic_light_c45",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_c45",
+      "model_sha256": "252c7e1848c7f7d91338ca66111359d52be5a2cd6e9c69d834ba8c416e6c563e",
+      "texture_sha256": "8014952213cb68240efbdab01e1b3e718bbc8dc835f5dbcf79011ebcc9741b40"
+    },
+    {
+      "id": "jinzai_traffic_light_j1",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_j1",
+      "model_sha256": "5407ea77ade5ab0cb751904e741a5ba9a2df9d5b6bd520848d5be739392335ce",
+      "texture_sha256": "674f3819c8834d43b493855f0afd047535512b749082cfd9d111e11d1ac71bee"
+    },
+    {
+      "id": "jinzai_traffic_light_j2",
+      "source_folder": "红绿灯框架（六期新增）",
+      "source_stem": "jinzai_traffic_light_j2",
+      "model_sha256": "903002a22045d0cdbb76899b8fb5ee06aeb5a7947efd6c43ae0f7f999b5a7489",
+      "texture_sha256": "96410000fb81e38f30dd0e6c89dd77d87b5e8323ecb52972dc68b6d742844355"
+    }
+  ],
+  "replaced": [
+    {
+      "id": "jinzai_traffic_light_c1",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c1",
+      "model_sha256": "a672be4bd1d38e42311f440ba176911d242795c459b8e7ec36dcedcfc07020e3",
+      "texture_sha256": "a999eef6bade51d43069d6154c6c93b0627b99f3854e71657fbb15ec9740ac2c"
+    },
+    {
+      "id": "jinzai_traffic_light_c2",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c2",
+      "model_sha256": "127b5422621efbf2024a17b55df86b49630ebc996bc1a9d2de0966e8367732d2",
+      "texture_sha256": "8cdf219ba8f14eca79f1d7607e216d598b2eb569ddcd2531d184c22903234108"
+    },
+    {
+      "id": "jinzai_traffic_light_c3",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c3",
+      "model_sha256": "3050f8998e3e7a6fc207cf0ee4cc19b596bde339a7c4f97c19265c313aa1d141",
+      "texture_sha256": "f853e8752a1bb255b60dd738a0f4742dece0dfbbba33298d812f484ab902f582"
+    },
+    {
+      "id": "jinzai_traffic_light_c4",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c4",
+      "model_sha256": "4f50a5a4aff4f217a9fe697b9e9d0791bdf893f251f450fd533e2c5be3e79d85",
+      "texture_sha256": "203e917dd13faecbaabdd044da92234fe27a5e9d2ef5fc1f37dbfa7d475fee3c"
+    },
+    {
+      "id": "jinzai_traffic_light_c5",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c5",
+      "model_sha256": "1977b61fc6fbcf2df08a6815aa439cf975ed35ff9500c807ab9ce0e35818b857",
+      "texture_sha256": "d42d92f70f69bf4aa79fa9f7cda92b328f9a5bbf46ec24b4b1c5fbe24d675908"
+    },
+    {
+      "id": "jinzai_traffic_light_c6",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c6",
+      "model_sha256": "98af40cfa7b67e7ecfbf9bb1093cce24a64a1cf0c7066ee661ba41470f4166fc",
+      "texture_sha256": "1a2ef4159c09ddaab7da4101b32874103f721b8cc8958ea59d09fd4145aac676"
+    },
+    {
+      "id": "jinzai_traffic_light_c7",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c7",
+      "model_sha256": "5c85716c563c0490ee2e33de634cea0eddbe99efd097307885cafeff5cdc2e8f",
+      "texture_sha256": "1919317cadc0af61a0273cdb524c0a8fdf8998612cb75e93e2efa1b599cc2f2b"
+    },
+    {
+      "id": "jinzai_traffic_light_h8",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h8",
+      "model_sha256": "e516bba938c7b4c37dcc01375ea7d044c01e3db334523b57cb7d18922f0ed7f1",
+      "texture_sha256": "1fe926fdc66ab9e4fa28b62a3663da9cdd7792ed428ab6044f1165fd4cfe64a6"
+    },
+    {
+      "id": "jinzai_traffic_light_h9",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h9",
+      "model_sha256": "12da71eedd2d84d51882b61b8ed44d2c38088f83864adcbd6dc50294ad620c9b",
+      "texture_sha256": "7aff3d898e36a2c909266e83e1da6214982a7208d9db3b7fc19877ac9d906a73"
+    },
+    {
+      "id": "jinzai_traffic_light_h10",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h10",
+      "model_sha256": "f897bbddd0dcadaddbc73d1234f1434da17fedf78ea9c1f5cdd9ac659f779798",
+      "texture_sha256": "f635f4a3f309a85f330af8ba4d55277144b39d3881bede0dc72110c86047a999"
+    },
+    {
+      "id": "jinzai_traffic_light_h11",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h11",
+      "model_sha256": "fa89a8afb38b4cb325fe642854da0010f428669102d76c0bec88d273dfc1250f",
+      "texture_sha256": "47e8fda2afc2d7d6d8145b14176a110a1ed35e77ceccba0920cc6fe62e44325d"
+    },
+    {
+      "id": "jinzai_traffic_light_h12",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h12",
+      "model_sha256": "9d2f07db2fdc638bb171979c4e4a396fc314e2e4ac540bfd4db8ebd967d3258b",
+      "texture_sha256": "24f80edf797513c45068e647076f946fd01f3468ca63bf14e9baeb2d5e98dc97"
+    },
+    {
+      "id": "jinzai_traffic_light_c13",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_c13",
+      "model_sha256": "07b640a78c3cfa8c79cc9d775b82c1356df179620a594ee40e69b53bb3c901ca",
+      "texture_sha256": "913805674de0df259c3e1c29a45cb98cf7a43de758eb0dd930c45d52c55e386d"
+    },
+    {
+      "id": "jinzai_traffic_light_h14",
+      "source_folder": "红绿灯框架",
+      "source_stem": "jinzai_traffic_light_h14",
+      "model_sha256": "27c69fb16fbb2b430027d0deceafd3464b4b4090541ec1c89d8b43aca5f6fe5c",
+      "texture_sha256": "48d8a41b3959692226b16663d44da2e34dc8f92feca6c373325726048efe49bd"
+    },
+    {
+      "id": "jinzai_traffic_light_h15",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h15",
+      "model_sha256": "2e42c986bf3d3000c5e9faf3e001bc0d5f44097f47dd6a0985f39193b4e76cfa",
+      "texture_sha256": "4b60515bbfe12be1048c77660deb468134d69ce249f7aa364e92b01e1baf3c32"
+    },
+    {
+      "id": "jinzai_traffic_light_h16",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h16",
+      "model_sha256": "35152d44a40e5c3c69f0e511732f5eeb4458cb251399edeba611651a10a60549",
+      "texture_sha256": "8a417f6bf3cff2ee054bec7a78aa6490926ade06035ae941088cc8735e518be5"
+    },
+    {
+      "id": "jinzai_traffic_light_c17",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c17",
+      "model_sha256": "3e474da230e9c15dbfaf738a21ab97408339afd552a8d15629808b6d02aca8ab",
+      "texture_sha256": "1c2f4a26f94344ba3417e6f32dfa614639d194122d15d9741500bd0beadb903f"
+    },
+    {
+      "id": "jinzai_traffic_light_h18",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h18",
+      "model_sha256": "c03144db9886199da08b4d51d948f1e5a2e424ec00db1af04a3f7128229e7fee",
+      "texture_sha256": "7e7dbd2003496b93985befd631ea0c5294d1efd604b625b0d8610527ad4cb34a"
+    },
+    {
+      "id": "jinzai_traffic_light_h19",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h19",
+      "model_sha256": "4e382b434aeae5d703fb9f22a08cef143d9a109e5aeccc8f08ebf50a7fc742f0",
+      "texture_sha256": "437e377f313bd279891e7f52a6092808b7630a41c2257c92b9307d0091e0bd67"
+    },
+    {
+      "id": "jinzai_traffic_light_h20",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h20",
+      "model_sha256": "13103878e5d51bb6e2492ecd249cb67de0360d38fbf22628806ef3552da717b3",
+      "texture_sha256": "641a1125f25eb9426d229ed7b6647171421101fdc919b9dc71c7551e636cc92a"
+    },
+    {
+      "id": "jinzai_traffic_light_h21",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_h21",
+      "model_sha256": "b197b1e238afd66513063ccc9315046ab78166437640ccff7ea638a9aa6187c7",
+      "texture_sha256": "85f99309f29381794f8ae29d26584775917b01fe025abd520641f965e3ba8bce"
+    },
+    {
+      "id": "jinzai_traffic_light_c22",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c22",
+      "model_sha256": "6daf02e5853f8163c1dc6b849c15d7b6dc90a9457430bb4b47c6df176f464d5d",
+      "texture_sha256": "a1fc168e58af570c8f46dda0e59267669bf1d963287a6d43b539aedbdbb98687"
+    },
+    {
+      "id": "jinzai_traffic_light_c26",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c26",
+      "model_sha256": "9cbd56530ab6ff5ff33bb877cfe6f65529398b0850e67ffcd40f3ef3d4bee135",
+      "texture_sha256": "6bad382af25b23857d88923b4b9613ac86ee262df00794a8275bc04684db01c1"
+    },
+    {
+      "id": "jinzai_traffic_light_c27",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_c27",
+      "model_sha256": "a73fbd4568775d8a626a38cf70f45ec4bd135fb6ae6250db250ac0ce3ba434b9",
+      "texture_sha256": "485d56b840a197de03b320bd455bb3ad86043a5ebbc7883f6d55dd55b56e2aeb"
+    },
+    {
+      "id": "jinzai_traffic_light_c28",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_c28",
+      "model_sha256": "ef444ee7ae84cc7ed40b4fa79e5ee8724137fd5a933e69a74fa8f6dd362609e5",
+      "texture_sha256": "ca4af961c43f97a421209c3c8b74940eb05855d023988cec81be9059cc27719e"
+    },
+    {
+      "id": "jinzai_traffic_light_c29",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_c29",
+      "model_sha256": "6da6aef3329768c18925f71eaf901469594e78c3695bfd7691767d424db66516",
+      "texture_sha256": "c149202f5f20ee72520685bf7f66c977931b0b16bb6b3135a3bd4e74c58e0fbd"
+    },
+    {
+      "id": "jinzai_traffic_light_h30",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h30",
+      "model_sha256": "d5be89eff2938cff8db010f94ff0c2699fbd34963d36141d9e3bcfe6aa289dee",
+      "texture_sha256": "667397fe18c23c1b9ca1506134909bdbdd0beff701a89b8875198c94bd3bfd17"
+    },
+    {
+      "id": "jinzai_traffic_light_h31",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h31",
+      "model_sha256": "405e0f5421e9771d91c48048af24d5d1c86886f6f6e23ac9512da6bc64b64db7",
+      "texture_sha256": "3a9c9624bb5134eab6412a1c429e3d310eebb777b82d966c7d9d3306b514759e"
+    },
+    {
+      "id": "jinzai_traffic_light_h32",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h32",
+      "model_sha256": "e6f45b2d723bf8144447564fd0acaffaed2c05b0ebbbf74dd80b38f3c5447e37",
+      "texture_sha256": "0e46475a9bbaac9ebcc44ccf3282a57a5b5a0edff8fec69277f4ef0c11ae6cb1"
+    },
+    {
+      "id": "jinzai_traffic_light_c33",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_c33",
+      "model_sha256": "35d1383923eed02006eab6126bde023f1394121ebf98ef77d05211cc8d5a42db",
+      "texture_sha256": "e4a81b03b357a32b29c871d0c7759b9c2eb6b56aebed863af56acf1d4345559d"
+    },
+    {
+      "id": "jinzai_traffic_light_h34",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_h34",
+      "model_sha256": "3843b11eab41c2b968c10df72027899201b6e669ae9785db2302e6f6bb6b61e8",
+      "texture_sha256": "d619e2fa9492da80486bf8328dc3da4624534bc40647a3cf4a30509c7f8c9e41"
+    },
+    {
+      "id": "jinzai_traffic_light_c35",
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_c35",
+      "model_sha256": "3853f600e9740c27de453f60aa2accb089001a763bfb7f28875f5ad4c21d6246",
+      "texture_sha256": "44109bce307bde45b1389f8d44e981b4f843a20c53325d737161456a9ac5f54f"
+    },
+    {
+      "id": "jinzai_traffic_light_c37",
+      "source_folder": "红绿灯框架（四期新增）",
+      "source_stem": "jinzai_traffic_light_c37",
+      "model_sha256": "36ef4278862f34da68628853860245a883c2c30dd4c7048d99c758390dc8124f",
+      "texture_sha256": "f872a28310127730375929dff5d23234bc26287bec9f30505a073d6bc8b4c4cc"
+    },
+    {
+      "id": "jinzai_traffic_ligh_r2",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r2",
+      "model_sha256": "b2652174a7f1f362a36bd343ca947a7cb9e02951b538a8839417bc85dfa979e9",
+      "texture_sha256": "7d133eaba0028e5a255ae2175ee45d1b7bfe4da1d289e0f041e12389103ebef8"
+    },
+    {
+      "id": "jinzai_traffic_ligh_r3",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r3",
+      "model_sha256": "c589bffce644c2718b71e7fddb4fad651b529b36a6b8129134317cb535a58d7d",
+      "texture_sha256": "5836b22036fcab59054ad7304328b5b383c81c21fc42a3553700b326e9b8694a"
+    },
+    {
+      "id": "jinzai_traffic_ligh_r4",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r4",
+      "model_sha256": "1fe5e3758f29551431a12694470aa402bec7c8579a1cd050c3e1529b0cc5e14d",
+      "texture_sha256": "00dc0dfb68a80643e800ed4e85c539fb673a6a1aeabec986f0319c1069163d16"
+    },
+    {
+      "id": "jinzai_traffic_ligh_r5",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r5",
+      "model_sha256": "8e83eb2b618e362e01ab4d96fa774e6e8078e156887297f1d032442366aa008f",
+      "texture_sha256": "fb3d7f34326047a0b5c2cbfd623be08d367171fcc2a05a4ccc89f23a1244a2ac"
+    },
+    {
+      "id": "jinzai_traffic_ligh_r6",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r6",
+      "model_sha256": "35e2dbd05ac2b77e2838995d72b34733c738d2777d2e2f053b77080267002a66",
+      "texture_sha256": "ee1bde2e33d350096cc453538b07cb129a3051e3f28fdeca20e7a04ac1d2ed39"
+    },
+    {
+      "id": "jinzai_traffic_light_r7",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r7",
+      "model_sha256": "17541afa35a147012449e6a358d5be3004b9c51f1fd36b9798bf43813728ae46",
+      "texture_sha256": "ec94de21b6503b2a88c5ff3e3c2448477e1c7b70cc26e3a5fd7a154c298ed8c8"
+    },
+    {
+      "id": "jinzai_traffic_light_r7a",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r7a",
+      "model_sha256": "6fb2a3774de5fa0eb017fea3f45cc2e1ecc5d735f91268bffa54b0fef4626b8e",
+      "texture_sha256": "47eaf1f11f9fb3fd986775ca57349c5dec2d8624c9a70729b0a8bc8786009081"
+    },
+    {
+      "id": "jinzai_traffic_light_r8",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r8",
+      "model_sha256": "1fc43f58abbfea19b73c652c52d2bd7b81e61faf494ef6a92231f259d9dd5eb0",
+      "texture_sha256": "aaf45ee46b7877ee9c46cffb1ffde1e0b21d7df4029ff925cd2ce53118cad483"
+    },
+    {
+      "id": "jinzai_traffic_light_r8a",
+      "source_folder": "红绿灯框架（三期新增）",
+      "source_stem": "jinzai_traffic_light_r8a",
+      "model_sha256": "cee938e8ca5bd5702d7915574837b52c1fc2ee419d6c62f2dccbfdf464b38395",
+      "texture_sha256": "aaf45ee46b7877ee9c46cffb1ffde1e0b21d7df4029ff925cd2ce53118cad483"
+    },
+    {
+      "id": "jinzai_traffic_light_s24",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_s24",
+      "model_sha256": "3b0c8f452f2607d84de659b9d19b56fc1192d0d42b12469f1d930259865c978a",
+      "texture_sha256": "bb9bef67ec0f429d115ea8be8e467b42052efeaca24dc08abf041d6b115759a0"
+    },
+    {
+      "id": "jinzai_traffic_light_s25",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_s25",
+      "model_sha256": "23acd125c0f09867991a9fba976857129cbbbc3f65721d110ceefdd8f03d426d",
+      "texture_sha256": "704a355f8e6daa77d9dd90bfcf2b5a1a8bb8568160e275db5f562769b30d93e3"
+    }
+  ],
+  "naming_aliases": [
+    {
+      "id": "jinzai_traffic_annex_9a",
+      "table_id": "jinzai_traffic_annex_9",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9a",
+      "reasons": [
+        "Duplicate spreadsheet stem; buttons 2/3 have separate supplied 9a/9b models."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_annex_9b",
+      "table_id": "jinzai_traffic_annex_9",
+      "source_folder": "交通灯附属（六期新增）",
+      "source_stem": "jinzai_traffic_annex_9b",
+      "reasons": [
+        "Duplicate spreadsheet stem; buttons 2/3 have separate supplied 9a/9b models."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_indicator_r10",
+      "table_id": "jinzai_traffic_light_r10",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10",
+      "reasons": [
+        "Avoid distinct frame/indicator models overwriting the same resource ID."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_indicator_r10a",
+      "table_id": "jinzai_traffic_light_r10a",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_light_r10a",
+      "reasons": [
+        "Avoid distinct frame/indicator models overwriting the same resource ID."
+      ]
+    },
+    {
+      "id": "jinzai_dynamic_light_27a",
+      "table_id": "jinzai_dynamic_light_26a",
+      "source_folder": "动态指示灯（六期）",
+      "source_stem": "jinzai_dynamic_light_27a",
+      "reasons": [
+        "Horizontal east-west 27a source; spreadsheet repeats vertical 26a."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_indicator_9a",
+      "table_id": "jinzai_traffic_indicator_9a",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9b",
+      "reasons": [
+        "Preserve table ID; source color proves 9b is yellow and 9c is green."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_indicator_9b",
+      "table_id": "jinzai_traffic_indicator_9b",
+      "source_folder": "指示灯（六期新增）",
+      "source_stem": "jinzai_traffic_indicator_9c",
+      "reasons": [
+        "Preserve table ID; source color proves 9b is yellow and 9c is green."
+      ]
+    },
+    {
+      "id": "geometric_pole_1",
+      "table_id": "geometric_pole-1",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1",
+      "reasons": [
+        "Normalize table hyphen to exact supplied underscore stem."
+      ]
+    },
+    {
+      "id": "geometric_pole_1a",
+      "table_id": "geometric_pole-1a",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1a",
+      "reasons": [
+        "Normalize table hyphen to exact supplied underscore stem."
+      ]
+    },
+    {
+      "id": "geometric_pole_1b",
+      "table_id": "geometric_pole-1b",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_1b",
+      "reasons": [
+        "Normalize table hyphen to exact supplied underscore stem."
+      ]
+    },
+    {
+      "id": "geometric_pole_2",
+      "table_id": "geometric_pole-2",
+      "source_folder": "杆子（六期新增）",
+      "source_stem": "geometric_pole_2",
+      "reasons": [
+        "Normalize table hyphen to exact supplied underscore stem."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_ligh_r2",
+      "table_id": "jinzai_traffic_light_r2",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r2",
+      "reasons": [
+        "Preserve historical registered ID; only replace its source model/texture."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_ligh_r3",
+      "table_id": "jinzai_traffic_light_r3",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r3",
+      "reasons": [
+        "Preserve historical registered ID; only replace its source model/texture."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_ligh_r4",
+      "table_id": "jinzai_traffic_light_r4",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r4",
+      "reasons": [
+        "Preserve historical registered ID; only replace its source model/texture."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_ligh_r5",
+      "table_id": "jinzai_traffic_light_r5",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r5",
+      "reasons": [
+        "Preserve historical registered ID; only replace its source model/texture."
+      ]
+    },
+    {
+      "id": "jinzai_traffic_ligh_r6",
+      "table_id": "jinzai_traffic_light_r6",
+      "source_folder": "红绿灯框架（新增）",
+      "source_stem": "jinzai_traffic_light_r6",
+      "reasons": [
+        "Preserve historical registered ID; only replace its source model/texture."
+      ]
+    }
+  ],
+  "source_name_aliases": [
+    {
+      "id": "geometric_pole_1",
+      "model_name": "geometric_pole-1"
+    },
+    {
+      "id": "geometric_pole_2",
+      "model_name": "geometric_pole-2"
+    },
+    {
+      "id": "geometric_pole_2a",
+      "model_name": "geometric_pole-2a"
+    },
+    {
+      "id": "jinzai_traffic_light_c26",
+      "model_name": "jinzai_traffic_light_c23"
+    }
+  ]
+}
